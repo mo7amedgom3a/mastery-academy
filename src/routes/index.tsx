@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
 import { StatsTicker } from "@/components/landing/StatsTicker";
+import { AgenticAIShowcase } from "@/components/landing/AgenticAIShowcase";
+import { CareerVisualizer } from "@/components/landing/CareerVisualizer";
 import { Courses } from "@/components/landing/Courses";
 import { Diplomas } from "@/components/landing/Diplomas";
 import { Bundles } from "@/components/landing/Bundles";
@@ -21,6 +23,8 @@ function Index() {
       <Navbar />
       <Hero />
       <StatsTicker />
+      <AgenticAIShowcase />
+      <CareerVisualizer />
       <Courses />
       <Diplomas />
       <Bundles />

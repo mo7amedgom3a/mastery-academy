@@ -11,6 +11,8 @@ import { JoinTrainerCTA } from "@/components/landing/JoinTrainerCTA";
 import { Navbar } from "@/components/landing/Navbar";
 import { StatsTicker } from "@/components/landing/StatsTicker";
 import { Testimonials } from "@/components/landing/Testimonials";
+import { AgenticAIShowcase } from "@/components/landing/AgenticAIShowcase";
+import { CareerVisualizer } from "@/components/landing/CareerVisualizer";
 
 function HomePage() {
   return (
@@ -18,6 +20,8 @@ function HomePage() {
       <Navbar />
       <Hero />
       <StatsTicker />
+      <AgenticAIShowcase />
+      <CareerVisualizer />
       <Courses />
       <Diplomas />
       <Bundles />

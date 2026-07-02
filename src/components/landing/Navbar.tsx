@@ -17,7 +17,7 @@ export function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 backdrop-blur-md transition-all duration-300 ${
         scrolled
-          ? "bg-bg-primary/85 border-b border-[rgba(212,168,83,0.2)] py-2"
+          ? "bg-bg-glass border-b border-gold-border py-2"
           : "bg-bg-primary/40 border-b border-transparent py-4"
       }`}
     >
@@ -38,7 +38,7 @@ export function Navbar() {
             <a
               key={l}
               href="#"
-              className="text-sm text-text-secondary hover:text-accent-gold transition-colors"
+              className="text-sm text-text-secondary hover:text-gold-primary transition-colors font-medium"
             >
               {l}
             </a>
@@ -49,20 +49,20 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <button
             aria-label="سلة المشتريات"
-            className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(212,168,83,0.2)] text-text-secondary hover:text-accent-gold hover:border-accent-gold transition"
+            className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold-border text-text-secondary hover:text-gold-primary hover:border-gold-primary transition"
           >
             <ShoppingCart className="h-4 w-4" />
           </button>
-          <button className="hidden sm:inline-flex h-10 items-center rounded-full border border-accent-gold/60 px-4 text-sm text-accent-gold hover:bg-accent-gold/10 transition">
+          <button className="hidden sm:inline-flex h-10 items-center rounded-full border border-gold-primary/60 px-4 text-sm text-gold-primary hover:bg-gold-primary/10 transition">
             تسجيل الدخول
           </button>
-          <button className="hidden md:inline-flex h-10 items-center rounded-full gold-gradient px-5 text-sm font-semibold text-bg-primary hover:opacity-90 transition">
+          <button className="hidden md:inline-flex h-10 items-center rounded-full gold-gradient px-5 text-sm font-semibold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_15px_var(--gold-glow)] transition-all duration-300">
             اشترك الآن
           </button>
           <button
             aria-label="القائمة"
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-[rgba(212,168,83,0.2)] text-text-primary"
+            className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-gold-border text-text-primary"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -71,19 +71,19 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-[rgba(212,168,83,0.15)] bg-bg-primary/95 backdrop-blur-md">
+        <div className="lg:hidden border-t border-gold-border bg-bg-primary/95 backdrop-blur-md">
           <nav className="mx-auto max-w-7xl px-4 py-4 flex flex-col gap-3">
             {navLinks.map((l) => (
               <a
                 key={l}
                 href="#"
-                className="text-text-secondary hover:text-accent-gold py-2"
+                className="text-text-secondary hover:text-gold-primary py-2 font-medium"
               >
                 {l}
               </a>
             ))}
             <div className="flex gap-2 pt-2">
-              <button className="flex-1 h-10 rounded-full border border-accent-gold/60 text-sm text-accent-gold">
+              <button className="flex-1 h-10 rounded-full border border-gold-primary/60 text-sm text-gold-primary bg-transparent">
                 تسجيل الدخول
               </button>
               <button className="flex-1 h-10 rounded-full gold-gradient text-sm font-semibold text-bg-primary">

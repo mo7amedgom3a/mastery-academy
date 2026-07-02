@@ -1,4 +1,5 @@
 import { tickerItems } from "@/lib/landing-data";
+import { toArabicDigits } from "@/lib/utils";
 
 function Track({ ariaHidden = false }: { ariaHidden?: boolean }) {
   return (
@@ -8,8 +9,10 @@ function Track({ ariaHidden = false }: { ariaHidden?: boolean }) {
     >
       {tickerItems.map((it, i) => (
         <div key={i} className="flex items-center whitespace-nowrap">
-          <span className="text-text-primary font-semibold text-lg px-8">{it}</span>
-          <span className="text-accent-gold text-2xl">✦</span>
+          <span className="text-text-primary font-semibold text-lg px-8">
+            {toArabicDigits(it)}
+          </span>
+          <span className="text-gold-primary text-2xl">✦</span>
         </div>
       ))}
     </div>
@@ -18,7 +21,7 @@ function Track({ ariaHidden = false }: { ariaHidden?: boolean }) {
 
 export function StatsTicker() {
   return (
-    <div dir="ltr" className="relative border-y border-[rgba(212,168,83,0.15)] bg-bg-secondary/50 overflow-hidden py-5">
+    <div dir="ltr" className="relative border-y border-gold-border bg-bg-card/50 overflow-hidden py-5 backdrop-blur-sm">
       <div className="animate-marquee">
         <Track />
         <Track ariaHidden />

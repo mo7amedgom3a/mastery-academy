@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap');
 @import "tailwindcss";
 @source "../src";
 @import "tw-animate-css";
@@ -33,6 +33,26 @@
   --color-bg-primary: var(--bg-primary);
   --color-bg-secondary: var(--bg-secondary);
   --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-card: var(--bg-card);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-glass: var(--bg-glass);
+  
+  --color-gold-primary: var(--gold-primary);
+  --color-gold-muted: var(--gold-muted);
+  --color-gold-glow: var(--gold-glow);
+  --color-gold-border: var(--gold-border);
+  
+  --color-red-alert: var(--red-alert);
+  --color-green-success: var(--green-success);
+  --color-blue-info: var(--blue-info);
+  
+  --color-border-subtle: var(--border-subtle);
+  --color-border-gold: var(--border-gold);
+
+  --color-warm-cream: var(--warm-cream);
+  --color-warm-cream-dark: var(--warm-cream-dark);
+  --color-warm-cream-text: var(--warm-cream-text);
+  --color-warm-cream-muted: var(--warm-cream-muted);
   --color-accent-gold: var(--accent-gold);
   --color-accent-gold-lt: var(--accent-gold-lt);
   --color-accent-red: var(--accent-red);
@@ -40,22 +60,48 @@
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
 
-  --font-sans: 'Cairo', system-ui, sans-serif;
-  --font-display: 'DM Serif Display', serif;
+  --font-sans: 'Cairo', 'Inter', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', 'Playfair Display', 'Amiri', serif;
+  --font-display: 'DM Serif Display', 'Playfair Display', 'Amiri', serif;
+  
+  --transition-timing-function-supportive: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
   --radius: 0.625rem;
 
-  --bg-primary: #0A0A0F;
-  --bg-secondary: #111118;
-  --bg-tertiary: #1A1A25;
-  --accent-gold: #D4A853;
+  /* Mastery Academy Design System Tokens */
+  --bg-primary:     #0A0A0F; /* Main application background */
+  --bg-card:        #111118; /* Cards and core container backgrounds */
+  --bg-elevated:    #18181F; /* Dropdowns, popovers, and elevated widgets */
+  --bg-glass:       rgba(17, 17, 24, 0.75); /* Top bar and modal background blur */
+
+  --gold-primary:   #D4A853; /* Primary gold color for metrics, active items */
+  --gold-muted:     rgba(212, 168, 83, 0.15); /* Soft background highlights */
+  --gold-glow:      rgba(212, 168, 83, 0.35); /* Neon shadows and button glows */
+  --gold-border:    rgba(212, 168, 83, 0.20); /* Premium thin borders for cards */
+
+  --red-alert:      #E8334A; /* Error, alert, online status offline indicator */
+  --green-success:  #2ECC71; /* Success, online status, positive metrics */
+  --blue-info:      #3B82F6; /* Information and hints */
+
+  --text-primary:   #F0EDE8; /* Readable high-contrast light text */
+  --text-secondary: #8A8799; /* Standard descriptive labels and subtext */
+  --text-muted:     #4A4857; /* Placeholder text and inactive indicators */
+
+  --border-subtle:  rgba(255, 255, 255, 0.06); /* Default dark layout border */
+  --border-gold:    rgba(212, 168, 83, 0.20); /* Primary premium card border */
+
+  /* Legacy Mapping for compatibility with existing codebase styles */
+  --bg-secondary:   var(--bg-card);
+  --bg-tertiary:    var(--bg-elevated);
+  --accent-gold:    var(--gold-primary);
   --accent-gold-lt: #F0C97A;
-  --accent-red: #E8334A;
-  --text-primary: #F5F0E8;
-  --text-secondary: #9A95A0;
-  --text-muted: #5A5660;
+  --accent-red:     var(--red-alert);
+  --warm-cream: #FAF6F0;
+  --warm-cream-dark: #F5EFE6;
+  --warm-cream-text: #1A1A22;
+  --warm-cream-muted: #5A5662;
 
   --background: var(--bg-primary);
   --foreground: var(--text-primary);
@@ -63,7 +109,7 @@
   --card-foreground: var(--text-primary);
   --popover: var(--bg-secondary);
   --popover-foreground: var(--text-primary);
-  --primary: var(--accent-gold);
+  --primary: var(--gold-primary);
   --primary-foreground: #0A0A0F;
   --secondary: var(--bg-tertiary);
   --secondary-foreground: var(--text-primary);
@@ -71,11 +117,9 @@
   --muted-foreground: var(--text-secondary);
   --accent: var(--bg-tertiary);
   --accent-foreground: var(--text-primary);
-  --destructive: var(--accent-red);
-  --destructive-foreground: #ffffff;
-  --border: rgba(212, 168, 83, 0.15);
+  --border: var(--gold-border);
   --input: rgba(212, 168, 83, 0.2);
-  --ring: var(--accent-gold);
+  --ring: var(--gold-primary);
 }
 
 @layer base {
@@ -91,6 +135,11 @@
 
 @utility font-display {
   font-family: var(--font-display);
+}
+
+@utility metric-number {
+  font-family: var(--font-serif);
+  color: var(--color-gold-primary);
 }
 
 @utility gold-gradient {
