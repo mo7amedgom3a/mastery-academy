@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import { navLinks } from "@/lib/landing-data";
 
@@ -13,6 +14,12 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const getNavLinkHref = (l: string) => {
+    if (l === "استشارات") return "/consultation";
+    if (l === "الباقات") return "/packages";
+    return "/#courses";
+  };
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 backdrop-blur-md transition-all duration-300 ${
@@ -23,25 +30,28 @@ export function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-md gold-gradient text-bg-primary font-display text-lg font-bold">
             NN
           </div>
           <span className="text-text-primary text-lg font-bold tracking-tight">
             MasteryAcademy
           </span>
-        </a>
+        </Link>
 
         {/* Nav links */}
         <nav className="hidden lg:flex items-center gap-7">
+          <Link to="/" className="text-sm text-text-secondary hover:text-gold-primary transition-colors font-medium">
+            الرئيسية
+          </Link>
           {navLinks.map((l) => (
-            <a
+            <Link
               key={l}
-              href="#"
+              to={getNavLinkHref(l)}
               className="text-sm text-text-secondary hover:text-gold-primary transition-colors font-medium"
             >
               {l}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -73,14 +83,22 @@ export function Navbar() {
       {open && (
         <div className="lg:hidden border-t border-gold-border bg-bg-primary/95 backdrop-blur-md">
           <nav className="mx-auto max-w-7xl px-4 py-4 flex flex-col gap-3">
+            <Link
+              to="/"
+              onClick={() => setOpen(false)}
+              className="text-text-secondary hover:text-gold-primary py-2 font-medium"
+            >
+              الرئيسية
+            </Link>
             {navLinks.map((l) => (
-              <a
+              <Link
                 key={l}
-                href="#"
+                to={getNavLinkHref(l)}
+                onClick={() => setOpen(false)}
                 className="text-text-secondary hover:text-gold-primary py-2 font-medium"
               >
                 {l}
-              </a>
+              </Link>
             ))}
             <div className="flex gap-2 pt-2">
               <button className="flex-1 h-10 rounded-full border border-gold-primary/60 text-sm text-gold-primary bg-transparent">

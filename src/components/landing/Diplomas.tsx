@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { diplomaCourses } from "@/lib/landing-data";
 import { GoldCard } from "@/components/ui/gold-elements";
 import { toArabicDigits } from "@/lib/utils";
@@ -29,7 +30,9 @@ export function Diplomas() {
                   </div>
                   <div className="p-8">
                     <p className="text-sm text-text-secondary">{d.instructor}</p>
-                    <h3 className="mt-3 text-xl font-bold text-text-primary leading-snug min-h-[4rem]">{d.title}</h3>
+                    <Link to={`/course/${d.id}`} className="hover:text-gold-primary transition block">
+                      <h3 className="mt-3 text-xl font-bold text-text-primary hover:text-gold-primary transition leading-snug min-h-[4rem]">{d.title}</h3>
+                    </Link>
                   </div>
                 </div>
                 <div className="p-8 pt-0">
@@ -37,7 +40,7 @@ export function Diplomas() {
                     <span className="text-gold-primary font-serif text-4xl font-bold">{toArabicDigits(d.price)}</span>
                     {d.originalPrice && <span className="text-text-muted line-through text-lg">{toArabicDigits(d.originalPrice)}</span>}
                   </div>
-                  <a href={d.href} className="mt-6 inline-flex w-full justify-center rounded-full gold-gradient py-3 text-sm font-bold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_25px_var(--gold-glow)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-supportive">سجل في الدبلوم</a>
+                  <Link to={`/course/${d.id}`} className="mt-6 inline-flex w-full justify-center rounded-full gold-gradient py-3 text-sm font-bold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_25px_var(--gold-glow)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-supportive">سجل في الدبلوم</Link>
                 </div>
               </GoldCard>
             </motion.div>

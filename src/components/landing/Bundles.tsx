@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { featuredConsultancies } from "@/lib/landing-data";
 import { GoldCard } from "@/components/ui/gold-elements";
 import { toArabicDigits } from "@/lib/utils";
@@ -29,8 +30,10 @@ export function Bundles() {
                   </div>
                   <div className="p-8 pt-12">
                     <p className="text-sm text-text-secondary">{item.consultant}</p>
-                    <h3 className="mt-3 text-2xl font-bold text-text-primary leading-snug min-h-[5rem]">{item.title}</h3>
-                    {item.summary && <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-text-secondary">{item.summary}</p>}
+                    <Link to="/consultation" className="hover:text-gold-primary transition block">
+                      <h3 className="mt-3 text-2xl font-bold text-text-primary hover:text-gold-primary transition leading-snug min-h-[5rem]">{item.title}</h3>
+                    </Link>
+                    {item.summary && <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-text-secondary">{toArabicDigits(item.summary)}</p>}
                   </div>
                 </div>
                 <div className="p-8 pt-0">
@@ -39,7 +42,7 @@ export function Bundles() {
                       <span className="font-serif text-5xl text-gold-gradient font-bold">{toArabicDigits(item.price)}</span>
                       <p className="mt-1 text-xs text-gold-primary font-semibold">{toArabicDigits(item.duration)}</p>
                     </div>
-                    <button className="rounded-full bg-bg-elevated border border-gold-primary/45 px-5 py-3 text-sm font-bold text-gold-primary hover:bg-gold-primary hover:text-bg-primary hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 ease-supportive cursor-pointer">احجز الآن</button>
+                    <Link to="/consultation" className="rounded-full bg-bg-elevated border border-gold-primary/45 px-5 py-3 text-sm font-bold text-gold-primary hover:bg-gold-primary hover:text-bg-primary hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 ease-supportive cursor-pointer text-center">احجز الآن</Link>
                   </div>
                 </div>
               </GoldCard>

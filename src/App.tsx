@@ -14,6 +14,11 @@ import { Testimonials } from "@/components/landing/Testimonials";
 import { AgenticAIShowcase } from "@/components/landing/AgenticAIShowcase";
 import { CareerVisualizer } from "@/components/landing/CareerVisualizer";
 
+import { CourseDetailPage } from "@/pages/CourseDetailPage";
+import { InstructorPage } from "@/pages/InstructorPage";
+import { ConsultationPage } from "@/pages/ConsultationPage";
+import { PackagesPage } from "@/pages/PackagesPage";
+
 function HomePage() {
   return (
     <main className="min-h-screen bg-bg-primary text-text-primary">
@@ -38,6 +43,10 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/course/:id" element={<CourseDetailPage />} />
+      <Route path="/instructor/:id" element={<InstructorPage />} />
+      <Route path="/consultation" element={<ConsultationPage />} />
+      <Route path="/packages" element={<PackagesPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

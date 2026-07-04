@@ -133,7 +133,8 @@ export const landingStats = {
 };
 
 export const navLinks = [
-  ...categories.slice(0, 4).map((category) => category.name),
+  ...categories.slice(0, 3).map((category) => category.name),
+  "الباقات",
   "استشارات",
 ];
 
