@@ -18,6 +18,8 @@ import { CourseDetailPage } from "@/pages/CourseDetailPage";
 import { InstructorPage } from "@/pages/InstructorPage";
 import { ConsultationPage } from "@/pages/ConsultationPage";
 import { PackagesPage } from "@/pages/PackagesPage";
+import { BrowsePage } from "@/pages/BrowsePage";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 function HomePage() {
   return (
@@ -41,13 +43,18 @@ function HomePage() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/course/:id" element={<CourseDetailPage />} />
-      <Route path="/instructor/:id" element={<InstructorPage />} />
-      <Route path="/consultation" element={<ConsultationPage />} />
-      <Route path="/packages" element={<PackagesPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/course/:id" element={<CourseDetailPage />} />
+        <Route path="/instructor/:id" element={<InstructorPage />} />
+        <Route path="/consultation" element={<ConsultationPage />} />
+        <Route path="/consultation/:id" element={<ConsultationPage />} />
+        <Route path="/packages" element={<PackagesPage />} />
+        <Route path="/browse" element={<BrowsePage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
 }

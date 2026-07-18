@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowRight, BookOpen, Clock, Users, Target, Milestone, User, 
@@ -9,16 +9,75 @@ import { getCourseDetail } from "@/lib/extended-data";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GoldCard, GoldButton } from "@/components/ui/gold-elements";
+import { Skeleton } from "@/components/ui/skeleton";
 import { toArabicDigits } from "@/lib/utils";
 
 export function CourseDetailPage() {
   const { id } = useParams<{ id: string }>();
   const courseId = Number(id);
 
+  const [loading, setLoading] = useState(true);
   const [openSections, setOpenSections] = useState<Record<number, boolean>>({ 0: true });
   const [activePreviewVideo, setActivePreviewVideo] = useState<{ title: string; url: string } | null>(null);
   const [showCertificateModal, setShowCertificateModal] = useState(false);
   const [showIntroVideoModal, setShowIntroVideoModal] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+        <Navbar />
+        <main className="flex-grow pt-28 pb-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
+            <Skeleton className="h-4 w-48" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+              <div className="lg:col-span-7 space-y-6">
+                <Skeleton className="h-6 w-24 rounded-full" />
+                <Skeleton className="h-12 w-3/4 rounded-xl" />
+                <div className="flex gap-4">
+                  <Skeleton className="h-5 w-32" />
+                  <Skeleton className="h-5 w-32" />
+                </div>
+                <div className="grid grid-cols-3 gap-4 max-w-md">
+                  <Skeleton className="h-16 rounded-2xl" />
+                  <Skeleton className="h-16 rounded-2xl" />
+                  <Skeleton className="h-16 rounded-2xl" />
+                </div>
+                <Skeleton className="h-8 w-24" />
+                <Skeleton className="h-12 w-48 rounded-full" />
+              </div>
+              <div className="lg:col-span-5">
+                <Skeleton className="aspect-video lg:aspect-square rounded-3xl" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              <div className="lg:col-span-8 space-y-12">
+                <div className="space-y-3">
+                  <Skeleton className="h-8 w-48" />
+                  <Skeleton className="h-24 w-full rounded-xl" />
+                </div>
+                <div className="space-y-3">
+                  <Skeleton className="h-8 w-48" />
+                  <Skeleton className="h-28 w-full rounded-2xl" />
+                </div>
+              </div>
+              <div className="lg:col-span-4 space-y-6">
+                <Skeleton className="h-64 rounded-2xl" />
+                <Skeleton className="h-48 rounded-2xl" />
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   let courseDetail;
   try {
@@ -168,10 +227,12 @@ export function CourseDetailPage() {
 
               {/* Middle Section: Instructor Profile card */}
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-text-primary border-r-4 border-gold-primary pr-3 leading-none">مقدم الدبلوم</h2>
+                <h2 className="text-2xl font-bold text-text-primary border-r-4 border-gold-primary pr-3 leading-none">
+                  {title.includes("دبلوم") ? "مقدم الدبلوم" : "مقدم الدورة"}
+                </h2>
                 <GoldCard className="p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center md:items-start text-right hover:border-gold-border/40 transition">
                   <Link to={`/instructor/${instructor.id}`} className="block relative h-24 w-24 rounded-2xl overflow-hidden border border-gold-border/30 flex-shrink-0 group">
-                    <img src={instructor.avatar} alt={instructor.name} className="h-full w-full object-cover group-hover:scale-105 transition duration-300" />
+                    <img src={image} alt={instructor.name} className="h-full w-full object-cover group-hover:scale-105 transition duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/40 to-transparent" />
                   </Link>
                   <div className="flex-grow space-y-3">
@@ -187,6 +248,17 @@ export function CourseDetailPage() {
                       </Link>
                     </div>
                     <p className="text-text-secondary text-xs md:text-sm leading-relaxed">{toArabicDigits(instructor.summary)}</p>
+                    
+                    {/* Skills badges */}
+                    {instructor.skills && instructor.skills.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 pt-2">
+                        {instructor.skills.map((skill, index) => (
+                          <span key={index} className="text-[10px] bg-bg-elevated text-text-secondary border border-border-subtle px-2 py-0.5 rounded-full">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </GoldCard>
               </section>

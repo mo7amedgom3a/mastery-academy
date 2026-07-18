@@ -35,7 +35,7 @@ export function Courses() {
                     <div className="h-40 relative overflow-hidden">
                       <img src={c.image} alt={c.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
                       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
-                      <div className="absolute right-4 top-4 rounded-full bg-bg-primary/80 px-3 py-1 text-xs font-semibold text-gold-primary backdrop-blur-sm">
+                      <div className="absolute left-1 bottom-1 rounded-full bg-bg-primary/80 px-3 py-1 text-xs font-semibold text-gold-primary backdrop-blur-sm">
                         {toArabicDigits(c.category)}
                       </div>
                       <Link 
@@ -65,6 +65,14 @@ export function Courses() {
               </motion.div>
             );
           })}
+        </div>
+        <div className="mt-12 text-center">
+          <Link to="/browse">
+            <button className="inline-flex items-center gap-2 rounded-full gold-gradient px-8 py-3.5 text-sm font-bold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_20px_var(--gold-glow)] transition-all duration-300 ease-supportive cursor-pointer">
+              البحث المتقدم وتصفح جميع المجالات والاستشارات
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+          </Link>
         </div>
       </div>
     </section>

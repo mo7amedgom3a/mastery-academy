@@ -12,7 +12,7 @@ export const GoldCard = React.forwardRef<HTMLDivElement, GoldCardProps>(
       <div
         ref={ref}
         className={cn(
-          "bg-bg-card/90 border border-gold-border/25 rounded-2xl backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-all duration-300 hover:border-gold-border/50 hover:shadow-[0_0_20px_rgba(212,168,83,0.1)]",
+          "bg-bg-card/90 border border-gold-border/25 rounded-2xl backdrop-blur-sm shadow-card-custom transition-all duration-300 hover:border-gold-border/50 hover:shadow-card-hover",
           className
         )}
         {...props}
@@ -33,7 +33,7 @@ export const GoldButton = React.forwardRef<
     <button
       ref={ref}
       className={cn(
-        "bg-gold-primary text-bg-primary font-bold px-5 py-2.5 rounded-xl border border-gold-primary/30 hover:bg-gold-primary/95 transition-all duration-200 shadow-[0_0_15px_var(--gold-glow)] cursor-pointer text-xs active:scale-95 disabled:opacity-50 disabled:pointer-events-none",
+        "bg-gold-primary text-bg-primary font-bold px-5 py-2.5 rounded-xl border border-gold-primary/30 hover:bg-gold-primary/95 transition-all duration-200 shadow-gold-cta cursor-pointer text-xs active:scale-95 disabled:opacity-50 disabled:pointer-events-none",
         className
       )}
       {...props}

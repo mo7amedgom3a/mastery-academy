@@ -60,6 +60,10 @@
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
 
+  --shadow-card-custom: var(--shadow-card-custom-val);
+  --shadow-card-hover: var(--shadow-card-hover-val);
+  --shadow-gold-cta: var(--shadow-gold-cta-val);
+
   --font-sans: 'Cairo', 'Inter', system-ui, sans-serif;
   --font-serif: 'DM Serif Display', 'Playfair Display', 'Amiri', serif;
   --font-display: 'DM Serif Display', 'Playfair Display', 'Amiri', serif;
@@ -70,7 +74,7 @@
 :root {
   --radius: 0.625rem;
 
-  /* Mastery Academy Design System Tokens */
+  /* Mastery Academy Design System Tokens - Dark Mode (Default) */
   --bg-primary:     #0A0A0F; /* Main application background */
   --bg-card:        #111118; /* Cards and core container backgrounds */
   --bg-elevated:    #18181F; /* Dropdowns, popovers, and elevated widgets */
@@ -91,6 +95,11 @@
 
   --border-subtle:  rgba(255, 255, 255, 0.06); /* Default dark layout border */
   --border-gold:    rgba(212, 168, 83, 0.20); /* Primary premium card border */
+
+  /* Shadows for dark mode */
+  --shadow-card-custom-val: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover-val: 0 0 20px rgba(212, 168, 83, 0.1);
+  --shadow-gold-cta-val: 0 0 15px rgba(212, 168, 83, 0.35);
 
   /* Legacy Mapping for compatibility with existing codebase styles */
   --bg-secondary:   var(--bg-card);
@@ -122,6 +131,52 @@
   --ring: var(--gold-primary);
 }
 
+[data-theme="light"] {
+  /* Background Layers
+     Warm ivory and parchment tones — not pure white.
+     Each layer gets progressively cooler to create subtle depth. */
+  --bg-primary:     #F5F2EC; /* Main canvas: warm parchment */
+  --bg-card:        #FDFBF7; /* Cards: soft warm white */
+  --bg-elevated:    #FFFFFF; /* Dropdowns, popovers: true white for max lift */
+  --bg-glass:       rgba(245, 242, 236, 0.82); /* Top bar blur: frosted parchment */
+
+  /* Gold Accent System
+     Gold deepens slightly in light mode so it reads with authority
+     against the pale backgrounds — never feels washed out. */
+  --gold-primary:   #B8892A; /* Deeper, richer gold for light backgrounds */
+  --gold-muted:     rgba(184, 137, 42, 0.10); /* Subtle warm tint on hover states */
+  --gold-glow:      rgba(184, 137, 42, 0.22); /* Softer glow — light mode doesn't need neon */
+  --gold-border:    rgba(184, 137, 42, 0.25); /* Slightly stronger border to stay visible */
+
+  /* Semantic Alerts & Badges
+     Same hues, kept identical — semantic meaning must not shift between modes. */
+  --red-alert:      #D42B40; /* Slightly deepened for contrast on light bg */
+  --green-success:  #1FAB5E; /* Deepened for light bg legibility */
+  --blue-info:      #2563EB; /* Deepened for contrast */
+
+  /* Text Elements
+     Deep ink tones, not black — keeps warmth and avoids harshness. */
+  --text-primary:   #1A1714; /* Near-black warm ink — primary headings and values */
+  --text-secondary: #5C5648; /* Warm medium brown — labels, descriptions */
+  --text-muted:     #A09A8E; /* Muted warm gray — placeholders, disabled */
+
+  /* Border Tokens */
+  --border-subtle:  rgba(26, 23, 20, 0.08);   /* Soft warm ink border — replaces white-alpha */
+  --border-gold:    rgba(184, 137, 42, 0.25); /* Gold border — same role, slightly stronger */
+
+  /* Shadows for light mode */
+  --shadow-card-custom-val: 0 1px 4px rgba(26, 23, 20, 0.06), 0 4px 16px rgba(26, 23, 20, 0.05);
+  --shadow-card-hover-val: 0 2px 12px rgba(26, 23, 20, 0.06);
+  --shadow-gold-cta-val: 0 4px 16px rgba(184, 137, 42, 0.22);
+
+  /* Map primary foreground to a dark background/ink text when buttons are light,
+     or we can keep it readable against deeper gold button background.
+     For a solid B8892A button, a dark brown text reads nicely. */
+  --primary-foreground: #FFFFFF;
+  --accent-gold-lt: #B8892A;
+  --accent-gold: var(--gold-primary);
+}
+
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; }
@@ -143,15 +198,24 @@
 }
 
 @utility gold-gradient {
-  background: linear-gradient(135deg, #D4A853 0%, #F0C97A 50%, #D4A853 100%);
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--accent-gold-lt, #F0C97A) 50%, var(--gold-primary) 100%);
 }
 
 @utility text-gold-gradient {
-  background: linear-gradient(135deg, #D4A853 0%, #F0C97A 50%, #D4A853 100%);
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--accent-gold-lt, #F0C97A) 50%, var(--gold-primary) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
+
+/* Ensure high contrast and excellent readability for text and icons inside any gold background container */
+.bg-gold-primary,
+.gold-gradient {
+  --bg-primary: #0A0A0F;
+  --color-bg-primary: #0A0A0F;
+  color: #0A0A0F;
+}
+
 
 @utility noise-overlay {
   position: relative;
@@ -209,12 +273,33 @@
   }
 
   @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
   .shimmer {
-    background: linear-gradient(90deg, #1A1A25 0%, #2a2a38 50%, #1A1A25 100%);
+    background: linear-gradient(90deg, var(--bg-card) 0%, var(--bg-elevated) 50%, var(--bg-card) 100%);
     background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
+    animation: shimmer 1.6s linear infinite;
   }
+
+  @keyframes text-shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+}
+
+@utility text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--gold-primary) 0%,
+    var(--text-primary) 25%,
+    var(--gold-primary) 50%,
+    var(--text-primary) 75%,
+    var(--gold-primary) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 3s linear infinite;
 }

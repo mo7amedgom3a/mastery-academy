@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import { navLinks } from "@/lib/landing-data";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -17,7 +18,7 @@ export function Navbar() {
   const getNavLinkHref = (l: string) => {
     if (l === "استشارات") return "/consultation";
     if (l === "الباقات") return "/packages";
-    return "/#courses";
+    return `/browse?field=${encodeURIComponent(l)}`;
   };
 
   return (
@@ -34,7 +35,7 @@ export function Navbar() {
           <div className="flex h-9 w-9 items-center justify-center rounded-md gold-gradient text-bg-primary font-display text-lg font-bold">
             NN
           </div>
-          <span className="text-text-primary text-lg font-bold tracking-tight">
+          <span className="text-lg font-bold tracking-tight text-shimmer">
             MasteryAcademy
           </span>
         </Link>
@@ -57,6 +58,7 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <button
             aria-label="سلة المشتريات"
             className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold-border text-text-secondary hover:text-gold-primary hover:border-gold-primary transition"
@@ -107,6 +109,10 @@ export function Navbar() {
               <button className="flex-1 h-10 rounded-full gold-gradient text-sm font-semibold text-bg-primary">
                 اشترك الآن
               </button>
+            </div>
+            <div className="flex items-center justify-between border-t border-gold-border/20 pt-3 mt-1">
+              <span className="text-sm text-text-secondary font-medium">المظهر (داكن / فاتح)</span>
+              <ThemeToggle />
             </div>
           </nav>
         </div>

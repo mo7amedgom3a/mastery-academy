@@ -64,6 +64,7 @@ export type LandingConsultancy = {
   image: string;
   consultantImage: string;
   summary: string;
+  details: string;
 };
 
 const coursesRaw = latestRaw as RawCourse[];
@@ -90,7 +91,7 @@ export const courses: LandingCourse[] = coursesRaw
     category: course.categories?.find((category) => category.categoryName)?.categoryName?.trim() || "دورة تدريبية",
     price: formatPrice(course.newPrice ?? course.price),
     originalPrice: course.newPrice ? formatPrice(course.price) : null,
-    image: course.squareImage || course.image || "",
+    image: course.image || course.squareImage || "",
     href: course.courseLink ? `#${course.courseLink}` : "#",
     discountPercentage: course.discountPercentage ?? 0,
   }));
@@ -113,9 +114,10 @@ export const consultancies: LandingConsultancy[] = consultanciesResponse
     consultant: consultancy.consultantName?.trim() || "مستشار ماستري",
     price: formatPrice(consultancy.consultancyPrice),
     duration: consultancy.timeLimit ? `${consultancy.timeLimit} دقيقة` : "جلسة استشارية",
-    image: consultancy.squareImage || consultancy.image || "",
+    image: consultancy.image || consultancy.squareImage || "",
     consultantImage: consultancy.consultantImage || consultancy.squareImage || consultancy.image || "",
     summary: stripHtml(consultancy.consultantInfo).slice(0, 150),
+    details: stripHtml(consultancy.consultantInfo),
   }));
 
 export const featuredCourses = courses.slice(0, 4);

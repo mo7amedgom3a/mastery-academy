@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, ShieldCheck, Gift, Layers, ShoppingBag } from "lucide-react";
@@ -6,12 +7,49 @@ import { packagesDb } from "@/lib/extended-data";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GoldCard, GoldButton } from "@/components/ui/gold-elements";
+import { Skeleton } from "@/components/ui/skeleton";
 import { toArabicDigits } from "@/lib/utils";
 
 export function PackagesPage() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handlePurchase = (title: string) => {
     toast.success(`تم تسجيل اهتمامك بحزمة "${title}"! سيتواصل معك فريق القبول والتسجيل فوراً لتزويدك بتفاصيل وطرق الدفع المعتمدة.`);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+        <Navbar />
+        <main className="flex-grow pt-28 pb-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <Skeleton className="h-6 w-48 rounded-full mx-auto" />
+              <Skeleton className="h-12 w-3/4 rounded-xl mx-auto" />
+              <Skeleton className="h-16 w-full rounded-xl mx-auto" />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Skeleton className="h-28 rounded-2xl" />
+              <Skeleton className="h-28 rounded-2xl" />
+              <Skeleton className="h-28 rounded-2xl" />
+            </div>
+
+            <div className="space-y-8">
+              <Skeleton className="h-64 rounded-2xl" />
+              <Skeleton className="h-64 rounded-2xl" />
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">

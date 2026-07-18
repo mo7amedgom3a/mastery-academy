@@ -60,7 +60,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 rounded-full border border-gold-border bg-gold-muted px-4 py-1.5 text-xs text-accent-gold-lt"
+            className="inline-flex items-center gap-2 rounded-full border border-gold-border bg-gold-muted px-4 py-1.5 text-xs text-gold-primary"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gold-primary animate-pulse" />
             منصة التعلم الرائدة في الوطن العربي — نسبة إتمام {toArabicDigits("93")}%
@@ -147,7 +147,7 @@ export function Hero() {
                 loop
                 playsInline
                 preload="metadata"
-                className="h-full w-full object-cover grayscale"
+                className="h-full w-full object-cover "
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg-primary/60 via-transparent to-transparent" />
             </div>

@@ -1,17 +1,73 @@
 import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, Globe, Linkedin, Twitter, Youtube, BookOpen, Star } from "lucide-react";
 import { instructorsDb, getInstructorProfile } from "@/lib/extended-data";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GoldCard } from "@/components/ui/gold-elements";
+import { Skeleton } from "@/components/ui/skeleton";
 import { toArabicDigits } from "@/lib/utils";
 
 export function InstructorPage() {
   const { id } = useParams<{ id: string }>();
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   if (!id) {
     return null;
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+        <Navbar />
+        <main className="flex-grow pt-28 pb-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
+            <Skeleton className="h-4 w-32" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              <div className="lg:col-span-4 space-y-6">
+                <div className="p-6 border border-gold-border/15 bg-bg-card rounded-2xl flex flex-col items-center">
+                  <Skeleton className="h-44 w-44 rounded-3xl mb-6" />
+                  <Skeleton className="h-8 w-40 mb-2" />
+                  <Skeleton className="h-4 w-52 mb-6" />
+                  <div className="flex gap-4 border-t border-border-subtle pt-6 w-full justify-center">
+                    <Skeleton className="h-8 w-8 rounded-full" />
+                    <Skeleton className="h-8 w-8 rounded-full" />
+                    <Skeleton className="h-8 w-8 rounded-full" />
+                  </div>
+                </div>
+                <div className="p-6 border border-gold-border/15 bg-bg-card rounded-2xl">
+                  <Skeleton className="h-6 w-32 mb-4" />
+                  <div className="flex flex-wrap gap-2">
+                    <Skeleton className="h-6 w-20 rounded-full" />
+                    <Skeleton className="h-6 w-24 rounded-full" />
+                    <Skeleton className="h-6 w-16 rounded-full" />
+                  </div>
+                </div>
+              </div>
+              <div className="lg:col-span-8 space-y-8">
+                <div className="space-y-4">
+                  <Skeleton className="h-8 w-32" />
+                  <Skeleton className="h-28 w-full rounded-2xl" />
+                </div>
+                <div className="space-y-4">
+                  <Skeleton className="h-8 w-48" />
+                  <Skeleton className="h-24 w-full rounded-xl" />
+                  <Skeleton className="h-24 w-full rounded-xl" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
   }
 
   // Lookup instructor in DB or fallback
