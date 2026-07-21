@@ -63,6 +63,7 @@ export type LandingConsultancy = {
   duration: string;
   image: string;
   consultantImage: string;
+  squareImage: string;
   summary: string;
   details: string;
 };
@@ -116,6 +117,7 @@ export const consultancies: LandingConsultancy[] = consultanciesResponse
     duration: consultancy.timeLimit ? `${consultancy.timeLimit} دقيقة` : "جلسة استشارية",
     image: consultancy.image || consultancy.squareImage || "",
     consultantImage: consultancy.consultantImage || consultancy.squareImage || consultancy.image || "",
+    squareImage: consultancy.squareImage || consultancy.image || "",
     summary: stripHtml(consultancy.consultantInfo).slice(0, 150),
     details: stripHtml(consultancy.consultantInfo),
   }));

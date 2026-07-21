@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, ShoppingCart, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/lib/landing-data";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
@@ -81,42 +82,50 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="lg:hidden border-t border-gold-border bg-bg-primary/95 backdrop-blur-md">
-          <nav className="mx-auto max-w-7xl px-4 py-4 flex flex-col gap-3">
-            <Link
-              to="/"
-              onClick={() => setOpen(false)}
-              className="text-text-secondary hover:text-gold-primary py-2 font-medium"
-            >
-              الرئيسية
-            </Link>
-            {navLinks.map((l) => (
+      {/* Animated Mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="lg:hidden border-t border-gold-border/20 bg-bg-card/98 backdrop-blur-lg overflow-hidden"
+          >
+            <nav className="mx-auto max-w-7xl px-4 py-6 flex flex-col gap-4">
               <Link
-                key={l}
-                to={getNavLinkHref(l)}
+                to="/"
                 onClick={() => setOpen(false)}
-                className="text-text-secondary hover:text-gold-primary py-2 font-medium"
+                className="text-text-secondary hover:text-gold-primary py-2 font-medium text-base border-b border-gold-border/5"
               >
-                {l}
+                الرئيسية
               </Link>
-            ))}
-            <div className="flex gap-2 pt-2">
-              <button className="flex-1 h-10 rounded-full border border-gold-primary/60 text-sm text-gold-primary bg-transparent">
-                تسجيل الدخول
-              </button>
-              <button className="flex-1 h-10 rounded-full gold-gradient text-sm font-semibold text-bg-primary">
-                اشترك الآن
-              </button>
-            </div>
-            <div className="flex items-center justify-between border-t border-gold-border/20 pt-3 mt-1">
-              <span className="text-sm text-text-secondary font-medium">المظهر (داكن / فاتح)</span>
-              <ThemeToggle />
-            </div>
-          </nav>
-        </div>
-      )}
+              {navLinks.map((l) => (
+                <Link
+                  key={l}
+                  to={getNavLinkHref(l)}
+                  onClick={() => setOpen(false)}
+                  className="text-text-secondary hover:text-gold-primary py-2 font-medium text-base border-b border-gold-border/5"
+                >
+                  {l}
+                </Link>
+              ))}
+              <div className="flex flex-col gap-3 pt-4">
+                <button className="w-full h-11 rounded-full border border-gold-primary/60 text-sm text-gold-primary bg-transparent font-bold active:scale-[0.98] transition">
+                  تسجيل الدخول
+                </button>
+                <button className="w-full h-11 rounded-full gold-gradient text-sm font-semibold text-bg-primary shadow-gold-cta active:scale-[0.98] transition">
+                  اشترك الآن
+                </button>
+              </div>
+              <div className="flex items-center justify-between border-t border-gold-border/20 pt-4 mt-2">
+                <span className="text-sm text-text-secondary font-medium">المظهر (داكن / فاتح)</span>
+                <ThemeToggle />
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

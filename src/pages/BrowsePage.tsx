@@ -370,7 +370,7 @@ export function BrowsePage() {
                         >
                           <div>
                             {/* Course Image */}
-                            <div className="relative h-44 w-full overflow-hidden bg-bg-elevated border-b border-gold-border/10">
+                            <div className="relative h-80 w-full overflow-hidden bg-bg-elevated border-b border-gold-border/10">
                               <img
                                 src={course.image}
                                 alt={course.title}

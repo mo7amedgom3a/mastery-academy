@@ -503,7 +503,7 @@ export function CareerVisualizer() {
                     </div>
 
                     {/* Popover skills list shown in small text */}
-                    <div className="mt-2 text-right sm:text-center sm:mx-auto max-w-[140px]">
+                    <div className="mt-2 text-right sm:text-center sm:mx-auto max-w-none sm:max-w-[140px] w-full">
                       <div className="flex flex-wrap gap-1 justify-start sm:justify-center">
                         {stage.skills.map((skill, sIdx) => (
                           <span 

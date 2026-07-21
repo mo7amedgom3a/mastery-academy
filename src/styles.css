@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap');
 @import "tailwindcss";
 @source "../src";
+@source "../node_modules/calendarkit-pro/dist/**/*.js";
+@source "../node_modules/calendarkit-pro/dist/**/*.mjs";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -38,6 +40,8 @@
   --color-bg-glass: var(--bg-glass);
   
   --color-gold-primary: var(--gold-primary);
+  --color-gold-shine: var(--gold-shine);
+  --color-gold-deep: var(--gold-deep);
   --color-gold-muted: var(--gold-muted);
   --color-gold-glow: var(--gold-glow);
   --color-gold-border: var(--gold-border);
@@ -80,10 +84,12 @@
   --bg-elevated:    #18181F; /* Dropdowns, popovers, and elevated widgets */
   --bg-glass:       rgba(17, 17, 24, 0.75); /* Top bar and modal background blur */
 
-  --gold-primary:   #D4A853; /* Primary gold color for metrics, active items */
-  --gold-muted:     rgba(212, 168, 83, 0.15); /* Soft background highlights */
-  --gold-glow:      rgba(212, 168, 83, 0.35); /* Neon shadows and button glows */
-  --gold-border:    rgba(212, 168, 83, 0.20); /* Premium thin borders for cards */
+  --gold-primary:   #E3B34E; /* Primary gold color for metrics, active items — richer, more saturated */
+  --gold-shine:     #FBE7B0; /* Bright foil highlight — top of gradients, icon glints */
+  --gold-deep:      #A87A1E; /* Deep shadow gold — bottom of gradients, pressed states */
+  --gold-muted:     rgba(227, 179, 78, 0.15); /* Soft background highlights */
+  --gold-glow:      rgba(227, 179, 78, 0.45); /* Neon shadows and button glows */
+  --gold-border:    rgba(227, 179, 78, 0.28); /* Premium thin borders for cards */
 
   --red-alert:      #E8334A; /* Error, alert, online status offline indicator */
   --green-success:  #2ECC71; /* Success, online status, positive metrics */
@@ -94,18 +100,18 @@
   --text-muted:     #4A4857; /* Placeholder text and inactive indicators */
 
   --border-subtle:  rgba(255, 255, 255, 0.06); /* Default dark layout border */
-  --border-gold:    rgba(212, 168, 83, 0.20); /* Primary premium card border */
+  --border-gold:    rgba(227, 179, 78, 0.28); /* Primary premium card border */
 
   /* Shadows for dark mode */
-  --shadow-card-custom-val: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover-val: 0 0 20px rgba(212, 168, 83, 0.1);
-  --shadow-gold-cta-val: 0 0 15px rgba(212, 168, 83, 0.35);
+  --shadow-card-custom-val: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover-val: 0 0 24px rgba(227, 179, 78, 0.18);
+  --shadow-gold-cta-val: 0 4px 20px rgba(227, 179, 78, 0.4), 0 0 40px rgba(227, 179, 78, 0.2);
 
   /* Legacy Mapping for compatibility with existing codebase styles */
   --bg-secondary:   var(--bg-card);
   --bg-tertiary:    var(--bg-elevated);
   --accent-gold:    var(--gold-primary);
-  --accent-gold-lt: #F0C97A;
+  --accent-gold-lt: var(--gold-shine);
   --accent-red:     var(--red-alert);
   --warm-cream: #FAF6F0;
   --warm-cream-dark: #F5EFE6;
@@ -127,7 +133,7 @@
   --accent: var(--bg-tertiary);
   --accent-foreground: var(--text-primary);
   --border: var(--gold-border);
-  --input: rgba(212, 168, 83, 0.2);
+  --input: rgba(227, 179, 78, 0.25);
   --ring: var(--gold-primary);
 }
 
@@ -143,10 +149,12 @@
   /* Gold Accent System
      Gold deepens slightly in light mode so it reads with authority
      against the pale backgrounds — never feels washed out. */
-  --gold-primary:   #B8892A; /* Deeper, richer gold for light backgrounds */
-  --gold-muted:     rgba(184, 137, 42, 0.10); /* Subtle warm tint on hover states */
-  --gold-glow:      rgba(184, 137, 42, 0.22); /* Softer glow — light mode doesn't need neon */
-  --gold-border:    rgba(184, 137, 42, 0.25); /* Slightly stronger border to stay visible */
+  --gold-primary:   #A6791C; /* Deeper, richer gold for light backgrounds */
+  --gold-shine:     #E0B24D; /* Bright gold stop for gradients — still reads on ivory */
+  --gold-deep:      #7A5813; /* Deep shadow gold — bottom of gradients, pressed states */
+  --gold-muted:     rgba(166, 121, 28, 0.10); /* Subtle warm tint on hover states */
+  --gold-glow:      rgba(166, 121, 28, 0.28); /* Softer glow — light mode doesn't need neon */
+  --gold-border:    rgba(166, 121, 28, 0.30); /* Slightly stronger border to stay visible */
 
   /* Semantic Alerts & Badges
      Same hues, kept identical — semantic meaning must not shift between modes. */
@@ -166,14 +174,14 @@
 
   /* Shadows for light mode */
   --shadow-card-custom-val: 0 1px 4px rgba(26, 23, 20, 0.06), 0 4px 16px rgba(26, 23, 20, 0.05);
-  --shadow-card-hover-val: 0 2px 12px rgba(26, 23, 20, 0.06);
-  --shadow-gold-cta-val: 0 4px 16px rgba(184, 137, 42, 0.22);
+  --shadow-card-hover-val: 0 2px 14px rgba(166, 121, 28, 0.14);
+  --shadow-gold-cta-val: 0 4px 16px rgba(166, 121, 28, 0.30), 0 0 28px rgba(166, 121, 28, 0.14);
 
   /* Map primary foreground to a dark background/ink text when buttons are light,
      or we can keep it readable against deeper gold button background.
-     For a solid B8892A button, a dark brown text reads nicely. */
+     For a solid gold button, white text reads cleanly. */
   --primary-foreground: #FFFFFF;
-  --accent-gold-lt: #B8892A;
+  --accent-gold-lt: var(--gold-shine);
   --accent-gold: var(--gold-primary);
 }
 
@@ -198,11 +206,23 @@
 }
 
 @utility gold-gradient {
-  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--accent-gold-lt, #F0C97A) 50%, var(--gold-primary) 100%);
+  background: linear-gradient(135deg,
+    var(--gold-deep) 0%,
+    var(--gold-primary) 35%,
+    var(--gold-shine) 50%,
+    var(--gold-primary) 65%,
+    var(--gold-deep) 100%
+  );
 }
 
 @utility text-gold-gradient {
-  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--accent-gold-lt, #F0C97A) 50%, var(--gold-primary) 100%);
+  background: linear-gradient(135deg,
+    var(--gold-deep) 0%,
+    var(--gold-primary) 35%,
+    var(--gold-shine) 50%,
+    var(--gold-primary) 65%,
+    var(--gold-deep) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -233,12 +253,12 @@
   }
 
   .glow-gold {
-    box-shadow: 0 0 40px rgba(212, 168, 83, 0.15);
+    box-shadow: 0 0 44px rgba(227, 179, 78, 0.22), 0 0 12px rgba(227, 179, 78, 0.15);
   }
 
   .hover-glow-gold:hover {
-    box-shadow: 0 0 30px rgba(212, 168, 83, 0.25);
-    border-color: rgba(212, 168, 83, 0.5);
+    box-shadow: 0 0 36px rgba(227, 179, 78, 0.35), 0 0 10px rgba(251, 231, 176, 0.25);
+    border-color: rgba(227, 179, 78, 0.55);
   }
 
   @keyframes marquee {
@@ -291,15 +311,23 @@
 @utility text-shimmer {
   background: linear-gradient(
     90deg,
-    var(--gold-primary) 0%,
-    var(--text-primary) 25%,
+    var(--gold-deep) 0%,
+    var(--gold-shine) 25%,
     var(--gold-primary) 50%,
-    var(--text-primary) 75%,
-    var(--gold-primary) 100%
+    var(--gold-shine) 75%,
+    var(--gold-deep) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   animation: text-shimmer 3s linear infinite;
+}
+
+/* Custom overrides for the Scheduler component on the Consultation Page */
+.consultation-calendar div.hidden.md\:block {
+  display: none !important;
+}
+.consultation-calendar button.hidden.md\:inline-flex {
+  display: none !important;
 }

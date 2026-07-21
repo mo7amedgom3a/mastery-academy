@@ -23,7 +23,7 @@ export function Diplomas() {
             >
               <GoldCard className="group relative overflow-hidden hover:-translate-y-1.5 cursor-pointer h-full flex flex-col justify-between">
                 <div>
-                  <div className="relative h-44 overflow-hidden">
+                  <div className="relative h-90 overflow-hidden">
                     <img src={d.image} alt={d.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
                     <span className="absolute bottom-4 right-4 inline-flex items-center rounded-full bg-gold-primary px-3 py-1 text-xs font-semibold text-bg-primary">دبلوم</span>
