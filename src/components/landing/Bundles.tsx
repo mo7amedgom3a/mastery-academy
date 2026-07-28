@@ -21,12 +21,24 @@ export function Bundles() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <GoldCard className="group relative overflow-hidden hover:-translate-y-1.5 cursor-pointer h-full flex flex-col justify-between">
+              <GoldCard className="group relative overflow-hidden hover:-translate-y-1.5 cursor-pointer h-full flex flex-col justify-between bg-bg-card/50">
+                  {/* Dynamic Ambient Background */}
+                  <div className="absolute inset-0 z-0 overflow-hidden">
+                    <img src={item.image} alt="" className="w-full h-full object-cover opacity-40 blur-3xl scale-110 transition duration-500 group-hover:scale-125" aria-hidden="true" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-bg-card/80 to-transparent" />
+                  </div>
+
+                  <div className="relative z-10 flex flex-col h-full justify-between">
                 <div>
-                  <div className="relative h-100 overflow-hidden">
-                    <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
-                    <img src={item.consultantImage} alt={item.consultant} className="absolute -bottom-8 right-6 h-16 w-16 rounded-full border-4 border-bg-card object-cover" loading="lazy" />
+                  <div className="relative h-100">
+                    <div 
+                      className="absolute inset-0 rounded-t-2xl overflow-hidden"
+                      style={{ maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)" }}
+                    >
+                      <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
+                    </div>
+                    <img src={item.consultantImage} alt={item.consultant} className="absolute -bottom-8 right-6 h-16 w-16 rounded-full border-4 border-bg-card object-cover z-10" loading="lazy" />
                   </div>
                   <div className="p-8 pt-12">
                     <p className="text-sm text-text-secondary">{item.consultant}</p>
@@ -42,8 +54,9 @@ export function Bundles() {
                       <span className="font-serif text-5xl text-gold-gradient font-bold">{toArabicDigits(item.price)}</span>
                       <p className="mt-1 text-xs text-gold-primary font-semibold">{toArabicDigits(item.duration)}</p>
                     </div>
-                    <Link to="/consultation" className="rounded-full bg-bg-elevated border border-gold-primary/45 px-5 py-3 text-sm font-bold text-gold-primary hover:bg-gold-primary hover:text-bg-primary hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 ease-supportive cursor-pointer text-center">احجز الآن</Link>
+                    <Link to="/consultation" className="rounded-full bg-bg-elevated border border-gold-primary/45 px-5 py-3 text-sm font-bold text-gold-primary hover:bg-gold-primary hover:text-bg-primary hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 ease-supportive cursor-pointer text-center backdrop-blur-sm">احجز الآن</Link>
                   </div>
+                </div>
                 </div>
               </GoldCard>
             </motion.div>

@@ -21,12 +21,24 @@ export function Diplomas() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <GoldCard className="group relative overflow-hidden hover:-translate-y-1.5 cursor-pointer h-full flex flex-col justify-between">
+              <GoldCard className="group relative overflow-hidden hover:-translate-y-1.5 cursor-pointer h-full flex flex-col justify-between bg-bg-card/50">
+                  {/* Dynamic Ambient Background */}
+                  <div className="absolute inset-0 z-0 overflow-hidden">
+                    <img src={d.image} alt="" className="w-full h-full object-cover opacity-40 blur-3xl scale-110 transition duration-500 group-hover:scale-125" aria-hidden="true" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-bg-card/80 to-transparent" />
+                  </div>
+
+                  <div className="relative z-10 flex flex-col h-full justify-between">
                 <div>
-                  <div className="relative h-90 overflow-hidden">
-                    <img src={d.image} alt={d.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
-                    <span className="absolute bottom-4 right-4 inline-flex items-center rounded-full bg-gold-primary px-3 py-1 text-xs font-semibold text-bg-primary">دبلوم</span>
+                  <div className="relative h-90">
+                    <div 
+                      className="absolute inset-0 rounded-t-2xl overflow-hidden"
+                      style={{ maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)" }}
+                    >
+                      <img src={d.image} alt={d.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
+                    </div>
+                    <span className="absolute bottom-4 right-4 inline-flex items-center rounded-full bg-gold-primary px-3 py-1 text-xs font-semibold text-bg-primary z-10">دبلوم</span>
                   </div>
                   <div className="p-8">
                     <p className="text-sm text-text-secondary">{d.instructor}</p>
@@ -40,7 +52,8 @@ export function Diplomas() {
                     <span className="text-gold-primary font-serif text-4xl font-bold">{toArabicDigits(d.price)}</span>
                     {d.originalPrice && <span className="text-text-muted line-through text-lg">{toArabicDigits(d.originalPrice)}</span>}
                   </div>
-                  <Link to={`/course/${d.id}`} className="mt-6 inline-flex w-full justify-center rounded-full gold-gradient py-3 text-sm font-bold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_25px_var(--gold-glow)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-supportive">سجل في الدبلوم</Link>
+                  <Link to={`/course/${d.id}`} className="mt-6 inline-flex w-full justify-center rounded-full gold-gradient py-3 text-sm font-bold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_25px_var(--gold-glow)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-supportive backdrop-blur-sm">سجل في الدبلوم</Link>
+                </div>
                 </div>
               </GoldCard>
             </motion.div>
