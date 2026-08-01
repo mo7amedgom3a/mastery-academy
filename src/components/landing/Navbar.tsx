@@ -114,7 +114,7 @@ export function Navbar() {
                 <button className="w-full h-11 rounded-full border border-gold-primary/60 text-sm text-gold-primary bg-transparent font-bold active:scale-[0.98] transition">
                   تسجيل الدخول
                 </button>
-                <button className="w-full h-11 rounded-full gold-gradient text-sm font-semibold text-bg-primary shadow-gold-cta active:scale-[0.98] transition">
+                <button className="">
                   اشترك الآن
                 </button>
               </div>

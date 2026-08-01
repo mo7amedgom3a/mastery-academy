@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Clock, DollarSign, Shield, Check, Send, ArrowRight } from "lucide-react";
+import { Calendar, Clock, DollarSign, Shield, Check, Send, ArrowRight, Search } from "lucide-react";
 import { toast } from "sonner";
-import { consultancies } from "@/lib/landing-data";
+import { consultancies, categories } from "@/lib/landing-data";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GoldCard, GoldButton } from "@/components/ui/gold-elements";
@@ -89,6 +89,9 @@ export function ConsultationPage() {
   const selectedConsultancy = id ? Number(id) : null;
 
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedField, setSelectedField] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [bookingForm, setBookingForm] = useState({
     name: "",
     email: "",
@@ -129,6 +132,61 @@ export function ConsultationPage() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedField]);
+
+  // Filter Consultations by Field and Search Query
+  const filteredConsultancies = useMemo(() => {
+    return consultancies.filter((c) => {
+      // Field Filter (Consultations match fields based on title/summary/consultant title)
+      if (selectedField) {
+        const fieldStr = selectedField.toLowerCase();
+        const matchesTitle = c.title.toLowerCase().includes(fieldStr);
+        const matchesSummary = c.summary.toLowerCase().includes(fieldStr);
+        const matchesConsultant = c.consultant.toLowerCase().includes(fieldStr);
+        
+        // Custom domain map for marketing, management, etc.
+        let matchesDomain = false;
+        if (fieldStr.includes("تسويق") && (c.title.includes("تسويق") || c.summary.includes("تسويق") || c.consultant.includes("ياسمين"))) {
+          matchesDomain = true;
+        } else if (fieldStr.includes("ادارة") || fieldStr.includes("إدارة") || fieldStr.includes("أعمال")) {
+          if (c.title.includes("إداري") || c.summary.includes("إدارة") || c.consultant.includes("السعيد")) {
+            matchesDomain = true;
+          }
+        } else if (fieldStr.includes("قانون") || fieldStr.includes("تشريع")) {
+          if (c.title.includes("قانون") || c.summary.includes("قانوني") || c.consultant.includes("ناجي")) {
+            matchesDomain = true;
+          }
+        } else if (fieldStr.includes("مالية") || fieldStr.includes("محاسب") || fieldStr.includes("استثمار")) {
+          if (c.title.includes("مالي") || c.summary.includes("استثمار") || c.consultant.includes("الفيصل")) {
+            matchesDomain = true;
+          }
+        }
+
+        if (!matchesTitle && !matchesSummary && !matchesConsultant && !matchesDomain) return false;
+      }
+
+      // Search Query Filter
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase().trim();
+        return (
+          c.title.toLowerCase().includes(q) ||
+          c.consultant.toLowerCase().includes(q) ||
+          c.summary.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [selectedField, searchQuery]);
+
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(filteredConsultancies.length / itemsPerPage);
+  const paginatedConsultancies = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return filteredConsultancies.slice(start, start + itemsPerPage);
+  }, [filteredConsultancies, currentPage]);
 
   // Generate next 15 working days (skipping Friday/Saturday) for the calendar
   const upcomingDates = (() => {
@@ -326,41 +384,162 @@ export function ConsultationPage() {
           {/* Consultations List / Full Booking View */}
           {selectedConsultancy === null ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {consultancies.map((item) => (
-                  <GoldCard 
-                    key={item.id} 
-                    onClick={() => navigate("/consultation/" + item.id)}
-                    className="group relative overflow-hidden transition-all duration-300 h-full flex flex-col justify-between cursor-pointer hover:border-gold-primary/50 hover:shadow-card-hover"
+              {/* Search and Filter Section */}
+              <div className="mb-12 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                {/* Search Box */}
+                <div className="relative w-full lg:max-w-md">
+                  <input
+                    type="text"
+                    placeholder="ابحث عن مستشار أو مجال استشاري..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-bg-card border border-gold-border/30 rounded-xl py-3 px-4 pr-11 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-gold-primary transition duration-300 shadow-sm"
+                  />
+                  <Search className="absolute right-4 top-3.5 h-4.5 w-4.5 text-text-secondary" />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="absolute left-3 top-3 text-xs text-text-muted hover:text-gold-primary cursor-pointer border-0 bg-transparent"
+                    >
+                      مسح
+                    </button>
+                  )}
+                </div>
+
+                {/* Fields Navigation Tabs */}
+                <div className="overflow-x-auto pb-2 scrollbar-hide flex gap-2 max-w-full">
+                  <button
+                    onClick={() => setSelectedField("")}
+                    className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition cursor-pointer border ${
+                      !selectedField
+                        ? "bg-gold-primary text-bg-primary border-gold-primary"
+                        : "bg-bg-card text-text-secondary border-gold-border/20 hover:border-gold-border hover:text-text-primary"
+                    }`}
                   >
-                    <div>
-                      <div className="relative h-190 overflow-hidden">
-                        <img src={item.image} alt={item.title} className="h-full w-full object-cover group-hover:scale-103 transition duration-500" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/60 to-transparent" />
-                        <img src={item.consultantImage} alt={item.consultant} className="absolute -bottom-8 right-6 h-16 w-16 rounded-full border-4 border-bg-card object-cover" loading="lazy" />
-                      </div>
-                      <div className="p-6 pt-12 text-right">
-                        <p className="text-xs text-text-secondary">{item.consultant}</p>
-                        <h3 className="mt-2 text-xl font-bold text-text-primary leading-snug line-clamp-2 min-h-[3rem]">{item.title}</h3>
-                        {item.summary && <p className="mt-3 text-text-secondary text-xs leading-relaxed line-clamp-3">{toArabicDigits(item.summary)}</p>}
-                      </div>
-                    </div>
-                    <div className="p-6 pt-0 border-t border-border-subtle/50 mt-4">
-                      <div className="flex items-center justify-between mt-4">
-                        <div>
-                          <span className="font-serif text-3xl font-bold text-gold-primary">{toArabicDigits(item.price)}</span>
-                          <p className="text-[10px] text-text-secondary font-semibold mt-1 flex items-center gap-1">
-                            <Clock className="h-3 w-3 text-gold-primary" /> {toArabicDigits(item.duration)}
-                          </p>
-                        </div>
-                        <GoldButton className="px-5 py-2.5 rounded-full text-xs">
-                          احجز جلستك الآن
-                        </GoldButton>
-                      </div>
-                    </div>
-                  </GoldCard>
-                ))}
+                    الكل
+                  </button>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedField(cat.name)}
+                      className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition cursor-pointer border ${
+                        selectedField === cat.name
+                          ? "bg-gold-primary text-bg-primary border-gold-primary"
+                          : "bg-bg-card text-text-secondary border-gold-border/20 hover:border-gold-border hover:text-text-primary"
+                      }`}
+                    >
+                      {cat.name}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {paginatedConsultancies.length === 0 ? (
+                <GoldCard className="p-12 text-center max-w-xl mx-auto my-12 border-gold-border/10">
+                  <div className="text-gold-primary text-4xl mb-4 font-serif">⚠️</div>
+                  <h3 className="text-lg font-bold text-text-primary mb-2">لا توجد نتائج مطابقة</h3>
+                  <p className="text-text-secondary text-xs leading-relaxed mb-6">
+                    عذراً، لم نتمكن من العثور على أي جلسات استشارية تطابق بحثك أو المجال المحدد. جرب كلمات بحث أخرى.
+                  </p>
+                  <GoldButton onClick={() => { setSearchQuery(""); setSelectedField(""); }}>
+                    إعادة ضبط البحث
+                  </GoldButton>
+                </GoldCard>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {paginatedConsultancies.map((item) => (
+                      <GoldCard 
+                        key={item.id} 
+                        onClick={() => navigate("/consultation/" + item.id)}
+                        className="overflow-hidden hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full bg-bg-card/90 cursor-pointer"
+                      >
+                        <div>
+                          {/* Consultancy Image with Consultant Avatar Overlay */}
+                          <div className="relative w-full overflow-hidden bg-bg-elevated border-b border-gold-border/10">
+                            <img
+                              src={item.image}
+                              alt={item.title}
+                              className="w-full object-cover transition-transform duration-500 hover:scale-105"
+                              loading="lazy"
+                            />
+                            {/* Consultant Image overlay */}
+                            <div className="absolute -bottom-6 right-6 h-14 w-14 rounded-full border-2 border-gold-border/40 overflow-hidden shadow-md">
+                              <img
+                                src={item.consultantImage}
+                                alt={item.consultant}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Content */}
+                          <div className="p-5 pt-8 text-right">
+                            <span className="text-[10px] text-gold-primary font-semibold block mb-1">
+                              {item.consultant}
+                            </span>
+                            <h3 className="text-sm sm:text-base font-bold text-text-primary leading-snug line-clamp-2 h-12 mb-3">
+                              {item.title}
+                            </h3>
+                            {item.summary && (
+                              <p className="line-clamp-3 text-xs leading-relaxed text-text-secondary mt-2 min-h-[3rem]">
+                                {toArabicDigits(item.summary)}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Footer / CTA */}
+                        <div className="p-5 pt-0 flex items-center justify-between border-t border-border-subtle mt-2 pt-3">
+                          <div className="flex flex-col">
+                            <span className="text-sm font-bold text-gold-primary font-serif">
+                              {toArabicDigits(item.price)}
+                            </span>
+                            <span className="text-[10px] text-text-secondary font-semibold mt-0.5">
+                              {toArabicDigits(item.duration)}
+                            </span>
+                          </div>
+                          <GoldButton className="py-2 px-4 text-[10px]">احجز الآن</GoldButton>
+                        </div>
+                      </GoldCard>
+                    ))}
+                  </div>
+
+                  {/* Consultations Pagination */}
+                  {totalPages > 1 && (
+                    <div className="flex justify-center items-center gap-2 mt-12">
+                      <button
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                      >
+                        السابق
+                      </button>
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer border ${
+                            currentPage === page
+                              ? "bg-gold-primary text-bg-primary border-gold-primary"
+                              : "bg-bg-card text-text-secondary border-gold-border/10 hover:border-gold-border hover:text-text-primary"
+                          }`}
+                        >
+                          {toArabicDigits(page)}
+                        </button>
+                      ))}
+                      <button
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                      >
+                        التالي
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
             </>
           ) : (() => {
             const currentService = consultancies.find(c => c.id === selectedConsultancy);

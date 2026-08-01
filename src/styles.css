@@ -208,14 +208,12 @@
 
 @utility gold-gradient {
   background: linear-gradient(
-    135deg,
-    #FFE89A 0%,
-    #FFD966 18%,
-    #F5C84C 38%,
-    #FFF8D7 50%,
-    #F8D15E 68%,
-    #E7B842 82%,
-    #D8A72D 100%
+    180deg,
+    #FFF3C2 0%,
+    #FFD86B 12%,
+    #F5C84C 45%,
+    #EAB63E 75%,
+    #D59C24 100%
   );
 }
 
@@ -231,19 +229,31 @@
 }
 
 @utility text-gold-gradient {
+  /* ☀️ Light Mode: Deeper, richer gold for contrast against light backgrounds */
   background: linear-gradient(
     90deg,
-    #E2B63A 0%,
-    #FFECA7 30%,
-    #FFFFFF 50%,
-    #FFECA7 70%,
-    #E2B63A 100%
+    #9A7B26 0%,
+    #C8A02A 30%,
+    #E2B63A 50%,
+    #C8A02A 70%,
+    #9A7B26 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
 
+  /* 🌙 Dark Mode: Your original bright, glowing gold */
+  .dark & {
+    background: linear-gradient(
+      90deg,
+      #E2B63A 0%,
+      #FFECA7 30%,
+      #FFFFFF 50%,
+      #FFECA7 70%,
+      #E2B63A 100%
+    );
+  }
+}
 /* Ensure high contrast and excellent readability for text and icons inside any gold background container */
 .bg-gold-primary,
 .gold-gradient {
@@ -325,15 +335,19 @@
     100% { background-position: -100% 0; }
   }
 }
-
 @utility text-shimmer {
+  /* Default Light Mode Colors (Deeper gold for better contrast on white/light backgrounds) */
+  --shimmer-base: #B5850A; 
+  --shimmer-mid: #DCA724;
+  --shimmer-shine: #FFF8E7;
+
   background: linear-gradient(
     90deg,
-    #E2B63A 0%,
-    #FFECA7 25%,
-    #FFFFFF 50%,
-    #FFECA7 75%,
-    #E2B63A 100%
+    var(--shimmer-base) 0%,
+    var(--shimmer-mid) 25%,
+    var(--shimmer-shine) 50%,
+    var(--shimmer-mid) 75%,
+    var(--shimmer-base) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -342,6 +356,13 @@
   animation: text-shimmer 3s linear infinite;
 }
 
+/* Dark Mode Override (Restores your original brighter colors) */
+:is(.dark .text-shimmer),
+:is(.dark) .text-shimmer {
+  --shimmer-base: #E2B63A;
+  --shimmer-mid: #FFECA7;
+  --shimmer-shine: #FFFFFF;
+}
 /* Custom overrides for the Scheduler component on the Consultation Page */
 .consultation-calendar div.hidden.md\:block {
   display: none !important;

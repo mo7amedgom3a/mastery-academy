@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { User } from "lucide-react";
 import { diplomaCourses } from "@/lib/landing-data";
-import { GoldCard } from "@/components/ui/gold-elements";
+import { GoldCard, GoldButton } from "@/components/ui/gold-elements";
 import { toArabicDigits } from "@/lib/utils";
 
 export function Diplomas() {
@@ -21,39 +22,58 @@ export function Diplomas() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <GoldCard className="group relative overflow-hidden hover:-translate-y-1.5 cursor-pointer h-full flex flex-col justify-between bg-bg-card/50">
-                  {/* Dynamic Ambient Background */}
-                  <div className="absolute inset-0 z-0 overflow-hidden">
-                    <img src={d.image} alt="" className="w-full h-full object-cover opacity-40 blur-3xl scale-110 transition duration-500 group-hover:scale-125" aria-hidden="true" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-bg-card/80 to-transparent" />
+              <GoldCard className="overflow-hidden hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full bg-bg-card/90">
+                <div>
+                  {/* Diploma Image */}
+                  <div className="relative h-52 w-full overflow-hidden bg-bg-elevated border-b border-gold-border/10">
+                    <img
+                      src={d.image}
+                      alt={d.title}
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                      loading="lazy"
+                    />
+                    <span className="absolute top-3 right-3 bg-gold-primary text-bg-primary text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md">
+                      دبلوم احترافي
+                    </span>
+                    {d.discountPercentage > 0 && (
+                      <span className="absolute top-3 left-3 bg-red-alert text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        خصم {toArabicDigits(d.discountPercentage)}%
+                      </span>
+                    )}
                   </div>
 
-                  <div className="relative z-10 flex flex-col h-full justify-between">
-                <div>
-                  <div className="relative h-90">
-                    <div 
-                      className="absolute inset-0 rounded-t-2xl overflow-hidden"
-                      style={{ maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)" }}
-                    >
-                      <img src={d.image} alt={d.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
-                    </div>
-                    <span className="absolute bottom-4 right-4 inline-flex items-center rounded-full bg-gold-primary px-3 py-1 text-xs font-semibold text-bg-primary z-10">دبلوم</span>
-                  </div>
-                  <div className="p-8">
-                    <p className="text-sm text-text-secondary">{d.instructor}</p>
+                  {/* Content */}
+                  <div className="p-5">
+                    <span className="text-[10px] text-gold-primary font-semibold block mb-1">
+                      {d.category}
+                    </span>
                     <Link to={`/course/${d.id}`} className="hover:text-gold-primary transition block">
-                      <h3 className="mt-3 text-xl font-bold text-text-primary hover:text-gold-primary transition leading-snug min-h-[4rem]">{d.title}</h3>
+                      <h3 className="text-sm sm:text-base font-bold text-text-primary leading-snug line-clamp-2 h-12 mb-3">
+                        {d.title}
+                      </h3>
                     </Link>
+                    <div className="flex items-center gap-2 text-xs text-text-secondary mt-2">
+                      <User className="h-3.5 w-3.5 text-gold-primary" />
+                      <span>بإشراف: {d.instructor}</span>
+                    </div>
                   </div>
                 </div>
-                <div className="p-8 pt-0">
-                  <div className="mt-2 flex items-baseline gap-3">
-                    <span className="text-gold-primary font-serif text-4xl font-bold">{toArabicDigits(d.price)}</span>
-                    {d.originalPrice && <span className="text-text-muted line-through text-lg">{toArabicDigits(d.originalPrice)}</span>}
+
+                {/* Footer / CTA */}
+                <div className="p-5 pt-0 flex items-center justify-between border-t border-border-subtle mt-2 pt-3">
+                  <div className="flex flex-col">
+                    {d.originalPrice && (
+                      <span className="text-[10px] text-text-muted line-through">
+                        {toArabicDigits(d.originalPrice)}
+                      </span>
+                    )}
+                    <span className="text-sm font-bold text-gold-primary font-serif">
+                      {toArabicDigits(d.price)}
+                    </span>
                   </div>
-                  <Link to={`/course/${d.id}`} className="mt-6 inline-flex w-full justify-center rounded-full gold-gradient py-3 text-sm font-bold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_25px_var(--gold-glow)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-supportive backdrop-blur-sm">سجل في الدبلوم</Link>
-                </div>
+                  <Link to={`/course/${d.id}`}>
+                    <GoldButton className="py-2 px-4 text-[10px]">سجل في الدبلوم</GoldButton>
+                  </Link>
                 </div>
               </GoldCard>
             </motion.div>
