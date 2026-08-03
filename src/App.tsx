@@ -28,7 +28,7 @@ function HomePage() {
       <Hero />
       <StatsTicker />
       <AgenticAIShowcase />
-      <CareerVisualizer />
+      {/* <CareerVisualizer /> */}
       <Courses />
       <Diplomas />
       <Bundles />

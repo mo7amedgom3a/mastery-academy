@@ -229,28 +229,28 @@
 }
 
 @utility text-gold-gradient {
-  /* ☀️ Light Mode: Deeper, richer gold for contrast against light backgrounds */
+  /* ☀️ Light Mode: Softer, brighter gold */
   background: linear-gradient(
     90deg,
-    #9A7B26 0%,
-    #C8A02A 30%,
-    #E2B63A 50%,
-    #C8A02A 70%,
-    #9A7B26 100%
+    #C09A32 0%,
+    #E4BE4A 30%,
+    #F7D97A 50%,
+    #E4BE4A 70%,
+    #C09A32 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: gold;
 
-  /* 🌙 Dark Mode: Your original bright, glowing gold */
+  /* 🌙 Dark Mode: Bright glowing gold */
   .dark & {
     background: linear-gradient(
       90deg,
-      #E2B63A 0%,
-      #FFECA7 30%,
+      #E8BE48 0%,
+      #FFF1B8 30%,
       #FFFFFF 50%,
-      #FFECA7 70%,
-      #E2B63A 100%
+      #FFF1B8 70%,
+      #E8BE48 100%
     );
   }
 }

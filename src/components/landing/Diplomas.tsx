@@ -1,27 +1,27 @@
-import { m } from "framer-motion";
 import { Link } from "react-router-dom";
 import { User } from "lucide-react";
+import { useRef } from "react";
 import { diplomaCourses } from "@/lib/landing-data";
 import { GoldCard, GoldButton } from "@/components/ui/gold-elements";
 import { toArabicDigits } from "@/lib/utils";
+import { useGsapReveal } from "@/hooks/useGsapReveal";
 
 export function Diplomas() {
+  const ref = useRef<HTMLElement>(null);
+  useGsapReveal({ target: ref, start: "top 80%", stagger: 0.1 });
+
   return (
-    <section className="relative py-20 lg:py-28 bg-bg-card/40">
+    <section ref={ref} className="relative py-20 lg:py-28 bg-bg-card/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
           <p className="text-gold-primary text-sm font-semibold mb-2">الدبلومات</p>
-          <h2 className="text-4xl lg:text-5xl font-display font-bold text-text-primary">تصفح الدبلومات التالية</h2>
+          <h2 className="text-4xl lg:text-5xl font-display font-bold text-text-primary">
+            تصفح الدبلومات التالية
+          </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {diplomaCourses.map((d, i) => (
-            <m.div
-              key={d.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <div key={d.id} data-reveal>
               <GoldCard className="overflow-hidden hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full bg-bg-card/90">
                 <div>
                   {/* Diploma Image */}
@@ -47,7 +47,10 @@ export function Diplomas() {
                     <span className="text-[10px] text-gold-primary font-semibold block mb-1">
                       {d.category}
                     </span>
-                    <Link to={`/course/${d.id}`} className="hover:text-gold-primary transition block">
+                    <Link
+                      to={`/course/${d.id}`}
+                      className="hover:text-gold-primary transition block"
+                    >
                       <h3 className="text-sm sm:text-base font-bold text-text-primary leading-snug line-clamp-2 h-12 mb-3">
                         {d.title}
                       </h3>
@@ -76,7 +79,7 @@ export function Diplomas() {
                   </Link>
                 </div>
               </GoldCard>
-            </m.div>
+            </div>
           ))}
         </div>
       </div>

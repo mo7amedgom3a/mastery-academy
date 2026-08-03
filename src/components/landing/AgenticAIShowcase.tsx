@@ -109,13 +109,13 @@ export function AgenticAIShowcase() {
               className="lg:col-span-5"
             >
               <div className="bg-bg-card/40 border border-border-subtle rounded-3xl p-8 hover:border-red-alert/20 transition-all duration-300">
-                <h3 className="text-2xl font-bold text-text-secondary mb-6 flex items-center gap-3">
+                <h3 className="text-2xl font-bold text-red-600 mb-6 flex items-center gap-3">
                   <span className="h-2 w-2 rounded-full bg-red-alert" />
                   {transformationSteps[0].title}
                 </h3>
                 <ul className="space-y-4">
                   {transformationSteps[0].points.map((pt, idx) => (
-                    <li key={idx} className="text-text-muted text-sm leading-relaxed flex items-start gap-2.5">
+                    <li key={idx} className=" text-sm leading-relaxed flex items-start gap-2.5">
                       <span className="font-serif font-bold text-red-alert/50 mt-0.5">{toArabicDigits(idx + 1)}.</span>
                       <span>{pt}</span>
                     </li>

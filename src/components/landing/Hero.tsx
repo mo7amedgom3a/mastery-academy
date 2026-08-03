@@ -1,48 +1,86 @@
-import { m } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/gsap";
 import { landingStats } from "@/lib/landing-data";
 import { toArabicDigits } from "@/lib/utils";
 
 function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const [val, setVal] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
 
-  useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const start = performance.now();
-          const dur = 1800;
-          const tick = (now: number) => {
-            const p = Math.min((now - start) / dur, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            setVal(Math.round(to * eased));
-            if (p < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        }
-      },
-      { threshold: 0.3 }
-    );
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [to]);
+  useGSAP(
+    () => {
+      const el = ref.current;
+      if (!el) return;
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: to,
+        duration: 1.8,
+        ease: "power2.out",
+        onUpdate: () => {
+          if (el) {
+            el.textContent = toArabicDigits(Math.round(obj.val));
+          }
+        },
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    },
+    { scope: ref },
+  );
 
   return (
     <span ref={ref} className="metric-number font-serif text-3xl font-bold">
-      {toArabicDigits(val)}
+      {toArabicDigits(0)}
       {suffix}
     </span>
   );
 }
 
 export function Hero() {
+  const scope = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.fromTo("[data-hero='badge']", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 })
+        .fromTo(
+          "[data-hero='title']",
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.7 },
+          "-=0.35",
+        )
+        .fromTo(
+          "[data-hero='subtitle']",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6 },
+          "-=0.4",
+        )
+        .fromTo(
+          "[data-hero='cta']",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
+          "-=0.35",
+        )
+        .fromTo("[data-hero='stats']", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.4")
+        .fromTo(
+          "[data-hero='media']",
+          { opacity: 0, x: -40, scale: 0.95 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.9 },
+          "-=0.8",
+        );
+    },
+    { scope },
+  );
+
   return (
-    <section className="relative min-h-screen overflow-hidden pt-28 lg:pt-32 noise-overlay">
+    <section
+      ref={scope}
+      className="relative min-h-screen overflow-hidden pt-28 lg:pt-32 noise-overlay"
+    >
       {/* Ambient gold glows */}
       <div className="pointer-events-none absolute -top-32 right-1/4 h-[500px] w-[500px] rounded-full bg-gold-primary/10 blur-[120px]" />
       <div className="pointer-events-none absolute top-1/2 left-0 h-[400px] w-[400px] rounded-full bg-gold-primary/5 blur-[120px]" />
@@ -56,40 +94,32 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:px-8 lg:grid-cols-12 lg:gap-8 items-center pb-20">
         {/* Text */}
         <div className="lg:col-span-7 order-2 lg:order-1 text-center lg:text-right">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          <div
+            data-hero="badge"
             className="inline-flex items-center gap-2 rounded-full border border-gold-border bg-gold-muted px-4 py-1.5 text-xs text-gold-primary"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gold-primary animate-pulse" />
             منصة التعلم الرائدة في الوطن العربي — نسبة إتمام {toArabicDigits("93")}%
-          </m.div>
+          </div>
 
-          <m.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          <h1
+            data-hero="title"
             className="mt-6 text-4xl sm:text-7xl lg:text-8xl font-display font-black leading-[1.05] text-text-primary tracking-tight"
           >
             ماستري
             <br />
             <span className="text-gold-gradient">اكاديمي</span>
-          </m.h1>
-
-          <m.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          </h1>
+        <br/>
+          <p
+            data-hero="subtitle"
             className="mt-6 text-xl lg:text-2xl text-text-secondary leading-relaxed"
           >
             تعلم ما يغير عالمك. خطوتك القادمة واضحة، ونحن هنا لمساعدتك على اتخاذها.
-          </m.p>
+          </p>
 
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          <div
+            data-hero="cta"
             className="mt-10 flex flex-wrap gap-4 justify-center lg:justify-start"
           >
             <button className="group inline-flex items-center gap-2 rounded-full gold-gradient px-8 py-4 text-base font-bold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_35px_var(--gold-glow)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-supportive cursor-pointer">
@@ -99,12 +129,10 @@ export function Hero() {
             <button className="inline-flex items-center rounded-full border border-gold-border bg-bg-card/50 px-8 py-4 text-base font-semibold text-text-primary hover:border-gold-primary hover:bg-bg-card hover:scale-[1.02] hover:shadow-[0_0_20px_var(--gold-glow)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-supportive cursor-pointer">
               سجل دخول الآن
             </button>
-          </m.div>
+          </div>
 
-          <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          <div
+            data-hero="stats"
             className="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-sm text-text-secondary"
           >
             <div className="flex items-center gap-2">
@@ -121,23 +149,17 @@ export function Hero() {
               <span className="text-gold-primary font-display">★</span>
               <span>شهادات معتمدة دولياً</span>
             </div>
-          </m.div>
+          </div>
         </div>
 
         {/* Instructor photo */}
-        <m.div
-          initial={{ opacity: 0, x: -40, scale: 0.95 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 order-1 lg:order-2 relative"
-        >
+        <div data-hero="media" className="lg:col-span-5 order-1 lg:order-2 relative">
           <div className="relative mx-auto max-w-md aspect-[4/5]">
             <div className="absolute -inset-4 gold-gradient opacity-20 blur-2xl rounded-full" />
             <div
               className="relative h-full w-full overflow-hidden bg-bg-tertiary"
               style={{
-                clipPath:
-                  "polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%)",
+                clipPath: "polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%)",
               }}
             >
               <video
@@ -173,7 +195,7 @@ export function Hero() {
               />
             ))}
           </svg>
-        </m.div>
+        </div>
       </div>
     </section>
   );

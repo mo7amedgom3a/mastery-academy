@@ -1,21 +1,30 @@
-import { m } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, User } from "lucide-react";
+import { useRef } from "react";
 import { featuredCourses } from "@/lib/landing-data";
 import { GoldCard, GoldButton } from "@/components/ui/gold-elements";
 import { toArabicDigits } from "@/lib/utils";
 import { getInstructorProfile } from "@/lib/extended-data";
+import { useGsapReveal } from "@/hooks/useGsapReveal";
 
 export function Courses() {
+  const ref = useRef<HTMLElement>(null);
+  useGsapReveal({ target: ref, start: "top 80%", stagger: 0.08 });
+
   return (
-    <section className="relative py-20 lg:py-28" id="courses">
+    <section ref={ref} className="relative py-20 lg:py-28" id="courses">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between mb-12">
           <div>
             <p className="text-gold-primary text-sm font-semibold mb-2">الدورات</p>
-            <h2 className="text-4xl lg:text-5xl font-display font-bold text-text-primary">تصفح الدورات التالية</h2>
+            <h2 className="text-4xl lg:text-5xl font-display font-bold text-text-primary">
+              تصفح الدورات التالية
+            </h2>
           </div>
-          <Link to="/packages" className="hidden sm:inline-flex items-center gap-2 text-gold-primary hover:text-accent-gold-lt hover:scale-[1.03] transition-all duration-300 ease-supportive">
+          <Link
+            to="/packages"
+            className="hidden sm:inline-flex items-center gap-2 text-gold-primary hover:text-accent-gold-lt hover:scale-[1.03] transition-all duration-300 ease-supportive"
+          >
             تصفح الباقات والحزم
             <ArrowLeft className="h-4 w-4" />
           </Link>
@@ -24,13 +33,7 @@ export function Courses() {
           {featuredCourses.map((c, i) => {
             const instructorId = `inst-${c.instructor.trim().replace(/\s+/g, "-")}`;
             return (
-              <m.div
-                key={c.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              >
+              <div key={c.id} data-reveal>
                 <GoldCard className="overflow-hidden hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full bg-bg-card/90">
                   <div>
                     {/* Course Image */}
@@ -53,14 +56,20 @@ export function Courses() {
                       <span className="text-[10px] text-gold-primary font-semibold block mb-1">
                         {c.category}
                       </span>
-                      <Link to={`/course/${c.id}`} className="hover:text-gold-primary transition block">
+                      <Link
+                        to={`/course/${c.id}`}
+                        className="hover:text-gold-primary transition block"
+                      >
                         <h3 className="text-sm sm:text-base font-bold text-text-primary leading-snug line-clamp-2 h-12 mb-3">
                           {c.title}
                         </h3>
                       </Link>
                       <div className="flex items-center gap-2 text-xs text-text-secondary mt-2">
                         <User className="h-3.5 w-3.5 text-gold-primary" />
-                        <Link to={`/instructor/${instructorId}`} className="hover:text-gold-primary transition">
+                        <Link
+                          to={`/instructor/${instructorId}`}
+                          className="hover:text-gold-primary transition"
+                        >
                           <span>بإشراف: {c.instructor}</span>
                         </Link>
                       </div>
@@ -84,7 +93,7 @@ export function Courses() {
                     </Link>
                   </div>
                 </GoldCard>
-              </m.div>
+              </div>
             );
           })}
         </div>
