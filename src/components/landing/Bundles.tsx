@@ -10,7 +10,9 @@ export function Bundles() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
           <p className="text-gold-primary text-sm font-semibold mb-2">الاستشارات</p>
-          <h2 className="text-4xl lg:text-5xl font-display font-bold text-text-primary">احجز استشارتك مع الخبراء</h2>
+          <h2 className="text-4xl lg:text-5xl font-display font-bold text-text-primary">
+            احجز استشارتك مع الخبراء
+          </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featuredConsultancies.map((item, i) => (
@@ -47,7 +49,10 @@ export function Bundles() {
                     <span className="text-[10px] text-gold-primary font-semibold block mb-1">
                       {item.consultant}
                     </span>
-                    <Link to={`/consultation/${item.id}`} className="hover:text-gold-primary transition block">
+                    <Link
+                      to={`/consultation/${item.id}`}
+                      className="hover:text-gold-hover transition block"
+                    >
                       <h3 className="text-sm sm:text-base font-bold text-text-primary leading-snug line-clamp-2 h-12 mb-3">
                         {item.title}
                       </h3>

@@ -1,9 +1,21 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { m, AnimatePresence } from "framer-motion";
-import { 
-  ArrowRight, BookOpen, Clock, Users, Target, Milestone, User, 
-  ChevronDown, ChevronUp, Play, Lock, Award, X, Sparkles 
+import {
+  ArrowRight,
+  BookOpen,
+  Clock,
+  Users,
+  Target,
+  Milestone,
+  User,
+  ChevronDown,
+  ChevronUp,
+  Play,
+  Lock,
+  Award,
+  X,
+  Sparkles,
 } from "lucide-react";
 import { getCourseDetail } from "@/lib/extended-data";
 import { Navbar } from "@/components/landing/Navbar";
@@ -18,7 +30,10 @@ export function CourseDetailPage() {
 
   const [loading, setLoading] = useState(true);
   const [openSections, setOpenSections] = useState<Record<number, boolean>>({ 0: true });
-  const [activePreviewVideo, setActivePreviewVideo] = useState<{ title: string; url: string } | null>(null);
+  const [activePreviewVideo, setActivePreviewVideo] = useState<{
+    title: string;
+    url: string;
+  } | null>(null);
   const [showCertificateModal, setShowCertificateModal] = useState(false);
   const [showIntroVideoModal, setShowIntroVideoModal] = useState(false);
 
@@ -29,7 +44,10 @@ export function CourseDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+      <div
+        className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between"
+        dir="rtl"
+      >
         <Navbar />
         <main className="flex-grow pt-28 pb-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
@@ -89,7 +107,10 @@ export function CourseDetailPage() {
         <div className="text-center py-20">
           <h2 className="text-3xl font-bold text-gold-primary">الدورة غير موجودة</h2>
           <p className="mt-4 text-text-secondary">عذراً، لم نتمكن من العثور على الدورة المطلوبة.</p>
-          <Link to="/" className="mt-6 inline-flex items-center gap-2 text-gold-primary hover:underline">
+          <Link
+            to="/"
+            className="mt-6 inline-flex items-center gap-2 text-gold-primary hover:underline"
+          >
             <ArrowRight className="h-4 w-4" /> العودة للرئيسية
           </Link>
         </div>
@@ -113,25 +134,29 @@ export function CourseDetailPage() {
     targetUsers,
     roadmap,
     sections,
-    instructor
+    instructor,
   } = courseDetail;
 
   const toggleSection = (idx: number) => {
-    setOpenSections(prev => ({ ...prev, [idx]: !prev[idx] }));
+    setOpenSections((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+    <div
+      className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between"
+      dir="rtl"
+    >
       <Navbar />
 
       <main className="flex-grow pt-28 pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          
           {/* Breadcrumb */}
           <div className="mb-6 flex items-center gap-2 text-xs text-text-secondary">
-            <Link to="/" className="hover:text-gold-primary transition">الرئيسية</Link>
+            <Link to="/" className="hover:text-gold-hover transition">
+              الرئيسية
+            </Link>
             <span>/</span>
-            <span className="hover:text-gold-primary transition">{category}</span>
+            <span className="hover:text-gold-hover transition">{category}</span>
             <span>/</span>
             <span className="text-gold-primary truncate">{title}</span>
           </div>
@@ -145,7 +170,7 @@ export function CourseDetailPage() {
               <h1 className="text-4xl sm:text-5xl font-display font-bold text-text-primary leading-tight mb-6">
                 {title}
               </h1>
-              
+
               <div className="flex items-center gap-4 text-sm text-text-secondary mb-6">
                 <span className="flex items-center gap-1">
                   <BookOpen className="h-4 w-4 text-gold-primary" />
@@ -161,42 +186,56 @@ export function CourseDetailPage() {
               {/* Course Meta Info Dashboard */}
               <div className="grid grid-cols-3 gap-4 mb-8 bg-bg-card/60 rounded-2xl p-4 border border-gold-border/10 max-w-md">
                 <div className="text-center">
-                  <span className="text-[10px] text-text-secondary block font-bold mb-1">ساعات الدراسة</span>
+                  <span className="text-[10px] text-text-secondary block font-bold mb-1">
+                    ساعات الدراسة
+                  </span>
                   <span className="metric-number text-2xl font-bold font-serif text-gold-primary block">
                     {toArabicDigits(hours)}
                   </span>
                 </div>
                 <div className="text-center border-x border-border-subtle">
-                  <span className="text-[10px] text-text-secondary block font-bold mb-1">عدد المحاضرات</span>
+                  <span className="text-[10px] text-text-secondary block font-bold mb-1">
+                    عدد المحاضرات
+                  </span>
                   <span className="metric-number text-2xl font-bold font-serif text-gold-primary block">
                     {toArabicDigits(lessonsCount)}
                   </span>
                 </div>
                 <div className="text-center">
-                  <span className="text-[10px] text-text-secondary block font-bold mb-1">المستوى التعليمي</span>
-                  <span className="text-xs text-text-primary font-bold block mt-1.5">متقدم (احترافي)</span>
+                  <span className="text-[10px] text-text-secondary block font-bold mb-1">
+                    المستوى التعليمي
+                  </span>
+                  <span className="text-xs text-text-primary font-bold block mt-1.5">
+                    متقدم (احترافي)
+                  </span>
                 </div>
               </div>
 
               <div className="flex items-baseline gap-4 mb-8">
-                <span className="metric-number font-serif text-5xl font-bold">{toArabicDigits(price)}</span>
+                <span className="metric-number font-serif text-5xl font-bold">
+                  {toArabicDigits(price)}
+                </span>
                 {originalPrice && (
-                  <span className="text-text-muted line-through text-xl">{toArabicDigits(originalPrice)}</span>
+                  <span className="text-text-muted line-through text-xl">
+                    {toArabicDigits(originalPrice)}
+                  </span>
                 )}
               </div>
-              <GoldButton className="px-10 py-4 text-sm rounded-full">التحق بالبرنامج الآن</GoldButton>
+              <GoldButton className="px-10 py-4 text-sm rounded-full">
+                التحق بالبرنامج الآن
+              </GoldButton>
             </div>
-            
+
             {/* Course Thumbnail with Intro Video Play Trigger */}
             <div className="lg:col-span-5">
-              <div 
+              <div
                 onClick={() => setShowIntroVideoModal(true)}
                 className="relative aspect-video lg:aspect-square rounded-3xl overflow-hidden border border-gold-border/30 shadow-2xl bg-bg-card/90 cursor-pointer group"
               >
-                <img 
-                  src={image} 
-                  alt={title} 
-                  className="w-full h-full object-cover group-hover:scale-103 transition duration-500" 
+                <img
+                  src={image}
+                  alt={title}
+                  className="w-full h-full object-cover group-hover:scale-103 transition duration-500"
                 />
                 <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/50 transition duration-300">
                   <div className="h-16 w-16 rounded-full gold-gradient text-bg-primary flex items-center justify-center shadow-lg shadow-gold-glow/20 group-hover:scale-110 group-hover:shadow-gold-glow/50 transition duration-300">
@@ -213,13 +252,13 @@ export function CourseDetailPage() {
 
           {/* Grid Layout: Main info and Syllabus */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
             {/* Left Content Area (8 cols) */}
             <div className="lg:col-span-8 space-y-12">
-              
               {/* Introduction */}
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-text-primary border-r-4 border-gold-primary pr-3 leading-none">مقدمة عن البرنامج</h2>
+                <h2 className="text-2xl font-bold text-text-primary border-r-4 border-gold-primary pr-3 leading-none">
+                  مقدمة عن البرنامج
+                </h2>
                 <p className="text-text-secondary text-sm md:text-base leading-relaxed text-justify">
                   {toArabicDigits(introduction)}
                 </p>
@@ -231,29 +270,47 @@ export function CourseDetailPage() {
                   {title.includes("دبلوم") ? "مقدم الدبلوم" : "مقدم الدورة"}
                 </h2>
                 <GoldCard className="p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center md:items-start text-right hover:border-gold-border/40 transition">
-                  <Link to={`/instructor/${instructor.id}`} className="block relative h-24 w-24 rounded-2xl overflow-hidden border border-gold-border/30 flex-shrink-0 group">
-                    <img src={image} alt={instructor.name} className="h-full w-full object-cover group-hover:scale-105 transition duration-300" />
+                  <Link
+                    to={`/instructor/${instructor.id}`}
+                    className="block relative h-24 w-24 rounded-2xl overflow-hidden border border-gold-border/30 flex-shrink-0 group"
+                  >
+                    <img
+                      src={image}
+                      alt={instructor.name}
+                      className="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/40 to-transparent" />
                   </Link>
                   <div className="flex-grow space-y-3">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                       <div>
-                        <Link to={`/instructor/${instructor.id}`} className="text-xl font-bold text-text-primary hover:text-gold-primary transition">
+                        <Link
+                          to={`/instructor/${instructor.id}`}
+                          className="text-xl font-bold text-text-primary hover:text-gold-hover transition"
+                        >
                           {instructor.name}
                         </Link>
                         <p className="text-xs text-gold-primary mt-1">{instructor.title}</p>
                       </div>
-                      <Link to={`/instructor/${instructor.id}`} className="text-xs text-gold-primary underline hover:text-accent-gold-lt self-start md:self-center font-semibold">
+                      <Link
+                        to={`/instructor/${instructor.id}`}
+                        className="text-xs text-gold-primary underline hover:text-gold-hover self-start md:self-center font-semibold"
+                      >
                         عرض الصفحة الشخصية ←
                       </Link>
                     </div>
-                    <p className="text-text-secondary text-xs md:text-sm leading-relaxed">{toArabicDigits(instructor.summary)}</p>
-                    
+                    <p className="text-text-secondary text-xs md:text-sm leading-relaxed">
+                      {toArabicDigits(instructor.summary)}
+                    </p>
+
                     {/* Skills badges */}
                     {instructor.skills && instructor.skills.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 pt-2">
                         {instructor.skills.map((skill, index) => (
-                          <span key={index} className="text-[10px] bg-bg-elevated text-text-secondary border border-border-subtle px-2 py-0.5 rounded-full">
+                          <span
+                            key={index}
+                            className="text-[10px] bg-bg-elevated text-text-secondary border border-border-subtle px-2 py-0.5 rounded-full"
+                          >
                             {skill}
                           </span>
                         ))}
@@ -267,9 +324,11 @@ export function CourseDetailPage() {
               <section className="space-y-6">
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-gold-primary" />
-                  <h2 className="text-2xl font-bold text-text-primary border-r-4 border-gold-primary pr-3 leading-none">منهج ومحاضرات الدورة</h2>
+                  <h2 className="text-2xl font-bold text-text-primary border-r-4 border-gold-primary pr-3 leading-none">
+                    منهج ومحاضرات الدورة
+                  </h2>
                 </div>
-                
+
                 <div className="space-y-4">
                   {sections.map((sec, idx) => {
                     const isOpen = !!openSections[idx];
@@ -281,13 +340,20 @@ export function CourseDetailPage() {
                           className="w-full p-5 flex items-center justify-between text-right hover:bg-bg-elevated/20 transition duration-300"
                         >
                           <div className="space-y-1">
-                            <h3 className="font-bold text-text-primary text-base md:text-lg">{sec.title}</h3>
+                            <h3 className="font-bold text-text-primary text-base md:text-lg">
+                              {sec.title}
+                            </h3>
                             <span className="text-[10px] text-text-secondary block">
-                              {toArabicDigits(sec.lessons.length)} محاضرات • مدة الوحدة: {toArabicDigits(sec.duration)}
+                              {toArabicDigits(sec.lessons.length)} محاضرات • مدة الوحدة:{" "}
+                              {toArabicDigits(sec.duration)}
                             </span>
                           </div>
                           <div className="text-gold-primary p-1 bg-bg-elevated rounded-lg border border-gold-border/10">
-                            {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                            {isOpen ? (
+                              <ChevronUp className="h-4 w-4" />
+                            ) : (
+                              <ChevronDown className="h-4 w-4" />
+                            )}
                           </div>
                         </button>
 
@@ -303,23 +369,32 @@ export function CourseDetailPage() {
                             >
                               <ul className="p-5 space-y-3.5">
                                 {sec.lessons.map((lesson) => (
-                                  <li 
-                                    key={lesson.id} 
+                                  <li
+                                    key={lesson.id}
                                     className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-xl bg-bg-card/40 border border-gold-border/5 hover:border-gold-border/15 transition-all duration-300"
                                   >
                                     <div className="flex items-start gap-3">
-                                      <span className="font-serif text-xs font-bold text-gold-primary/60 mt-0.5">{toArabicDigits(lesson.id)}</span>
-                                      <span className="text-text-primary text-xs md:text-sm leading-relaxed">{lesson.title}</span>
+                                      <span className="font-serif text-xs font-bold text-gold-primary/60 mt-0.5">
+                                        {toArabicDigits(lesson.id)}
+                                      </span>
+                                      <span className="text-text-primary text-xs md:text-sm leading-relaxed">
+                                        {lesson.title}
+                                      </span>
                                     </div>
-                                    
+
                                     <div className="flex items-center justify-between sm:justify-end gap-4 flex-shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-border-subtle/50">
-                                      <span className="text-[10px] text-text-secondary font-mono">{toArabicDigits(lesson.duration)}</span>
-                                      
+                                      <span className="text-[10px] text-text-secondary font-mono">
+                                        {toArabicDigits(lesson.duration)}
+                                      </span>
+
                                       {lesson.isPreview && lesson.videoUrl ? (
-                                        <button 
+                                        <button
                                           onClick={(e) => {
                                             e.stopPropagation();
-                                            setActivePreviewVideo({ title: lesson.title, url: lesson.videoUrl! });
+                                            setActivePreviewVideo({
+                                              title: lesson.title,
+                                              url: lesson.videoUrl!,
+                                            });
                                           }}
                                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-primary text-bg-primary text-[10px] font-bold shadow-lg shadow-gold-glow/10 hover:shadow-gold-glow/30 hover:scale-[1.02] active:scale-[0.98] transition"
                                         >
@@ -344,34 +419,42 @@ export function CourseDetailPage() {
                   })}
                 </div>
               </section>
-
             </div>
 
             {/* Right Sidebar Area (4 cols) */}
             <div className="lg:col-span-4 space-y-8">
-              
               {/* Certificate Preview Card */}
               <GoldCard className="p-6 border-gold-border/20 text-center relative overflow-hidden group">
-                <div className="absolute top-3 right-3 bg-gold-primary text-bg-primary p-1 rounded-full" title="معتمد">
+                <div
+                  className="absolute top-3 right-3 bg-gold-primary text-bg-primary p-1 rounded-full"
+                  title="معتمد"
+                >
                   <Sparkles className="h-3.5 w-3.5 fill-bg-primary" />
                 </div>
-                
+
                 <h3 className="font-bold text-text-primary text-lg mb-2 flex items-center justify-center gap-1.5">
                   <Award className="h-5 w-5 text-gold-primary" />
                   شهادة تخرج معتمدة
                 </h3>
                 <p className="text-text-secondary text-[11px] leading-relaxed mb-4">
-                  احصل على شهادة مهنية معتمدة من ماستري أكاديمي عند إتمامك لجميع محاضرات الدبلوم وتسليم المشروع النهائي.
+                  احصل على شهادة مهنية معتمدة من ماستري أكاديمي عند إتمامك لجميع محاضرات الدبلوم
+                  وتسليم المشروع النهائي.
                 </p>
 
                 {/* Scaled Image Preview Container */}
-                <div 
+                <div
                   onClick={() => setShowCertificateModal(true)}
                   className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gold-border/10 cursor-pointer shadow-lg group-hover:border-gold-border/40 transition duration-300 bg-bg-elevated"
                 >
-                  <img src={certificateImage} alt="معاينة الشهادة" className="w-full h-full object-cover opacity-80 group-hover:scale-103 transition duration-500" />
+                  <img
+                    src={certificateImage}
+                    alt="معاينة الشهادة"
+                    className="w-full h-full object-cover opacity-80 group-hover:scale-103 transition duration-500"
+                  />
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                    <span className="px-4 py-2 bg-gold-primary text-bg-primary rounded-full text-xs font-bold shadow-lg">معاينة الشهادة كبرة</span>
+                    <span className="px-4 py-2 bg-gold-primary text-bg-primary rounded-full text-xs font-bold shadow-lg">
+                      معاينة الشهادة كبرة
+                    </span>
                   </div>
                 </div>
               </GoldCard>
@@ -384,7 +467,10 @@ export function CourseDetailPage() {
                 </h3>
                 <ul className="space-y-3.5">
                   {goals.map((g, idx) => (
-                    <li key={idx} className="text-text-secondary text-xs leading-relaxed flex items-start gap-2.5">
+                    <li
+                      key={idx}
+                      className="text-text-secondary text-xs leading-relaxed flex items-start gap-2.5"
+                    >
                       <span className="h-1.5 w-1.5 rounded-full bg-gold-primary mt-2 flex-shrink-0" />
                       <span>{toArabicDigits(g)}</span>
                     </li>
@@ -400,7 +486,10 @@ export function CourseDetailPage() {
                 </h3>
                 <ul className="space-y-3.5">
                   {targetUsers.map((user, idx) => (
-                    <li key={idx} className="text-text-secondary text-xs leading-relaxed flex items-start gap-2.5">
+                    <li
+                      key={idx}
+                      className="text-text-secondary text-xs leading-relaxed flex items-start gap-2.5"
+                    >
                       <span className="h-1.5 w-1.5 rounded-full bg-gold-primary mt-2 flex-shrink-0" />
                       <span>{toArabicDigits(user)}</span>
                     </li>
@@ -422,16 +511,15 @@ export function CourseDetailPage() {
                         <span className="h-1.5 w-1.5 rounded-full bg-gold-primary" />
                       </span>
                       <h4 className="text-xs font-bold text-gold-primary mb-1">{rm.step}</h4>
-                      <p className="text-text-secondary text-[11px] leading-relaxed">{toArabicDigits(rm.desc)}</p>
+                      <p className="text-text-secondary text-[11px] leading-relaxed">
+                        {toArabicDigits(rm.desc)}
+                      </p>
                     </div>
                   ))}
                 </div>
               </GoldCard>
-
             </div>
-
           </div>
-
         </div>
       </main>
 
@@ -440,7 +528,7 @@ export function CourseDetailPage() {
         {activePreviewVideo && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop overlay */}
-            <m.div 
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -456,15 +544,17 @@ export function CourseDetailPage() {
             >
               {/* Header bar */}
               <div className="p-4 bg-bg-elevated flex items-center justify-between border-b border-border-subtle">
-                <span className="text-xs text-gold-primary font-bold bg-gold-muted px-2.5 py-1 rounded-full border border-gold-border/20">مشاهدة مجانية</span>
-                <button 
+                <span className="text-xs text-gold-primary font-bold bg-gold-muted px-2.5 py-1 rounded-full border border-gold-border/20">
+                  مشاهدة مجانية
+                </span>
+                <button
                   onClick={() => setActivePreviewVideo(null)}
-                  className="text-text-secondary hover:text-gold-primary transition p-1 bg-bg-primary rounded-lg border border-border-subtle"
+                  className="text-text-secondary hover:text-gold-hover transition p-1 bg-bg-primary rounded-lg border border-border-subtle"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
-              
+
               {/* Video elements */}
               <div className="aspect-video bg-black">
                 <video
@@ -477,7 +567,9 @@ export function CourseDetailPage() {
 
               {/* Title footer */}
               <div className="p-5 text-right">
-                <h4 className="font-bold text-text-primary text-sm md:text-base leading-snug">{activePreviewVideo.title}</h4>
+                <h4 className="font-bold text-text-primary text-sm md:text-base leading-snug">
+                  {activePreviewVideo.title}
+                </h4>
               </div>
             </m.div>
           </div>
@@ -489,7 +581,7 @@ export function CourseDetailPage() {
         {showCertificateModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop overlay */}
-            <m.div 
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -504,16 +596,20 @@ export function CourseDetailPage() {
               className="relative w-full max-w-[900px] rounded-3xl overflow-hidden border border-gold-border bg-bg-card shadow-2xl z-10 p-2"
             >
               {/* Close Button */}
-              <button 
+              <button
                 onClick={() => setShowCertificateModal(false)}
-                className="absolute top-4 right-4 z-20 text-text-secondary hover:text-gold-primary transition p-2 bg-bg-primary/80 backdrop-blur-sm rounded-full border border-border-subtle shadow-md"
+                className="absolute top-4 right-4 z-20 text-text-secondary hover:text-gold-hover transition p-2 bg-bg-primary/80 backdrop-blur-sm rounded-full border border-border-subtle shadow-md"
                 aria-label="إغلاق المعاينة"
               >
                 <X className="h-4 w-4" />
               </button>
 
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white">
-                <img src={certificateImage} alt="الشهادة المعتمدة الكاملة" className="w-full h-full object-contain" />
+                <img
+                  src={certificateImage}
+                  alt="الشهادة المعتمدة الكاملة"
+                  className="w-full h-full object-contain"
+                />
               </div>
             </m.div>
           </div>
@@ -525,7 +621,7 @@ export function CourseDetailPage() {
         {showIntroVideoModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop overlay */}
-            <m.div 
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -541,15 +637,17 @@ export function CourseDetailPage() {
             >
               {/* Header bar */}
               <div className="p-4 bg-bg-elevated flex items-center justify-between border-b border-border-subtle">
-                <span className="text-xs text-gold-primary font-bold bg-gold-muted px-2.5 py-1 rounded-full border border-gold-border/20">الفيديو التعريفي للدورة</span>
-                <button 
+                <span className="text-xs text-gold-primary font-bold bg-gold-muted px-2.5 py-1 rounded-full border border-gold-border/20">
+                  الفيديو التعريفي للدورة
+                </span>
+                <button
                   onClick={() => setShowIntroVideoModal(false)}
-                  className="text-text-secondary hover:text-gold-primary transition p-1 bg-bg-primary rounded-lg border border-border-subtle"
+                  className="text-text-secondary hover:text-gold-hover transition p-1 bg-bg-primary rounded-lg border border-border-subtle"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
-              
+
               {/* Video elements */}
               <div className="aspect-video bg-black">
                 <video
@@ -562,7 +660,9 @@ export function CourseDetailPage() {
 
               {/* Title footer */}
               <div className="p-5 text-right">
-                <h4 className="font-bold text-text-primary text-sm md:text-base leading-snug">{title}</h4>
+                <h4 className="font-bold text-text-primary text-sm md:text-base leading-snug">
+                  {title}
+                </h4>
               </div>
             </m.div>
           </div>

@@ -47,10 +47,7 @@ export function Diplomas() {
                     <span className="text-[10px] text-gold-primary font-semibold block mb-1">
                       {d.category}
                     </span>
-                    <Link
-                      to={`/course/${d.id}`}
-                      className="hover:text-gold-primary transition block"
-                    >
+                    <Link to={`/course/${d.id}`} className="hover:text-gold-hover transition block">
                       <h3 className="text-sm sm:text-base font-bold text-text-primary leading-snug line-clamp-2 h-12 mb-3">
                         {d.title}
                       </h3>

@@ -1,7 +1,16 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, BookOpen, User, Briefcase, Calendar, Star, ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  Search,
+  BookOpen,
+  User,
+  Briefcase,
+  Calendar,
+  Star,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { GoldCard, GoldButton } from "@/components/ui/gold-elements";
@@ -43,8 +52,6 @@ export function BrowsePage() {
     setInstructorsPage(1);
   }, [searchQuery, selectedField]);
 
-
-
   // Generate complete list of unique instructors dynamically
   const instructors = useMemo(() => {
     const uniqueNames = Array.from(new Set(courses.map((c) => c.instructor)));
@@ -81,9 +88,7 @@ export function BrowsePage() {
     if (!searchQuery) return categories;
     const q = searchQuery.toLowerCase().trim();
     return categories.filter(
-      (cat) =>
-        cat.name.toLowerCase().includes(q) ||
-        cat.description.toLowerCase().includes(q)
+      (cat) => cat.name.toLowerCase().includes(q) || cat.description.toLowerCase().includes(q),
     );
   }, [searchQuery]);
 
@@ -93,11 +98,12 @@ export function BrowsePage() {
       // Field Filter
       if (selectedField) {
         // Match either exact category or fuzzy sub-category matching
-        const matchField = course.category.toLowerCase().includes(selectedField.toLowerCase()) || 
-                           selectedField.toLowerCase().includes(course.category.toLowerCase());
+        const matchField =
+          course.category.toLowerCase().includes(selectedField.toLowerCase()) ||
+          selectedField.toLowerCase().includes(course.category.toLowerCase());
         if (!matchField) return false;
       }
-      
+
       // Search Query Filter
       if (searchQuery) {
         const q = searchQuery.toLowerCase().trim();
@@ -120,21 +126,46 @@ export function BrowsePage() {
         const matchesTitle = c.title.toLowerCase().includes(fieldStr);
         const matchesSummary = c.summary.toLowerCase().includes(fieldStr);
         const matchesConsultant = c.consultant.toLowerCase().includes(fieldStr);
-        
+
         // Custom domain map for marketing, management, etc.
         let matchesDomain = false;
-        if (fieldStr.includes("تسويق") && (c.title.includes("تسويق") || c.summary.includes("تسويق") || c.consultant.includes("ياسمين"))) {
+        if (
+          fieldStr.includes("تسويق") &&
+          (c.title.includes("تسويق") ||
+            c.summary.includes("تسويق") ||
+            c.consultant.includes("ياسمين"))
+        ) {
           matchesDomain = true;
-        } else if (fieldStr.includes("ادارة") || fieldStr.includes("إدارة") || fieldStr.includes("أعمال")) {
-          if (c.title.includes("إداري") || c.summary.includes("إدارة") || c.consultant.includes("السعيد")) {
+        } else if (
+          fieldStr.includes("ادارة") ||
+          fieldStr.includes("إدارة") ||
+          fieldStr.includes("أعمال")
+        ) {
+          if (
+            c.title.includes("إداري") ||
+            c.summary.includes("إدارة") ||
+            c.consultant.includes("السعيد")
+          ) {
             matchesDomain = true;
           }
         } else if (fieldStr.includes("قانون") || fieldStr.includes("تشريع")) {
-          if (c.title.includes("قانون") || c.summary.includes("قانوني") || c.consultant.includes("ناجي")) {
+          if (
+            c.title.includes("قانون") ||
+            c.summary.includes("قانوني") ||
+            c.consultant.includes("ناجي")
+          ) {
             matchesDomain = true;
           }
-        } else if (fieldStr.includes("مالية") || fieldStr.includes("محاسب") || fieldStr.includes("استثمار")) {
-          if (c.title.includes("مالي") || c.summary.includes("استثمار") || c.consultant.includes("الفيصل")) {
+        } else if (
+          fieldStr.includes("مالية") ||
+          fieldStr.includes("محاسب") ||
+          fieldStr.includes("استثمار")
+        ) {
+          if (
+            c.title.includes("مالي") ||
+            c.summary.includes("استثمار") ||
+            c.consultant.includes("الفيصل")
+          ) {
             matchesDomain = true;
           }
         }
@@ -173,15 +204,30 @@ export function BrowsePage() {
         const fieldStr = selectedField.toLowerCase();
         const matchesTitleField = inst.title.toLowerCase().includes(fieldStr);
         const matchesSkillField = inst.skills.some((s) => s.toLowerCase().includes(fieldStr));
-        
+
         let matchesDomain = false;
-        if (fieldStr.includes("تسويق") && (inst.title.includes("تسويق") || inst.skills.some(s => s.includes("تسويق")))) {
+        if (
+          fieldStr.includes("تسويق") &&
+          (inst.title.includes("تسويق") || inst.skills.some((s) => s.includes("تسويق")))
+        ) {
           matchesDomain = true;
-        } else if ((fieldStr.includes("ادارة") || fieldStr.includes("إدارة")) && (inst.title.includes("إدارة") || inst.skills.some(s => s.includes("إدارة") || s.includes("قيادة")))) {
+        } else if (
+          (fieldStr.includes("ادارة") || fieldStr.includes("إدارة")) &&
+          (inst.title.includes("إدارة") ||
+            inst.skills.some((s) => s.includes("إدارة") || s.includes("قيادة")))
+        ) {
           matchesDomain = true;
-        } else if (fieldStr.includes("قانون") && (inst.title.includes("قانون") || inst.skills.some(s => s.includes("عقود") || s.includes("قانون")))) {
+        } else if (
+          fieldStr.includes("قانون") &&
+          (inst.title.includes("قانون") ||
+            inst.skills.some((s) => s.includes("عقود") || s.includes("قانون")))
+        ) {
           matchesDomain = true;
-        } else if ((fieldStr.includes("مالية") || fieldStr.includes("محاسب")) && (inst.title.includes("مالي") || inst.skills.some(s => s.includes("مالي") || s.includes("استثمار")))) {
+        } else if (
+          (fieldStr.includes("مالية") || fieldStr.includes("محاسب")) &&
+          (inst.title.includes("مالي") ||
+            inst.skills.some((s) => s.includes("مالي") || s.includes("استثمار")))
+        ) {
           matchesDomain = true;
         }
 
@@ -220,7 +266,10 @@ export function BrowsePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+      <div
+        className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between"
+        dir="rtl"
+      >
         <Navbar />
         <main className="flex-grow pt-28 pb-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
@@ -257,14 +306,19 @@ export function BrowsePage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+    <div
+      className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between"
+      dir="rtl"
+    >
       <Navbar />
 
       <main className="flex-grow pt-28 pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <div className="mb-6 flex items-center gap-2 text-xs text-text-secondary">
-            <Link to="/" className="hover:text-gold-primary transition">الرئيسية</Link>
+            <Link to="/" className="hover:text-gold-hover transition">
+              الرئيسية
+            </Link>
             <span>/</span>
             <span className="text-gold-primary">تصفح البرامج والخدمات</span>
             {selectedField && (
@@ -299,7 +353,7 @@ export function BrowsePage() {
               {searchQuery && (
                 <button
                   onClick={() => handleSearchChange("")}
-                  className="absolute left-3 top-3 text-xs text-text-muted hover:text-gold-primary cursor-pointer"
+                  className="absolute left-3 top-3 text-xs text-text-muted hover:text-gold-hover cursor-pointer"
                 >
                   مسح
                 </button>
@@ -340,9 +394,15 @@ export function BrowsePage() {
               <div className="text-gold-primary text-4xl mb-4 font-serif">⚠️</div>
               <h3 className="text-lg font-bold text-text-primary mb-2">لا توجد نتائج مطابقة</h3>
               <p className="text-text-secondary text-xs leading-relaxed mb-6">
-                عذراً، لم نتمكن من العثور على أي دورات أو استشارات أو مدربين يطابقون بحثك أو المجال المحدد. جرب كلمات بحث أخرى.
+                عذراً، لم نتمكن من العثور على أي دورات أو استشارات أو مدربين يطابقون بحثك أو المجال
+                المحدد. جرب كلمات بحث أخرى.
               </p>
-              <GoldButton onClick={() => { handleSearchChange(""); handleFieldSelect(""); }}>
+              <GoldButton
+                onClick={() => {
+                  handleSearchChange("");
+                  handleFieldSelect("");
+                }}
+              >
                 إعادة ضبط البحث
               </GoldButton>
             </GoldCard>
@@ -416,7 +476,9 @@ export function BrowsePage() {
                               </span>
                             </div>
                             <Link to={`/course/${course.id}`}>
-                              <GoldButton className="py-2 px-4 text-[10px]">عرض التفاصيل</GoldButton>
+                              <GoldButton className="py-2 px-4 text-[10px]">
+                                عرض التفاصيل
+                              </GoldButton>
                             </Link>
                           </div>
                         </GoldCard>
@@ -428,13 +490,13 @@ export function BrowsePage() {
                   {totalCoursesPages > 1 && (
                     <div className="flex justify-center items-center gap-2 mt-8">
                       <button
-                        onClick={() => setCoursesPage(p => Math.max(1, p - 1))}
+                        onClick={() => setCoursesPage((p) => Math.max(1, p - 1))}
                         disabled={coursesPage === 1}
-                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-hover transition"
                       >
                         السابق
                       </button>
-                      {Array.from({ length: totalCoursesPages }, (_, i) => i + 1).map(page => (
+                      {Array.from({ length: totalCoursesPages }, (_, i) => i + 1).map((page) => (
                         <button
                           key={page}
                           onClick={() => setCoursesPage(page)}
@@ -448,9 +510,9 @@ export function BrowsePage() {
                         </button>
                       ))}
                       <button
-                        onClick={() => setCoursesPage(p => Math.min(totalCoursesPages, p + 1))}
+                        onClick={() => setCoursesPage((p) => Math.min(totalCoursesPages, p + 1))}
                         disabled={coursesPage === totalCoursesPages}
-                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-hover transition"
                       >
                         التالي
                       </button>
@@ -465,13 +527,17 @@ export function BrowsePage() {
                   <div className="flex items-center justify-between border-b border-gold-border/10 pb-4 mb-6">
                     <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
                       <Briefcase className="h-5 w-5 text-gold-primary" />
-                      الجلسات الاستشارية والمستشارين ({toArabicDigits(filteredConsultancies.length)})
+                      الجلسات الاستشارية والمستشارين ({toArabicDigits(filteredConsultancies.length)}
+                      )
                     </h2>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {paginatedConsultancies.map((c) => (
-                      <GoldCard key={c.id} className="p-5 flex flex-col justify-between hover:-translate-y-1 transition duration-300">
+                      <GoldCard
+                        key={c.id}
+                        className="p-5 flex flex-col justify-between hover:-translate-y-1 transition duration-300"
+                      >
                         <div>
                           {/* Consultant Header */}
                           <div className="flex items-center gap-3.5 mb-4">
@@ -481,8 +547,12 @@ export function BrowsePage() {
                               className="h-11 w-11 rounded-full object-cover border border-gold-border/30"
                             />
                             <div>
-                              <h3 className="font-bold text-text-primary text-sm">{c.consultant}</h3>
-                              <span className="text-[10px] text-gold-primary block">{c.duration}</span>
+                              <h3 className="font-bold text-text-primary text-sm">
+                                {c.consultant}
+                              </h3>
+                              <span className="text-[10px] text-gold-primary block">
+                                {c.duration}
+                              </span>
                             </div>
                           </div>
 
@@ -513,29 +583,33 @@ export function BrowsePage() {
                   {totalConsultanciesPages > 1 && (
                     <div className="flex justify-center items-center gap-2 mt-8">
                       <button
-                        onClick={() => setConsultanciesPage(p => Math.max(1, p - 1))}
+                        onClick={() => setConsultanciesPage((p) => Math.max(1, p - 1))}
                         disabled={consultanciesPage === 1}
-                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-hover transition"
                       >
                         السابق
                       </button>
-                      {Array.from({ length: totalConsultanciesPages }, (_, i) => i + 1).map(page => (
-                        <button
-                          key={page}
-                          onClick={() => setConsultanciesPage(page)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer border ${
-                            consultanciesPage === page
-                              ? "bg-gold-primary text-bg-primary border-gold-primary"
-                              : "bg-bg-card text-text-secondary border-gold-border/10 hover:border-gold-border hover:text-text-primary"
-                          }`}
-                        >
-                          {toArabicDigits(page)}
-                        </button>
-                      ))}
+                      {Array.from({ length: totalConsultanciesPages }, (_, i) => i + 1).map(
+                        (page) => (
+                          <button
+                            key={page}
+                            onClick={() => setConsultanciesPage(page)}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer border ${
+                              consultanciesPage === page
+                                ? "bg-gold-primary text-bg-primary border-gold-primary"
+                                : "bg-bg-card text-text-secondary border-gold-border/10 hover:border-gold-border hover:text-text-primary"
+                            }`}
+                          >
+                            {toArabicDigits(page)}
+                          </button>
+                        ),
+                      )}
                       <button
-                        onClick={() => setConsultanciesPage(p => Math.min(totalConsultanciesPages, p + 1))}
+                        onClick={() =>
+                          setConsultanciesPage((p) => Math.min(totalConsultanciesPages, p + 1))
+                        }
                         disabled={consultanciesPage === totalConsultanciesPages}
-                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-hover transition"
                       >
                         التالي
                       </button>
@@ -556,15 +630,24 @@ export function BrowsePage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {paginatedInstructors.map((inst) => (
-                      <GoldCard key={inst.id} className="p-5 flex flex-col justify-between hover:-translate-y-1 transition duration-300">
+                      <GoldCard
+                        key={inst.id}
+                        className="p-5 flex flex-col justify-between hover:-translate-y-1 transition duration-300"
+                      >
                         <div>
                           {/* Info */}
                           <div className="text-center mb-4">
                             <div className="relative h-20 w-20 rounded-full overflow-hidden border border-gold-border/30 mx-auto mb-3">
-                              <img src={inst.avatar} alt={inst.name} className="h-full w-full object-cover" />
+                              <img
+                                src={inst.avatar}
+                                alt={inst.name}
+                                className="h-full w-full object-cover"
+                              />
                             </div>
                             <h3 className="font-bold text-text-primary text-base">{inst.name}</h3>
-                            <p className="text-[10px] text-gold-primary font-medium mt-1">{inst.title}</p>
+                            <p className="text-[10px] text-gold-primary font-medium mt-1">
+                              {inst.title}
+                            </p>
                           </div>
 
                           <p className="text-text-secondary text-xs leading-relaxed text-center line-clamp-2 h-10 mb-4">
@@ -574,7 +657,10 @@ export function BrowsePage() {
                           {/* Skills */}
                           <div className="flex flex-wrap justify-center gap-1.5 mb-4">
                             {inst.skills.slice(0, 3).map((skill, index) => (
-                              <span key={index} className="text-[8px] sm:text-[9px] bg-bg-elevated text-text-secondary border border-border-subtle px-2 py-0.5 rounded-full">
+                              <span
+                                key={index}
+                                className="text-[8px] sm:text-[9px] bg-bg-elevated text-text-secondary border border-border-subtle px-2 py-0.5 rounded-full"
+                              >
                                 {skill}
                               </span>
                             ))}
@@ -599,29 +685,33 @@ export function BrowsePage() {
                   {totalInstructorsPages > 1 && (
                     <div className="flex justify-center items-center gap-2 mt-8">
                       <button
-                        onClick={() => setInstructorsPage(p => Math.max(1, p - 1))}
+                        onClick={() => setInstructorsPage((p) => Math.max(1, p - 1))}
                         disabled={instructorsPage === 1}
-                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-hover transition"
                       >
                         السابق
                       </button>
-                      {Array.from({ length: totalInstructorsPages }, (_, i) => i + 1).map(page => (
-                        <button
-                          key={page}
-                          onClick={() => setInstructorsPage(page)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer border ${
-                            instructorsPage === page
-                              ? "bg-gold-primary text-bg-primary border-gold-primary"
-                              : "bg-bg-card text-text-secondary border-gold-border/10 hover:border-gold-border hover:text-text-primary"
-                          }`}
-                        >
-                          {toArabicDigits(page)}
-                        </button>
-                      ))}
+                      {Array.from({ length: totalInstructorsPages }, (_, i) => i + 1).map(
+                        (page) => (
+                          <button
+                            key={page}
+                            onClick={() => setInstructorsPage(page)}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer border ${
+                              instructorsPage === page
+                                ? "bg-gold-primary text-bg-primary border-gold-primary"
+                                : "bg-bg-card text-text-secondary border-gold-border/10 hover:border-gold-border hover:text-text-primary"
+                            }`}
+                          >
+                            {toArabicDigits(page)}
+                          </button>
+                        ),
+                      )}
                       <button
-                        onClick={() => setInstructorsPage(p => Math.min(totalInstructorsPages, p + 1))}
+                        onClick={() =>
+                          setInstructorsPage((p) => Math.min(totalInstructorsPages, p + 1))
+                        }
                         disabled={instructorsPage === totalInstructorsPages}
-                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-hover transition"
                       >
                         التالي
                       </button>

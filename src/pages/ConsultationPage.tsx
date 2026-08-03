@@ -65,7 +65,7 @@ const arabicTranslations = {
   addAttachment: "إضافة مرفق",
   moreOptions: "خيارات إضافية",
   doesNotRepeat: "لا يتكرر",
-  locationHelpText: "رابط الجلسة أو المكان"
+  locationHelpText: "رابط الجلسة أو المكان",
 };
 
 const formatDateToLocalISO = (date: Date) => {
@@ -77,8 +77,18 @@ const formatDateToLocalISO = (date: Date) => {
 const formatArabicDate = (d: Date) => {
   const dayNames = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
   const monthNames = [
-    "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
-    "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+    "يناير",
+    "فبراير",
+    "مارس",
+    "أبريل",
+    "مايو",
+    "يونيو",
+    "يوليو",
+    "أغسطس",
+    "سبتمبر",
+    "أكتوبر",
+    "نوفمبر",
+    "ديسمبر",
   ];
   return `${dayNames[d.getDay()]}، ${toArabicDigits(d.getDate())} ${monthNames[d.getMonth()]}`;
 };
@@ -98,7 +108,7 @@ export function ConsultationPage() {
     phone: "",
     date: "",
     time: "",
-    notes: ""
+    notes: "",
   });
 
   const [selectedDate, setSelectedDate] = useState<Date>(() => {
@@ -112,7 +122,7 @@ export function ConsultationPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 500);
-    
+
     // Set default selected date (first working day starting tomorrow)
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -124,7 +134,7 @@ export function ConsultationPage() {
       const dayOfWeek = checkDate.getDay();
       if (dayOfWeek !== 5 && dayOfWeek !== 6) {
         setSelectedDate(checkDate);
-        setBookingForm(prev => ({ ...prev, date: formatDateToLocalISO(checkDate) }));
+        setBookingForm((prev) => ({ ...prev, date: formatDateToLocalISO(checkDate) }));
         found = true;
       }
       offset++;
@@ -146,21 +156,46 @@ export function ConsultationPage() {
         const matchesTitle = c.title.toLowerCase().includes(fieldStr);
         const matchesSummary = c.summary.toLowerCase().includes(fieldStr);
         const matchesConsultant = c.consultant.toLowerCase().includes(fieldStr);
-        
+
         // Custom domain map for marketing, management, etc.
         let matchesDomain = false;
-        if (fieldStr.includes("تسويق") && (c.title.includes("تسويق") || c.summary.includes("تسويق") || c.consultant.includes("ياسمين"))) {
+        if (
+          fieldStr.includes("تسويق") &&
+          (c.title.includes("تسويق") ||
+            c.summary.includes("تسويق") ||
+            c.consultant.includes("ياسمين"))
+        ) {
           matchesDomain = true;
-        } else if (fieldStr.includes("ادارة") || fieldStr.includes("إدارة") || fieldStr.includes("أعمال")) {
-          if (c.title.includes("إداري") || c.summary.includes("إدارة") || c.consultant.includes("السعيد")) {
+        } else if (
+          fieldStr.includes("ادارة") ||
+          fieldStr.includes("إدارة") ||
+          fieldStr.includes("أعمال")
+        ) {
+          if (
+            c.title.includes("إداري") ||
+            c.summary.includes("إدارة") ||
+            c.consultant.includes("السعيد")
+          ) {
             matchesDomain = true;
           }
         } else if (fieldStr.includes("قانون") || fieldStr.includes("تشريع")) {
-          if (c.title.includes("قانون") || c.summary.includes("قانوني") || c.consultant.includes("ناجي")) {
+          if (
+            c.title.includes("قانون") ||
+            c.summary.includes("قانوني") ||
+            c.consultant.includes("ناجي")
+          ) {
             matchesDomain = true;
           }
-        } else if (fieldStr.includes("مالية") || fieldStr.includes("محاسب") || fieldStr.includes("استثمار")) {
-          if (c.title.includes("مالي") || c.summary.includes("استثمار") || c.consultant.includes("الفيصل")) {
+        } else if (
+          fieldStr.includes("مالية") ||
+          fieldStr.includes("محاسب") ||
+          fieldStr.includes("استثمار")
+        ) {
+          if (
+            c.title.includes("مالي") ||
+            c.summary.includes("استثمار") ||
+            c.consultant.includes("الفيصل")
+          ) {
             matchesDomain = true;
           }
         }
@@ -194,23 +229,33 @@ export function ConsultationPage() {
     const today = new Date();
     const dayNames = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
     const monthNames = [
-      "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
-      "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+      "يناير",
+      "فبراير",
+      "مارس",
+      "أبريل",
+      "مايو",
+      "يونيو",
+      "يوليو",
+      "أغسطس",
+      "سبتمبر",
+      "أكتوبر",
+      "نوفمبر",
+      "ديسمبر",
     ];
-    
+
     let count = 0;
     let offset = 1; // start tomorrow
-    
+
     while (count < 15) {
       const nextDate = new Date();
       nextDate.setDate(today.getDate() + offset);
       const dayOfWeek = nextDate.getDay();
-      
+
       if (dayOfWeek !== 5 && dayOfWeek !== 6) {
         dates.push({
           dayName: dayNames[dayOfWeek],
           dateLabel: `${toArabicDigits(nextDate.getDate())} ${monthNames[nextDate.getMonth()]}`,
-          value: nextDate.toISOString().split("T")[0]
+          value: nextDate.toISOString().split("T")[0],
         });
         count++;
       }
@@ -239,7 +284,9 @@ export function ConsultationPage() {
     setSelectedDate(newDate);
     const dayOfWeek = newDate.getDay();
     if (dayOfWeek === 5 || dayOfWeek === 6) {
-      toast.warning("عذرًا، عطلة نهاية الأسبوع (الجمعة والسبت) غير متاحة للحجز. يرجى اختيار يوم آخر.");
+      toast.warning(
+        "عذرًا، عطلة نهاية الأسبوع (الجمعة والسبت) غير متاحة للحجز. يرجى اختيار يوم آخر.",
+      );
       setBookingForm((prev) => ({
         ...prev,
         date: "",
@@ -247,7 +294,7 @@ export function ConsultationPage() {
       }));
       return;
     }
-    
+
     const dateVal = formatDateToLocalISO(newDate);
     setBookingForm((prev) => ({
       ...prev,
@@ -288,14 +335,22 @@ export function ConsultationPage() {
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!bookingForm.name || !bookingForm.email || !bookingForm.phone || !bookingForm.date || !bookingForm.time) {
+    if (
+      !bookingForm.name ||
+      !bookingForm.email ||
+      !bookingForm.phone ||
+      !bookingForm.date ||
+      !bookingForm.time
+    ) {
       toast.error("يرجى ملء جميع الحقول المطلوبة لتأكيد الحجز.");
       return;
     }
 
     // Simulate API Mutation
-    toast.success(`تم إرسال طلب الحجز بنجاح! سنتواصل معك عبر البريد الإلكتروني لتأكيد موعد الجلسة.`);
-    
+    toast.success(
+      `تم إرسال طلب الحجز بنجاح! سنتواصل معك عبر البريد الإلكتروني لتأكيد موعد الجلسة.`,
+    );
+
     // Reset state
     setBookingForm({
       name: "",
@@ -303,7 +358,7 @@ export function ConsultationPage() {
       phone: "",
       date: "",
       time: "",
-      notes: ""
+      notes: "",
     });
     setShowBookingForm(false);
     navigate("/consultation");
@@ -311,7 +366,10 @@ export function ConsultationPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+      <div
+        className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between"
+        dir="rtl"
+      >
         <Navbar />
         <main className="flex-grow pt-28 pb-20">
           <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1600px] w-full space-y-12">
@@ -340,12 +398,14 @@ export function ConsultationPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between" dir="rtl">
+    <div
+      className="min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between"
+      dir="rtl"
+    >
       <Navbar />
 
       <main className="flex-grow pt-28 pb-20">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1600px] w-full">
-          
           {/* Page Title */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="inline-block bg-gold-muted text-gold-primary border border-gold-border/30 px-4 py-1.5 rounded-full text-xs font-bold mb-4">
@@ -355,16 +415,29 @@ export function ConsultationPage() {
               احجز جلستك الاستشارية الخاصة مع الخبراء
             </h1>
             <p className="text-text-secondary text-sm md:text-base leading-relaxed">
-              تغلب على عقبات مشروعك أو عملك واحصل على توجيه مباشر وسري من نخبة المستشارين في مجالات القانون والمالية والتسويق والإدارة بالشرق الأوسط.
+              تغلب على عقبات مشروعك أو عملك واحصل على توجيه مباشر وسري من نخبة المستشارين في مجالات
+              القانون والمالية والتسويق والإدارة بالشرق الأوسط.
             </p>
           </div>
 
           {/* Features Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
             {[
-              { title: "جلسات مخصصة وسرية", desc: "جلسة فردية مغلقة ومباشرة لمناقشة كافة التفاصيل الفنية والسرية لعملك.", icon: Shield },
-              { title: "مستندات وخطة عمل", desc: "تحصل في نهاية الجلسة على تقرير وخلاصة وتوصيات عملية جاهزة للتنفيذ.", icon: Check },
-              { title: "حجز مرن ويسير", desc: "اختر المستشار، الموعد المناسب، وقم بالحجز والتأكيد رقمياً في ثوانٍ.", icon: Calendar }
+              {
+                title: "جلسات مخصصة وسرية",
+                desc: "جلسة فردية مغلقة ومباشرة لمناقشة كافة التفاصيل الفنية والسرية لعملك.",
+                icon: Shield,
+              },
+              {
+                title: "مستندات وخطة عمل",
+                desc: "تحصل في نهاية الجلسة على تقرير وخلاصة وتوصيات عملية جاهزة للتنفيذ.",
+                icon: Check,
+              },
+              {
+                title: "حجز مرن ويسير",
+                desc: "اختر المستشار، الموعد المناسب، وقم بالحجز والتأكيد رقمياً في ثوانٍ.",
+                icon: Calendar,
+              },
             ].map((feat, idx) => {
               const Icon = feat.icon;
               return (
@@ -399,7 +472,7 @@ export function ConsultationPage() {
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery("")}
-                      className="absolute left-3 top-3 text-xs text-text-muted hover:text-gold-primary cursor-pointer border-0 bg-transparent"
+                      className="absolute left-3 top-3 text-xs text-text-muted hover:text-gold-hover cursor-pointer border-0 bg-transparent"
                     >
                       مسح
                     </button>
@@ -439,9 +512,15 @@ export function ConsultationPage() {
                   <div className="text-gold-primary text-4xl mb-4 font-serif">⚠️</div>
                   <h3 className="text-lg font-bold text-text-primary mb-2">لا توجد نتائج مطابقة</h3>
                   <p className="text-text-secondary text-xs leading-relaxed mb-6">
-                    عذراً، لم نتمكن من العثور على أي جلسات استشارية تطابق بحثك أو المجال المحدد. جرب كلمات بحث أخرى.
+                    عذراً، لم نتمكن من العثور على أي جلسات استشارية تطابق بحثك أو المجال المحدد. جرب
+                    كلمات بحث أخرى.
                   </p>
-                  <GoldButton onClick={() => { setSearchQuery(""); setSelectedField(""); }}>
+                  <GoldButton
+                    onClick={() => {
+                      setSearchQuery("");
+                      setSelectedField("");
+                    }}
+                  >
                     إعادة ضبط البحث
                   </GoldButton>
                 </GoldCard>
@@ -449,8 +528,8 @@ export function ConsultationPage() {
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {paginatedConsultancies.map((item) => (
-                      <GoldCard 
-                        key={item.id} 
+                      <GoldCard
+                        key={item.id}
                         onClick={() => navigate("/consultation/" + item.id)}
                         className="overflow-hidden hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full bg-bg-card/90 cursor-pointer"
                       >
@@ -510,13 +589,13 @@ export function ConsultationPage() {
                   {totalPages > 1 && (
                     <div className="flex justify-center items-center gap-2 mt-12">
                       <button
-                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                         disabled={currentPage === 1}
-                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-hover transition"
                       >
                         السابق
                       </button>
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                         <button
                           key={page}
                           onClick={() => setCurrentPage(page)}
@@ -530,9 +609,9 @@ export function ConsultationPage() {
                         </button>
                       ))}
                       <button
-                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                         disabled={currentPage === totalPages}
-                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-primary transition"
+                        className="px-3 py-1.5 border border-gold-border/20 rounded-lg bg-bg-card disabled:opacity-40 cursor-pointer text-xs font-bold text-text-secondary hover:text-gold-hover transition"
                       >
                         التالي
                       </button>
@@ -541,349 +620,411 @@ export function ConsultationPage() {
                 </>
               )}
             </>
-          ) : (() => {
-            const currentService = consultancies.find(c => c.id === selectedConsultancy);
+          ) : (
+            (() => {
+              const currentService = consultancies.find((c) => c.id === selectedConsultancy);
 
-            if (!currentService) return null;
+              if (!currentService) return null;
 
-            return (
-              <m.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-8"
-              >
-                {/* Back button */}
-                <button 
-                  onClick={() => navigate("/consultation")}
-                  className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-gold-primary transition cursor-pointer font-semibold"
+              return (
+                <m.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-8"
                 >
-                  <ArrowRight className="h-4 w-4 text-gold-primary" /> العودة لكافة الاستشارات
-                </button>
+                  {/* Back button */}
+                  <button
+                    onClick={() => navigate("/consultation")}
+                    className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-gold-hover transition cursor-pointer font-semibold"
+                  >
+                    <ArrowRight className="h-4 w-4 text-gold-primary" /> العودة لكافة الاستشارات
+                  </button>
 
-                <div className="w-full">
-                  <GoldCard className="p-6 md:p-8 space-y-6 text-right">
-                    <div className="relative h-100 md:h-150 rounded-2xl overflow-hidden mb-6">
-                      <img src={currentService.squareImage} alt={currentService.title} className="h-150 w-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/80 to-transparent" />
-                      <div className="absolute bottom-6 right-6 flex items-center gap-4">
-                        <img src={currentService.consultantImage} alt={currentService.consultant} className="h-16 w-16 rounded-full border-4 border-gold-border/20 object-cover" />
+                  <div className="w-full">
+                    <GoldCard className="p-6 md:p-8 space-y-6 text-right">
+                      <div className="relative h-100 md:h-150 rounded-2xl overflow-hidden mb-6">
+                        <img
+                          src={currentService.squareImage}
+                          alt={currentService.title}
+                          className="h-150 w-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/80 to-transparent" />
+                        <div className="absolute bottom-6 right-6 flex items-center gap-4">
+                          <img
+                            src={currentService.consultantImage}
+                            alt={currentService.consultant}
+                            className="h-16 w-16 rounded-full border-4 border-gold-border/20 object-cover"
+                          />
+                          <div>
+                            <h2 className="text-xl font-bold text-text-primary">
+                              {currentService.consultant}
+                            </h2>
+                            <span className="text-xs text-gold-primary block">مستشار معتمد</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <h1 className="text-3xl font-bold text-text-primary leading-snug">
+                        {currentService.title}
+                      </h1>
+
+                      <div className="flex flex-wrap gap-6 items-center border-y border-border-subtle py-4">
                         <div>
-                          <h2 className="text-xl font-bold text-text-primary">{currentService.consultant}</h2>
-                          <span className="text-xs text-gold-primary block">مستشار معتمد</span>
+                          <span className="text-xs text-text-secondary block">رسوم الجلسة</span>
+                          <span className="font-serif text-3xl font-bold text-gold-primary">
+                            {toArabicDigits(currentService.price)}
+                          </span>
+                        </div>
+                        <div className="h-10 w-px bg-border-subtle" />
+                        <div>
+                          <span className="text-xs text-text-secondary block">مدة الاستشارة</span>
+                          <span className="text-base font-bold text-text-primary flex items-center gap-1.5 mt-1">
+                            <Clock className="h-4 w-4 text-gold-primary" />{" "}
+                            {toArabicDigits(currentService.duration)}
+                          </span>
+                        </div>
+                        <div className="h-10 w-px bg-border-subtle" />
+                        <div>
+                          <span className="text-xs text-text-secondary block">نوع الجلسة</span>
+                          <span className="text-base font-bold text-text-primary flex items-center gap-1.5 mt-1">
+                            <Shield className="h-4 w-4 text-gold-primary" /> استشارة شخصية مباشرة
+                          </span>
                         </div>
                       </div>
-                    </div>
 
-                    <h1 className="text-3xl font-bold text-text-primary leading-snug">{currentService.title}</h1>
-                    
-                    <div className="flex flex-wrap gap-6 items-center border-y border-border-subtle py-4">
-                      <div>
-                        <span className="text-xs text-text-secondary block">رسوم الجلسة</span>
-                        <span className="font-serif text-3xl font-bold text-gold-primary">{toArabicDigits(currentService.price)}</span>
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-bold text-text-primary border-r-4 border-gold-primary pr-3 leading-none">
+                          تفاصيل الاستشارة ومحاورها
+                        </h3>
+                        <p className="text-text-secondary text-sm leading-relaxed whitespace-pre-line">
+                          {toArabicDigits(currentService.details || currentService.summary)}
+                        </p>
                       </div>
-                      <div className="h-10 w-px bg-border-subtle" />
-                      <div>
-                        <span className="text-xs text-text-secondary block">مدة الاستشارة</span>
-                        <span className="text-base font-bold text-text-primary flex items-center gap-1.5 mt-1">
-                          <Clock className="h-4 w-4 text-gold-primary" /> {toArabicDigits(currentService.duration)}
-                        </span>
+
+                      <div className="p-4 bg-bg-elevated/50 rounded-2xl border border-gold-border/10 space-y-3">
+                        <h4 className="font-bold text-text-primary text-xs flex items-center gap-1.5">
+                          <Shield className="h-4 w-4 text-gold-primary" /> سياسة الخصوصية والسرية
+                        </h4>
+                        <p className="text-[10px] text-text-secondary leading-relaxed">
+                          جميع المعلومات والبيانات والمستندات المشاركة خلال الجلسة تخضع لسرية تامة
+                          واتفاقية عدم إفصاح متبادلة لحماية أسرار عملك التجاري.
+                        </p>
                       </div>
-                      <div className="h-10 w-px bg-border-subtle" />
-                      <div>
-                        <span className="text-xs text-text-secondary block">نوع الجلسة</span>
-                        <span className="text-base font-bold text-text-primary flex items-center gap-1.5 mt-1">
-                          <Shield className="h-4 w-4 text-gold-primary" /> استشارة شخصية مباشرة
-                        </span>
+
+                      <div className="pt-6 border-t border-border-subtle/50 flex justify-center">
+                        {!showBookingForm && (
+                          <GoldButton
+                            onClick={handleOpenBooking}
+                            className="w-full sm:w-auto px-10 py-4 rounded-full text-sm font-bold shadow-gold-cta flex items-center justify-center gap-2"
+                          >
+                            <Calendar className="h-5 w-5" /> حجز استشارة الآن
+                          </GoldButton>
+                        )}
                       </div>
-                    </div>
+                    </GoldCard>
+                  </div>
 
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-bold text-text-primary border-r-4 border-gold-primary pr-3 leading-none">تفاصيل الاستشارة ومحاورها</h3>
-                      <p className="text-text-secondary text-sm leading-relaxed whitespace-pre-line">
-                        {toArabicDigits(currentService.details || currentService.summary)}
-                      </p>
-                    </div>
+                  {/* Booking Form (Inline) */}
+                  <AnimatePresence>
+                    {showBookingForm && (
+                      <m.div
+                        id="booking-form-section"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -30 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className="w-full mt-8"
+                      >
+                        <GoldCard className="p-6 md:p-8 space-y-6 text-right border border-gold-primary/30 shadow-gold-cta/10">
+                          <div className="border-b border-border-subtle pb-4 mb-6">
+                            <h2 className="text-2xl font-bold text-text-primary">
+                              جدولة الجلسة وتأكيد البيانات
+                            </h2>
+                            <p className="text-xs text-text-secondary mt-1">
+                              الرجاء اختيار اليوم، وتحديد الوقت، ثم ملء بياناتك الشخصية أدناه
+                            </p>
+                          </div>
 
-                    <div className="p-4 bg-bg-elevated/50 rounded-2xl border border-gold-border/10 space-y-3">
-                      <h4 className="font-bold text-text-primary text-xs flex items-center gap-1.5">
-                        <Shield className="h-4 w-4 text-gold-primary" /> سياسة الخصوصية والسرية
-                      </h4>
-                      <p className="text-[10px] text-text-secondary leading-relaxed">
-                        جميع المعلومات والبيانات والمستندات المشاركة خلال الجلسة تخضع لسرية تامة واتفاقية عدم إفصاح متبادلة لحماية أسرار عملك التجاري.
-                      </p>
-                    </div>
-
-                    <div className="pt-6 border-t border-border-subtle/50 flex justify-center">
-                      {!showBookingForm && (
-                        <GoldButton 
-                          onClick={handleOpenBooking} 
-                          className="w-full sm:w-auto px-10 py-4 rounded-full text-sm font-bold shadow-gold-cta flex items-center justify-center gap-2"
-                        >
-                          <Calendar className="h-5 w-5" /> حجز استشارة الآن
-                        </GoldButton>
-                      )}
-                    </div>
-                  </GoldCard>
-                </div>
-
-                {/* Booking Form (Inline) */}
-                <AnimatePresence>
-                  {showBookingForm && (
-                    <m.div
-                      id="booking-form-section"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -30 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="w-full mt-8"
-                    >
-                      <GoldCard className="p-6 md:p-8 space-y-6 text-right border border-gold-primary/30 shadow-gold-cta/10">
-                        <div className="border-b border-border-subtle pb-4 mb-6">
-                          <h2 className="text-2xl font-bold text-text-primary">جدولة الجلسة وتأكيد البيانات</h2>
-                          <p className="text-xs text-text-secondary mt-1">الرجاء اختيار اليوم، وتحديد الوقت، ثم ملء بياناتك الشخصية أدناه</p>
-                        </div>
-
-                         <form onSubmit={handleBookingSubmit} className="space-y-6">
-                          {/* Step 1: Calendar & Quick Selector */}
-                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div className="space-y-4">
-                              <label className="block text-sm font-bold text-gold-primary">
-                                ١. اختر تاريخ الاستشارة من التقويم *
-                              </label>
-                              <div className="border border-gold-border/20 rounded-xl overflow-hidden bg-bg-elevated/50 p-2 consultation-calendar min-h-[360px]">
-                                <Scheduler
-                                  events={availableEvents}
-                                  view={calendarView}
-                                  onViewChange={handleViewChange}
-                                  date={selectedDate}
-                                  onDateChange={handleDateChange}
-                                  onEventClick={handleEventClick}
-                                  hideViewSwitcher={true}
-                                  language="en"
-                                  translations={arabicTranslations}
-                                  locale={ar}
-                                  isDarkMode={true}
-                                  readOnly={true}
-                                  theme={{
-                                    colors: {
-                                      primary: "var(--gold-primary)",
-                                      background: "var(--bg-elevated)",
-                                      foreground: "var(--text-primary)",
-                                      border: "var(--gold-border)",
-                                      muted: "var(--text-secondary)",
-                                      accent: "var(--gold-muted)",
-                                    }
-                                  }}
-                                />
-                              </div>
-                            </div>
-
-                            <div className="space-y-6 flex flex-col justify-between">
-                              {/* Quick selector of upcoming dates */}
-                              <div className="space-y-3">
-                                <label className="block text-xs font-bold text-text-secondary">
-                                  أو اختر بسرعة من الأيام القادمة المتاحة:
-                                </label>
-                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-[220px] overflow-y-auto pr-1">
-                                  {upcomingDates.map((d) => (
-                                    <button
-                                      key={d.value}
-                                      type="button"
-                                      onClick={() => {
-                                        const nextD = new Date(d.value);
-                                        setSelectedDate(nextD);
-                                        setBookingForm(prev => ({ ...prev, date: d.value, time: "" }));
-                                        setIsTimePickerOpen(true);
-                                        toast.success(`تم اختيار يوم: ${d.dayName} ${d.dateLabel}`);
-                                      }}
-                                      className={`py-2 px-1 rounded-xl text-center border text-[11px] font-medium transition cursor-pointer ${
-                                        bookingForm.date === d.value
-                                          ? "bg-gold-primary border-gold-primary text-bg-primary font-bold scale-[1.02] shadow-md shadow-gold-glow/20"
-                                          : "bg-bg-elevated/40 border-gold-border/10 text-text-secondary hover:border-gold-primary/30 hover:text-text-primary"
-                                      }`}
-                                    >
-                                      <span className="block text-[9px] opacity-70 mb-0.5">{d.dayName}</span>
-                                      <span className="block font-bold">{d.dateLabel}</span>
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Selected Day Status */}
-                              {bookingForm.date && (
-                                <div className="bg-gold-muted/10 border border-gold-border/20 rounded-xl p-4 text-center">
-                                  <span className="text-xs text-text-secondary block mb-1">اليوم المحدد:</span>
-                                  <span className="text-base font-bold text-gold-primary flex items-center justify-center gap-1.5">
-                                    <Calendar className="h-5 w-5" /> {formatArabicDate(selectedDate)}
-                                  </span>
-                                </div>
-                              )}
-
-                              {/* Selected Time Info */}
-                              <div className="space-y-3">
+                          <form onSubmit={handleBookingSubmit} className="space-y-6">
+                            {/* Step 1: Calendar & Quick Selector */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                              <div className="space-y-4">
                                 <label className="block text-sm font-bold text-gold-primary">
-                                  ٢. توقيت الجلسة المفضل (بتوقيت مكة) *
+                                  ١. اختر تاريخ الاستشارة من التقويم *
                                 </label>
-                                {bookingForm.date ? (
-                                  <div className="bg-bg-elevated border border-gold-border/10 rounded-xl p-4 flex flex-col items-center justify-center space-y-3">
-                                    {bookingForm.time ? (
-                                      <>
-                                        <div className="flex items-center gap-2 text-sm font-bold text-gold-primary">
-                                          <Clock className="h-4.5 w-4.5" />
-                                          <span>{timeSlots.find(ts => ts.value === bookingForm.time)?.label || bookingForm.time}</span>
-                                        </div>
-                                        <button
-                                          type="button"
-                                          onClick={() => setIsTimePickerOpen(true)}
-                                          className="text-xs text-text-secondary hover:text-gold-primary underline transition cursor-pointer"
-                                        >
-                                          تغيير الوقت
-                                        </button>
-                                      </>
-                                    ) : (
-                                      <>
-                                        <p className="text-xs text-text-secondary">لم يتم اختيار وقت بعد لهذا اليوم.</p>
-                                        <GoldButton
-                                          type="button"
-                                          onClick={() => setIsTimePickerOpen(true)}
-                                          className="py-2 px-6 rounded-full text-xs font-bold"
-                                        >
-                                          اختر الوقت الآن
-                                        </GoldButton>
-                                      </>
-                                    )}
+                                <div className="border border-gold-border/20 rounded-xl overflow-hidden bg-bg-elevated/50 p-2 consultation-calendar min-h-[360px]">
+                                  <Scheduler
+                                    events={availableEvents}
+                                    view={calendarView}
+                                    onViewChange={handleViewChange}
+                                    date={selectedDate}
+                                    onDateChange={handleDateChange}
+                                    onEventClick={handleEventClick}
+                                    hideViewSwitcher={true}
+                                    language="en"
+                                    translations={arabicTranslations}
+                                    locale={ar}
+                                    isDarkMode={true}
+                                    readOnly={true}
+                                    theme={{
+                                      colors: {
+                                        primary: "var(--gold-primary)",
+                                        background: "var(--bg-elevated)",
+                                        foreground: "var(--text-primary)",
+                                        border: "var(--gold-border)",
+                                        muted: "var(--text-secondary)",
+                                        accent: "var(--gold-muted)",
+                                      },
+                                    }}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="space-y-6 flex flex-col justify-between">
+                                {/* Quick selector of upcoming dates */}
+                                <div className="space-y-3">
+                                  <label className="block text-xs font-bold text-text-secondary">
+                                    أو اختر بسرعة من الأيام القادمة المتاحة:
+                                  </label>
+                                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-[220px] overflow-y-auto pr-1">
+                                    {upcomingDates.map((d) => (
+                                      <button
+                                        key={d.value}
+                                        type="button"
+                                        onClick={() => {
+                                          const nextD = new Date(d.value);
+                                          setSelectedDate(nextD);
+                                          setBookingForm((prev) => ({
+                                            ...prev,
+                                            date: d.value,
+                                            time: "",
+                                          }));
+                                          setIsTimePickerOpen(true);
+                                          toast.success(
+                                            `تم اختيار يوم: ${d.dayName} ${d.dateLabel}`,
+                                          );
+                                        }}
+                                        className={`py-2 px-1 rounded-xl text-center border text-[11px] font-medium transition cursor-pointer ${
+                                          bookingForm.date === d.value
+                                            ? "bg-gold-primary border-gold-primary text-bg-primary font-bold scale-[1.02] shadow-md shadow-gold-glow/20"
+                                            : "bg-bg-elevated/40 border-gold-border/10 text-text-secondary hover:border-gold-primary/30 hover:text-text-primary"
+                                        }`}
+                                      >
+                                        <span className="block text-[9px] opacity-70 mb-0.5">
+                                          {d.dayName}
+                                        </span>
+                                        <span className="block font-bold">{d.dateLabel}</span>
+                                      </button>
+                                    ))}
                                   </div>
-                                ) : (
-                                  <div className="text-xs text-text-secondary text-center py-6 bg-bg-elevated/30 border border-border-subtle rounded-xl">
-                                    الرجاء اختيار تاريخ من التقويم أو القائمة المجاورة لعرض الأوقات المتاحة.
+                                </div>
+
+                                {/* Selected Day Status */}
+                                {bookingForm.date && (
+                                  <div className="bg-gold-muted/10 border border-gold-border/20 rounded-xl p-4 text-center">
+                                    <span className="text-xs text-text-secondary block mb-1">
+                                      اليوم المحدد:
+                                    </span>
+                                    <span className="text-base font-bold text-gold-primary flex items-center justify-center gap-1.5">
+                                      <Calendar className="h-5 w-5" />{" "}
+                                      {formatArabicDate(selectedDate)}
+                                    </span>
                                   </div>
                                 )}
+
+                                {/* Selected Time Info */}
+                                <div className="space-y-3">
+                                  <label className="block text-sm font-bold text-gold-primary">
+                                    ٢. توقيت الجلسة المفضل (بتوقيت مكة) *
+                                  </label>
+                                  {bookingForm.date ? (
+                                    <div className="bg-bg-elevated border border-gold-border/10 rounded-xl p-4 flex flex-col items-center justify-center space-y-3">
+                                      {bookingForm.time ? (
+                                        <>
+                                          <div className="flex items-center gap-2 text-sm font-bold text-gold-primary">
+                                            <Clock className="h-4.5 w-4.5" />
+                                            <span>
+                                              {timeSlots.find((ts) => ts.value === bookingForm.time)
+                                                ?.label || bookingForm.time}
+                                            </span>
+                                          </div>
+                                          <button
+                                            type="button"
+                                            onClick={() => setIsTimePickerOpen(true)}
+                                            className="text-xs text-text-secondary hover:text-gold-hover underline transition cursor-pointer"
+                                          >
+                                            تغيير الوقت
+                                          </button>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <p className="text-xs text-text-secondary">
+                                            لم يتم اختيار وقت بعد لهذا اليوم.
+                                          </p>
+                                          <GoldButton
+                                            type="button"
+                                            onClick={() => setIsTimePickerOpen(true)}
+                                            className="py-2 px-6 rounded-full text-xs font-bold"
+                                          >
+                                            اختر الوقت الآن
+                                          </GoldButton>
+                                        </>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <div className="text-xs text-text-secondary text-center py-6 bg-bg-elevated/30 border border-border-subtle rounded-xl">
+                                      الرجاء اختيار تاريخ من التقويم أو القائمة المجاورة لعرض
+                                      الأوقات المتاحة.
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
-                          </div>
 
-                          {/* Step 3: Contact & Notes */}
-                          <div className="space-y-4 pt-6 border-t border-border-subtle mt-6">
-                            <label className="block text-sm font-bold text-gold-primary">
-                              ٣. أدخل بياناتك الشخصية لإتمام الحجز
-                            </label>
-                            
-                            <div>
-                              <label className="block text-xs font-bold mb-1.5 text-text-secondary">الاسم الكامل *</label>
-                              <input
-                                type="text"
-                                required
-                                className="w-full bg-bg-elevated border border-gold-border/20 rounded-xl px-4 py-3 text-xs text-text-primary focus:outline-none focus:border-gold-primary transition"
-                                placeholder="أدخل اسمك بالكامل"
-                                value={bookingForm.name}
-                                onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                              />
-                            </div>
+                            {/* Step 3: Contact & Notes */}
+                            <div className="space-y-4 pt-6 border-t border-border-subtle mt-6">
+                              <label className="block text-sm font-bold text-gold-primary">
+                                ٣. أدخل بياناتك الشخصية لإتمام الحجز
+                              </label>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div>
-                                <label className="block text-xs font-bold mb-1.5 text-text-secondary">البريد الإلكتروني *</label>
+                                <label className="block text-xs font-bold mb-1.5 text-text-secondary">
+                                  الاسم الكامل *
+                                </label>
                                 <input
-                                  type="email"
+                                  type="text"
                                   required
                                   className="w-full bg-bg-elevated border border-gold-border/20 rounded-xl px-4 py-3 text-xs text-text-primary focus:outline-none focus:border-gold-primary transition"
-                                  placeholder="example@mail.com"
-                                  value={bookingForm.email}
-                                  onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
+                                  placeholder="أدخل اسمك بالكامل"
+                                  value={bookingForm.name}
+                                  onChange={(e) =>
+                                    setBookingForm({ ...bookingForm, name: e.target.value })
+                                  }
                                 />
                               </div>
+
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                  <label className="block text-xs font-bold mb-1.5 text-text-secondary">
+                                    البريد الإلكتروني *
+                                  </label>
+                                  <input
+                                    type="email"
+                                    required
+                                    className="w-full bg-bg-elevated border border-gold-border/20 rounded-xl px-4 py-3 text-xs text-text-primary focus:outline-none focus:border-gold-primary transition"
+                                    placeholder="example@mail.com"
+                                    value={bookingForm.email}
+                                    onChange={(e) =>
+                                      setBookingForm({ ...bookingForm, email: e.target.value })
+                                    }
+                                  />
+                                </div>
+                                <div>
+                                  <label className="block text-xs font-bold mb-1.5 text-text-secondary">
+                                    رقم الهاتف *
+                                  </label>
+                                  <input
+                                    type="tel"
+                                    required
+                                    className="w-full bg-bg-elevated border border-gold-border/20 rounded-xl px-4 py-3 text-xs text-text-primary focus:outline-none focus:border-gold-primary transition"
+                                    placeholder="+966xxxxxxxxx"
+                                    value={bookingForm.phone}
+                                    onChange={(e) =>
+                                      setBookingForm({ ...bookingForm, phone: e.target.value })
+                                    }
+                                  />
+                                </div>
+                              </div>
+
                               <div>
-                                <label className="block text-xs font-bold mb-1.5 text-text-secondary">رقم الهاتف *</label>
-                                <input
-                                  type="tel"
-                                  required
-                                  className="w-full bg-bg-elevated border border-gold-border/20 rounded-xl px-4 py-3 text-xs text-text-primary focus:outline-none focus:border-gold-primary transition"
-                                  placeholder="+966xxxxxxxxx"
-                                  value={bookingForm.phone}
-                                  onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
+                                <label className="block text-xs font-bold mb-1.5 text-text-secondary">
+                                  ملاحظات أو أسئلة محددة
+                                </label>
+                                <textarea
+                                  rows={4}
+                                  className="w-full bg-bg-elevated border border-gold-border/20 rounded-xl px-4 py-3 text-xs text-text-primary focus:outline-none focus:border-gold-primary transition resize-none"
+                                  placeholder="ما هي التحديات أو النقاط التي ترغب في مناقشتها مع المستشار؟"
+                                  value={bookingForm.notes}
+                                  onChange={(e) =>
+                                    setBookingForm({ ...bookingForm, notes: e.target.value })
+                                  }
                                 />
                               </div>
                             </div>
 
-                            <div>
-                              <label className="block text-xs font-bold mb-1.5 text-text-secondary">ملاحظات أو أسئلة محددة</label>
-                              <textarea
-                                rows={4}
-                                className="w-full bg-bg-elevated border border-gold-border/20 rounded-xl px-4 py-3 text-xs text-text-primary focus:outline-none focus:border-gold-primary transition resize-none"
-                                placeholder="ما هي التحديات أو النقاط التي ترغب في مناقشتها مع المستشار؟"
-                                value={bookingForm.notes}
-                                onChange={(e) => setBookingForm({ ...bookingForm, notes: e.target.value })}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="flex justify-end gap-4 pt-4">
-                            <button
-                              type="button"
-                              onClick={() => setShowBookingForm(false)}
-                              className="px-6 py-3 rounded-full text-xs font-bold text-text-secondary border border-border-subtle hover:text-text-primary hover:border-text-secondary/30 transition cursor-pointer"
-                            >
-                              إلغاء
-                            </button>
-                            <GoldButton type="submit" className="px-8 py-3 rounded-full text-xs font-bold shadow-gold-cta cursor-pointer flex items-center gap-2">
-                              <Send className="h-4 w-4" /> إرسال طلب الحجز والتأكيد
-                            </GoldButton>
-                          </div>
-                        </form>
-
-                        {/* Time Picker Dialog */}
-                        <Dialog open={isTimePickerOpen} onOpenChange={setIsTimePickerOpen}>
-                          <DialogContent className="max-w-md bg-bg-card border-gold-border/30 text-text-primary p-6 rounded-2xl shadow-gold-cta/15" dir="rtl">
-                            <DialogHeader className="text-right pb-3 border-b border-border-subtle">
-                              <DialogTitle className="text-lg font-bold text-text-primary">
-                                اختر توقيت الجلسة المفضل
-                              </DialogTitle>
-                              <p className="text-xs text-text-secondary mt-1">
-                                ليوم {formatArabicDate(selectedDate)} (بتوقيت مكة)
-                              </p>
-                            </DialogHeader>
-
-                            <div className="grid grid-cols-2 gap-3 mt-4">
-                              {timeSlots.map((ts, index) => (
-                                <button
-                                  key={index}
-                                  type="button"
-                                  onClick={() => {
-                                    setBookingForm({ ...bookingForm, time: ts.value });
-                                    setIsTimePickerOpen(false);
-                                    toast.success(`تم اختيار الوقت: ${ts.label}`);
-                                  }}
-                                  className={`py-3 px-4 rounded-xl text-center border text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${
-                                    bookingForm.time === ts.value
-                                      ? "bg-gold-primary border-gold-primary text-bg-primary font-bold shadow-md shadow-gold-glow/20"
-                                      : "bg-bg-elevated border-gold-border/10 text-text-secondary hover:border-gold-primary/30 hover:text-text-primary"
-                                  }`}
-                                >
-                                  <Clock className="h-3.5 w-3.5 opacity-70" />
-                                  {ts.label}
-                                </button>
-                              ))}
-                            </div>
-                            
-                            <div className="flex justify-end pt-4 border-t border-border-subtle mt-4">
+                            <div className="flex justify-end gap-4 pt-4">
                               <button
                                 type="button"
-                                onClick={() => setIsTimePickerOpen(false)}
-                                className="px-5 py-2 rounded-full text-xs font-bold text-text-secondary border border-border-subtle hover:text-text-primary transition cursor-pointer"
+                                onClick={() => setShowBookingForm(false)}
+                                className="px-6 py-3 rounded-full text-xs font-bold text-text-secondary border border-border-subtle hover:text-text-primary hover:border-text-secondary/30 transition cursor-pointer"
                               >
                                 إلغاء
                               </button>
+                              <GoldButton
+                                type="submit"
+                                className="px-8 py-3 rounded-full text-xs font-bold shadow-gold-cta cursor-pointer flex items-center gap-2"
+                              >
+                                <Send className="h-4 w-4" /> إرسال طلب الحجز والتأكيد
+                              </GoldButton>
                             </div>
-                          </DialogContent>
-                        </Dialog>
-                      </GoldCard>
-                    </m.div>
-                  )}
-                </AnimatePresence>
-              </m.div>
-            );
-          })()}
+                          </form>
 
+                          {/* Time Picker Dialog */}
+                          <Dialog open={isTimePickerOpen} onOpenChange={setIsTimePickerOpen}>
+                            <DialogContent
+                              className="max-w-md bg-bg-card border-gold-border/30 text-text-primary p-6 rounded-2xl shadow-gold-cta/15"
+                              dir="rtl"
+                            >
+                              <DialogHeader className="text-right pb-3 border-b border-border-subtle">
+                                <DialogTitle className="text-lg font-bold text-text-primary">
+                                  اختر توقيت الجلسة المفضل
+                                </DialogTitle>
+                                <p className="text-xs text-text-secondary mt-1">
+                                  ليوم {formatArabicDate(selectedDate)} (بتوقيت مكة)
+                                </p>
+                              </DialogHeader>
+
+                              <div className="grid grid-cols-2 gap-3 mt-4">
+                                {timeSlots.map((ts, index) => (
+                                  <button
+                                    key={index}
+                                    type="button"
+                                    onClick={() => {
+                                      setBookingForm({ ...bookingForm, time: ts.value });
+                                      setIsTimePickerOpen(false);
+                                      toast.success(`تم اختيار الوقت: ${ts.label}`);
+                                    }}
+                                    className={`py-3 px-4 rounded-xl text-center border text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${
+                                      bookingForm.time === ts.value
+                                        ? "bg-gold-primary border-gold-primary text-bg-primary font-bold shadow-md shadow-gold-glow/20"
+                                        : "bg-bg-elevated border-gold-border/10 text-text-secondary hover:border-gold-primary/30 hover:text-text-primary"
+                                    }`}
+                                  >
+                                    <Clock className="h-3.5 w-3.5 opacity-70" />
+                                    {ts.label}
+                                  </button>
+                                ))}
+                              </div>
+
+                              <div className="flex justify-end pt-4 border-t border-border-subtle mt-4">
+                                <button
+                                  type="button"
+                                  onClick={() => setIsTimePickerOpen(false)}
+                                  className="px-5 py-2 rounded-full text-xs font-bold text-text-secondary border border-border-subtle hover:text-text-primary transition cursor-pointer"
+                                >
+                                  إلغاء
+                                </button>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                        </GoldCard>
+                      </m.div>
+                    )}
+                  </AnimatePresence>
+                </m.div>
+              );
+            })()
+          )}
         </div>
       </main>
 

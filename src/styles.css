@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap");
 @import "tailwindcss";
 @source "../src";
 @source "../node_modules/calendarkit-pro/dist/**/*.js";
@@ -38,18 +38,19 @@
   --color-bg-card: var(--bg-card);
   --color-bg-elevated: var(--bg-elevated);
   --color-bg-glass: var(--bg-glass);
-  
+
   --color-gold-primary: var(--gold-primary);
   --color-gold-shine: var(--gold-shine);
   --color-gold-deep: var(--gold-deep);
+  --color-gold-hover: var(--gold-hover);
   --color-gold-muted: var(--gold-muted);
   --color-gold-glow: var(--gold-glow);
   --color-gold-border: var(--gold-border);
-  
+
   --color-red-alert: var(--red-alert);
   --color-green-success: var(--green-success);
   --color-blue-info: var(--blue-info);
-  
+
   --color-border-subtle: var(--border-subtle);
   --color-border-gold: var(--border-gold);
 
@@ -68,10 +69,10 @@
   --shadow-card-hover: var(--shadow-card-hover-val);
   --shadow-gold-cta: var(--shadow-gold-cta-val);
 
-  --font-sans: 'Cairo', 'Inter', system-ui, sans-serif;
-  --font-serif: 'DM Serif Display', 'Playfair Display', 'Amiri', serif;
-  --font-display: 'DM Serif Display', 'Playfair Display', 'Amiri', serif;
-  
+  --font-sans: "Cairo", "Inter", system-ui, sans-serif;
+  --font-serif: "DM Serif Display", "Playfair Display", "Amiri", serif;
+  --font-display: "DM Serif Display", "Playfair Display", "Amiri", serif;
+
   --transition-timing-function-supportive: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -79,29 +80,30 @@
   --radius: 0.625rem;
 
   /* Mastery Academy Design System Tokens - Dark Mode (Default) */
-  --bg-primary:     #0A0A0F; /* Main application background */
-  --bg-card:        #111118; /* Cards and core container backgrounds */
-  --bg-elevated:    #18181F; /* Dropdowns, popovers, and elevated widgets */
-  --bg-glass:       rgba(17, 17, 24, 0.75); /* Top bar and modal background blur */
+  --bg-primary: #0a0a0f; /* Main application background */
+  --bg-card: #111118; /* Cards and core container backgrounds */
+  --bg-elevated: #18181f; /* Dropdowns, popovers, and elevated widgets */
+  --bg-glass: rgba(17, 17, 24, 0.75); /* Top bar and modal background blur */
 
   /* Premium Bright Gold */
-  --gold-primary: #F5C84C;
-  --gold-shine: #FFF4C8;
-  --gold-deep: #D8A72D;
-  --gold-muted: rgba(245,200,76,.14);
-  --gold-glow: rgba(255,215,96,.50);
-  --gold-border: rgba(255,220,120,.40);
+  --gold-primary: #f5c84c;
+  --gold-shine: #fff4c8;
+  --gold-deep: #d8a72d;
+  --gold-hover: #f5c84c;
+  --gold-muted: rgba(245, 200, 76, 0.14);
+  --gold-glow: rgba(255, 215, 96, 0.5);
+  --gold-border: rgba(255, 220, 120, 0.4);
 
-  --red-alert:      #E8334A; /* Error, alert, online status offline indicator */
-  --green-success:  #2ECC71; /* Success, online status, positive metrics */
-  --blue-info:      #3B82F6; /* Information and hints */
+  --red-alert: #e8334a; /* Error, alert, online status offline indicator */
+  --green-success: #2ecc71; /* Success, online status, positive metrics */
+  --blue-info: #3b82f6; /* Information and hints */
 
-  --text-primary:   #F0EDE8; /* Readable high-contrast light text */
-  --text-secondary: #8A8799; /* Standard descriptive labels and subtext */
-  --text-muted:     #4A4857; /* Placeholder text and inactive indicators */
+  --text-primary: #f0ede8; /* Readable high-contrast light text */
+  --text-secondary: #8a8799; /* Standard descriptive labels and subtext */
+  --text-muted: #4a4857; /* Placeholder text and inactive indicators */
 
-  --border-subtle:  rgba(255, 255, 255, 0.06); /* Default dark layout border */
-  --border-gold:    rgba(255,220,120,.40); /* Premium card borders */
+  --border-subtle: rgba(255, 255, 255, 0.06); /* Default dark layout border */
+  --border-gold: rgba(255, 220, 120, 0.4); /* Premium card borders */
 
   /* Shadows for dark mode */
   --shadow-card-custom-val: 0 4px 24px rgba(0, 0, 0, 0.5);
@@ -109,15 +111,15 @@
   --shadow-gold-cta-val: 0 4px 20px rgba(227, 179, 78, 0.4), 0 0 40px rgba(227, 179, 78, 0.2);
 
   /* Legacy Mapping for compatibility with existing codebase styles */
-  --bg-secondary:   var(--bg-card);
-  --bg-tertiary:    var(--bg-elevated);
-  --accent-gold:    var(--gold-primary);
+  --bg-secondary: var(--bg-card);
+  --bg-tertiary: var(--bg-elevated);
+  --accent-gold: var(--gold-primary);
   --accent-gold-lt: var(--gold-shine);
-  --accent-red:     var(--red-alert);
-  --warm-cream: #FAF6F0;
-  --warm-cream-dark: #F5EFE6;
-  --warm-cream-text: #1A1A22;
-  --warm-cream-muted: #5A5662;
+  --accent-red: var(--red-alert);
+  --warm-cream: #faf6f0;
+  --warm-cream-dark: #f5efe6;
+  --warm-cream-text: #1a1a22;
+  --warm-cream-muted: #5a5662;
 
   --background: var(--bg-primary);
   --foreground: var(--text-primary);
@@ -126,7 +128,7 @@
   --popover: var(--bg-secondary);
   --popover-foreground: var(--text-primary);
   --primary: var(--gold-primary);
-  --primary-foreground: #0A0A0F;
+  --primary-foreground: #0a0a0f;
   --secondary: var(--bg-tertiary);
   --secondary-foreground: var(--text-primary);
   --muted: var(--bg-tertiary);
@@ -142,53 +144,58 @@
   /* Background Layers
      Warm ivory and parchment tones — not pure white.
      Each layer gets progressively cooler to create subtle depth. */
-  --bg-primary:     #F5F2EC; /* Main canvas: warm parchment */
-  --bg-card:        #FDFBF7; /* Cards: soft warm white */
-  --bg-elevated:    #FFFFFF; /* Dropdowns, popovers: true white for max lift */
-  --bg-glass:       rgba(245, 242, 236, 0.82); /* Top bar blur: frosted parchment */
+  --bg-primary: #f5f2ec; /* Main canvas: warm parchment */
+  --bg-card: #fdfbf7; /* Cards: soft warm white */
+  --bg-elevated: #ffffff; /* Dropdowns, popovers: true white for max lift */
+  --bg-glass: rgba(245, 242, 236, 0.82); /* Top bar blur: frosted parchment */
 
   /* Gold Accent System
      Gold deepens slightly in light mode so it reads with authority
      against the pale backgrounds — never feels washed out. */
-  --gold-primary: #E6B93E;
-  --gold-shine: #FFF8DB;
-  --gold-deep: #C99624;
-  --gold-muted: rgba(230,185,62,.12);
-  --gold-glow: rgba(245,210,90,.30);
-  --gold-border: rgba(230,185,62,.30);
+  --gold-primary: #e6b93e;
+  --gold-shine: #fff8db;
+  --gold-deep: #c99624;
+  --gold-hover: #b8892a;
+  --gold-muted: rgba(230, 185, 62, 0.12);
+  --gold-glow: rgba(245, 210, 90, 0.3);
+  --gold-border: rgba(230, 185, 62, 0.3);
 
   /* Semantic Alerts & Badges
      Same hues, kept identical — semantic meaning must not shift between modes. */
-  --red-alert:      #D42B40; /* Slightly deepened for contrast on light bg */
-  --green-success:  #1FAB5E; /* Deepened for light bg legibility */
-  --blue-info:      #2563EB; /* Deepened for contrast */
+  --red-alert: #d42b40; /* Slightly deepened for contrast on light bg */
+  --green-success: #1fab5e; /* Deepened for light bg legibility */
+  --blue-info: #2563eb; /* Deepened for contrast */
 
   /* Text Elements
      Deep ink tones, not black — keeps warmth and avoids harshness. */
-  --text-primary:   #1A1714; /* Near-black warm ink — primary headings and values */
-  --text-secondary: #5C5648; /* Warm medium brown — labels, descriptions */
-  --text-muted:     #A09A8E; /* Muted warm gray — placeholders, disabled */
+  --text-primary: #1a1714; /* Near-black warm ink — primary headings and values */
+  --text-secondary: #5c5648; /* Warm medium brown — labels, descriptions */
+  --text-muted: #a09a8e; /* Muted warm gray — placeholders, disabled */
 
   /* Border Tokens */
-  --border-subtle:  rgba(26, 23, 20, 0.08);   /* Soft warm ink border — replaces white-alpha */
-  --border-gold:    rgba(184, 137, 42, 0.25); /* Gold border — same role, slightly stronger */
+  --border-subtle: rgba(26, 23, 20, 0.08); /* Soft warm ink border — replaces white-alpha */
+  --border-gold: rgba(184, 137, 42, 0.25); /* Gold border — same role, slightly stronger */
 
   /* Shadows for light mode */
   --shadow-card-custom-val: 0 1px 4px rgba(26, 23, 20, 0.06), 0 4px 16px rgba(26, 23, 20, 0.05);
   --shadow-card-hover-val: 0 2px 14px rgba(166, 121, 28, 0.14);
-  --shadow-gold-cta-val: 0 4px 16px rgba(166, 121, 28, 0.30), 0 0 28px rgba(166, 121, 28, 0.14);
+  --shadow-gold-cta-val: 0 4px 16px rgba(166, 121, 28, 0.3), 0 0 28px rgba(166, 121, 28, 0.14);
 
   /* Map primary foreground to a dark background/ink text when buttons are light,
      or we can keep it readable against deeper gold button background.
      For a solid gold button, white text reads cleanly. */
-  --primary-foreground: #FFFFFF;
+  --primary-foreground: #ffffff;
   --accent-gold-lt: var(--gold-shine);
   --accent-gold: var(--gold-primary);
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-bg-primary);
     color: var(--color-text-primary);
@@ -209,22 +216,22 @@
 @utility gold-gradient {
   background: linear-gradient(
     180deg,
-    #FFF3C2 0%,
-    #FFD86B 12%,
-    #F5C84C 45%,
-    #EAB63E 75%,
-    #D59C24 100%
+    #fff3c2 0%,
+    #ffd86b 12%,
+    #f5c84c 45%,
+    #eab63e 75%,
+    #d59c24 100%
   );
 }
 
 @utility btn-gold-gradient {
   background: linear-gradient(
     180deg,
-    #FFF3C2 0%,
-    #FFD86B 12%,
-    #F5C84C 45%,
-    #EAB63E 75%,
-    #D59C24 100%
+    #fff3c2 0%,
+    #ffd86b 12%,
+    #f5c84c 45%,
+    #eab63e 75%,
+    #d59c24 100%
   );
 }
 
@@ -232,11 +239,11 @@
   /* ☀️ Light Mode: Softer, brighter gold */
   background: linear-gradient(
     90deg,
-    #C09A32 0%,
-    #E4BE4A 30%,
-    #F7D97A 50%,
-    #E4BE4A 70%,
-    #C09A32 100%
+    #c09a32 0%,
+    #e4be4a 30%,
+    #f7d97a 50%,
+    #e4be4a 70%,
+    #c09a32 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -246,22 +253,21 @@
   .dark & {
     background: linear-gradient(
       90deg,
-      #E8BE48 0%,
-      #FFF1B8 30%,
-      #FFFFFF 50%,
-      #FFF1B8 70%,
-      #E8BE48 100%
+      #e8be48 0%,
+      #fff1b8 30%,
+      #ffffff 50%,
+      #fff1b8 70%,
+      #e8be48 100%
     );
   }
 }
 /* Ensure high contrast and excellent readability for text and icons inside any gold background container */
 .bg-gold-primary,
 .gold-gradient {
-  --bg-primary: #0A0A0F;
-  --color-bg-primary: #0A0A0F;
-  color: #0A0A0F;
+  --bg-primary: #0a0a0f;
+  --color-bg-primary: #0a0a0f;
+  color: #0a0a0f;
 }
-
 
 @utility noise-overlay {
   position: relative;
@@ -279,14 +285,17 @@
   }
 
   .glow-gold {
-    box-shadow: 0 0 14px rgba(255,215,80,.22),
-                0 0 28px rgba(255,221,112,.18),
-                0 0 56px rgba(255,236,170,.12);
+    box-shadow:
+      0 0 14px rgba(255, 215, 80, 0.22),
+      0 0 28px rgba(255, 221, 112, 0.18),
+      0 0 56px rgba(255, 236, 170, 0.12);
   }
 
   .hover-glow-gold:hover {
-    box-shadow: 0 0 40px rgba(255,230,140,.55), 0 0 20px rgba(255,236,170,.25);
-    border-color: rgba(255,220,120,.40);
+    box-shadow:
+      0 0 40px rgba(255, 230, 140, 0.55),
+      0 0 20px rgba(255, 236, 170, 0.25);
+    border-color: rgba(255, 220, 120, 0.4);
   }
 
   @keyframes marquee {
@@ -304,8 +313,12 @@
   }
 
   @keyframes marquee-loop {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
   .animate-marquee-loop {
     animation: marquee-loop 30s linear infinite;
@@ -313,33 +326,50 @@
   }
 
   @keyframes marquee-rtl {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
   .animate-marquee-rtl {
     animation: marquee-rtl 40s linear infinite;
   }
 
   @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
   .shimmer {
-    background: linear-gradient(90deg, var(--bg-card) 0%, var(--bg-elevated) 50%, var(--bg-card) 100%);
+    background: linear-gradient(
+      90deg,
+      var(--bg-card) 0%,
+      var(--bg-elevated) 50%,
+      var(--bg-card) 100%
+    );
     background-size: 200% 100%;
     animation: shimmer 1.6s linear infinite;
   }
 
   @keyframes text-shimmer {
-    0% { background-position: 100% 0; }
-    100% { background-position: -100% 0; }
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
   }
 }
 @utility text-shimmer {
   /* Default Light Mode Colors (Deeper gold for better contrast on white/light backgrounds) */
-  --shimmer-base: #B5850A; 
-  --shimmer-mid: #DCA724;
-  --shimmer-shine: #FFF8E7;
+  --shimmer-base: #b5850a;
+  --shimmer-mid: #dca724;
+  --shimmer-shine: #fff8e7;
 
   background: linear-gradient(
     90deg,
@@ -359,9 +389,9 @@
 /* Dark Mode Override (Restores your original brighter colors) */
 :is(.dark .text-shimmer),
 :is(.dark) .text-shimmer {
-  --shimmer-base: #E2B63A;
-  --shimmer-mid: #FFECA7;
-  --shimmer-shine: #FFFFFF;
+  --shimmer-base: #e2b63a;
+  --shimmer-mid: #ffeca7;
+  --shimmer-shine: #ffffff;
 }
 /* Custom overrides for the Scheduler component on the Consultation Page */
 .consultation-calendar div.hidden.md\:block {

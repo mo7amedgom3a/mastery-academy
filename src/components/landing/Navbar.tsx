@@ -58,14 +58,17 @@ export function Navbar() {
 
           {/* Nav links */}
           <nav className="hidden lg:flex items-center gap-7">
-            <Link to="/" className="text-sm text-text-secondary hover:text-gold-primary transition-colors font-medium">
+            <Link
+              to="/"
+              className="text-sm text-text-secondary hover:text-gold-hover transition-colors font-medium"
+            >
               الرئيسية
             </Link>
             {navLinks.map((l) => (
               <Link
                 key={l}
                 to={getNavLinkHref(l)}
-                className="text-sm text-text-secondary hover:text-gold-primary transition-colors font-medium"
+                className="text-sm text-text-secondary hover:text-gold-hover transition-colors font-medium"
               >
                 {l}
               </Link>
@@ -77,7 +80,7 @@ export function Navbar() {
             <ThemeToggle />
             <button
               aria-label="سلة المشتريات"
-              className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold-border text-text-secondary hover:text-gold-primary hover:border-gold-primary transition"
+              className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold-border text-text-secondary hover:text-gold-hover hover:border-gold-primary transition"
             >
               <ShoppingCart className="h-4 w-4" />
             </button>
@@ -111,7 +114,7 @@ export function Navbar() {
                 <Link
                   to="/"
                   onClick={() => setOpen(false)}
-                  className="text-text-secondary hover:text-gold-primary py-2 font-medium text-base border-b border-gold-border/5"
+                  className="text-text-secondary hover:text-gold-hover py-2 font-medium text-base border-b border-gold-border/5"
                 >
                   الرئيسية
                 </Link>
@@ -120,7 +123,7 @@ export function Navbar() {
                     key={l}
                     to={getNavLinkHref(l)}
                     onClick={() => setOpen(false)}
-                    className="text-text-secondary hover:text-gold-primary py-2 font-medium text-base border-b border-gold-border/5"
+                    className="text-text-secondary hover:text-gold-hover py-2 font-medium text-base border-b border-gold-border/5"
                   >
                     {l}
                   </Link>

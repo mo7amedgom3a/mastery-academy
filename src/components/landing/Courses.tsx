@@ -23,7 +23,7 @@ export function Courses() {
           </div>
           <Link
             to="/packages"
-            className="hidden sm:inline-flex items-center gap-2 text-gold-primary hover:text-accent-gold-lt hover:scale-[1.03] transition-all duration-300 ease-supportive"
+            className="hidden sm:inline-flex items-center gap-2 text-gold-primary hover:text-gold-hover hover:scale-[1.03] transition-all duration-300 ease-supportive"
           >
             تصفح الباقات والحزم
             <ArrowLeft className="h-4 w-4" />
@@ -58,7 +58,7 @@ export function Courses() {
                       </span>
                       <Link
                         to={`/course/${c.id}`}
-                        className="hover:text-gold-primary transition block"
+                        className="hover:text-gold-hover transition block"
                       >
                         <h3 className="text-sm sm:text-base font-bold text-text-primary leading-snug line-clamp-2 h-12 mb-3">
                           {c.title}
@@ -68,7 +68,7 @@ export function Courses() {
                         <User className="h-3.5 w-3.5 text-gold-primary" />
                         <Link
                           to={`/instructor/${instructorId}`}
-                          className="hover:text-gold-primary transition"
+                          className="hover:text-gold-hover transition"
                         >
                           <span>بإشراف: {c.instructor}</span>
                         </Link>
