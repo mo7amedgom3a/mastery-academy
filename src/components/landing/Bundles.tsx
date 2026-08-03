@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Link } from "react-router-dom";
 import { featuredConsultancies } from "@/lib/landing-data";
 import { GoldCard, GoldButton } from "@/components/ui/gold-elements";
@@ -14,7 +14,7 @@ export function Bundles() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featuredConsultancies.map((item, i) => (
-            <motion.div
+            <m.div
               key={item.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +75,7 @@ export function Bundles() {
                   </Link>
                 </div>
               </GoldCard>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, DollarSign, Shield, Check, Send, ArrowRight, Search } from "lucide-react";
 import { toast } from "sonner";
 import { consultancies, categories } from "@/lib/landing-data";
@@ -547,7 +547,7 @@ export function ConsultationPage() {
             if (!currentService) return null;
 
             return (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-8"
@@ -629,7 +629,7 @@ export function ConsultationPage() {
                 {/* Booking Form (Inline) */}
                 <AnimatePresence>
                   {showBookingForm && (
-                    <motion.div
+                    <m.div
                       id="booking-form-section"
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -877,10 +877,10 @@ export function ConsultationPage() {
                           </DialogContent>
                         </Dialog>
                       </GoldCard>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </m.div>
             );
           })()}
 

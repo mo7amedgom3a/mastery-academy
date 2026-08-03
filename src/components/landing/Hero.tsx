@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { landingStats } from "@/lib/landing-data";
@@ -56,7 +56,7 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:px-8 lg:grid-cols-12 lg:gap-8 items-center pb-20">
         {/* Text */}
         <div className="lg:col-span-7 order-2 lg:order-1 text-center lg:text-right">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -64,9 +64,9 @@ export function Hero() {
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gold-primary animate-pulse" />
             منصة التعلم الرائدة في الوطن العربي — نسبة إتمام {toArabicDigits("93")}%
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
@@ -75,18 +75,18 @@ export function Hero() {
             ماستري
             <br />
             <span className="text-gold-gradient">اكاديمي</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 text-xl lg:text-2xl text-text-secondary leading-relaxed"
           >
             تعلم ما يغير عالمك. خطوتك القادمة واضحة، ونحن هنا لمساعدتك على اتخاذها.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
@@ -99,9 +99,9 @@ export function Hero() {
             <button className="inline-flex items-center rounded-full border border-gold-border bg-bg-card/50 px-8 py-4 text-base font-semibold text-text-primary hover:border-gold-primary hover:bg-bg-card hover:scale-[1.02] hover:shadow-[0_0_20px_var(--gold-glow)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-supportive cursor-pointer">
               سجل دخول الآن
             </button>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -121,11 +121,11 @@ export function Hero() {
               <span className="text-gold-primary font-display">★</span>
               <span>شهادات معتمدة دولياً</span>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Instructor photo */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -40, scale: 0.95 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -173,7 +173,7 @@ export function Hero() {
               />
             ))}
           </svg>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

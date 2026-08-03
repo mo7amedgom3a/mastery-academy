@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Cpu, UserCheck, Compass, Users, ArrowLeftRight, Zap, Sparkles } from "lucide-react";
 import { GoldCard } from "@/components/ui/gold-elements";
 import { toArabicDigits } from "@/lib/utils";
@@ -64,7 +64,7 @@ export function AgenticAIShowcase() {
         
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -73,9 +73,9 @@ export function AgenticAIShowcase() {
           >
             <Sparkles className="h-3.5 w-3.5 animate-pulse" />
             ثورة التعليم المهني في الشرق الأوسط
-          </motion.div>
+          </m.div>
           
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -83,9 +83,9 @@ export function AgenticAIShowcase() {
             className="text-4xl lg:text-6xl font-display font-black text-text-primary leading-tight"
           >
             أول منصة تعليمية تعتمد على <span className="text-gold-gradient">الذكاء الاصطناعي الوكيل</span>
-          </motion.h2>
+          </m.h2>
           
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -93,7 +93,7 @@ export function AgenticAIShowcase() {
             className="mt-6 text-lg text-text-secondary leading-relaxed"
           >
             ننقل التعليم والتدريب من الأسلوب التلقيني التقليدي إلى عصر التفاعل الحقيقي والوكلاء الأذكياء الذين يدرسون معك، يراجعون مهامك، ويوجهون مسارك المهني بشكل كامل.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Transformation Section (Traditional vs Agentic AI) */}
@@ -101,7 +101,7 @@ export function AgenticAIShowcase() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* Traditional Card */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -122,7 +122,7 @@ export function AgenticAIShowcase() {
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Middle Switch Icon */}
             <div className="lg:col-span-2 flex justify-center py-4 lg:py-0 relative z-10">
@@ -132,7 +132,7 @@ export function AgenticAIShowcase() {
             </div>
 
             {/* Agentic AI Era Card */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -153,7 +153,7 @@ export function AgenticAIShowcase() {
                   ))}
                 </ul>
               </GoldCard>
-            </motion.div>
+            </m.div>
 
           </div>
         </div>
@@ -169,7 +169,7 @@ export function AgenticAIShowcase() {
             {aiAgents.map((agent, idx) => {
               const IconComp = agent.Icon;
               return (
-                <motion.div
+                <m.div
                   key={idx}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -196,7 +196,7 @@ export function AgenticAIShowcase() {
                       </p>
                     </div>
                   </GoldCard>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>

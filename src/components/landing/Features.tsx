@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { categories, landingStats } from "@/lib/landing-data";
 import { toArabicDigits } from "@/lib/utils";
@@ -30,7 +30,7 @@ const StickyCard = ({
       ref={container}
       className="sticky top-28 flex items-center justify-center w-full min-h-[320px] py-4"
     >
-      <motion.div
+      <m.div
         style={{
           scale,
           top: `calc(100px + ${i * 24}px)`,
@@ -62,7 +62,7 @@ const StickyCard = ({
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-bg-card/40 to-transparent" />
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 };

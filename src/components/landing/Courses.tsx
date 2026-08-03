@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, User } from "lucide-react";
 import { featuredCourses } from "@/lib/landing-data";
@@ -24,7 +24,7 @@ export function Courses() {
           {featuredCourses.map((c, i) => {
             const instructorId = `inst-${c.instructor.trim().replace(/\s+/g, "-")}`;
             return (
-              <motion.div
+              <m.div
                 key={c.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -84,7 +84,7 @@ export function Courses() {
                     </Link>
                   </div>
                 </GoldCard>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { 
   ArrowRight, BookOpen, Clock, Users, Target, Milestone, User, 
   ChevronDown, ChevronUp, Play, Lock, Award, X, Sparkles 
@@ -294,7 +294,7 @@ export function CourseDetailPage() {
                         {/* Accordion Content Panel */}
                         <AnimatePresence initial={false}>
                           {isOpen && (
-                            <motion.div
+                            <m.div
                               initial={{ height: 0 }}
                               animate={{ height: "auto" }}
                               exit={{ height: 0 }}
@@ -336,7 +336,7 @@ export function CourseDetailPage() {
                                   </li>
                                 ))}
                               </ul>
-                            </motion.div>
+                            </m.div>
                           )}
                         </AnimatePresence>
                       </GoldCard>
@@ -440,7 +440,7 @@ export function CourseDetailPage() {
         {activePreviewVideo && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop overlay */}
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -448,7 +448,7 @@ export function CourseDetailPage() {
               className="absolute inset-0 bg-black/85 backdrop-blur-md"
             />
             {/* Player Container */}
-            <motion.div
+            <m.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -479,7 +479,7 @@ export function CourseDetailPage() {
               <div className="p-5 text-right">
                 <h4 className="font-bold text-text-primary text-sm md:text-base leading-snug">{activePreviewVideo.title}</h4>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>
@@ -489,7 +489,7 @@ export function CourseDetailPage() {
         {showCertificateModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop overlay */}
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -497,7 +497,7 @@ export function CourseDetailPage() {
               className="absolute inset-0 bg-black/85 backdrop-blur-md"
             />
             {/* Image Container */}
-            <motion.div
+            <m.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -515,7 +515,7 @@ export function CourseDetailPage() {
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white">
                 <img src={certificateImage} alt="الشهادة المعتمدة الكاملة" className="w-full h-full object-contain" />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>
@@ -525,7 +525,7 @@ export function CourseDetailPage() {
         {showIntroVideoModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop overlay */}
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -533,7 +533,7 @@ export function CourseDetailPage() {
               className="absolute inset-0 bg-black/85 backdrop-blur-md"
             />
             {/* Player Container */}
-            <motion.div
+            <m.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -564,7 +564,7 @@ export function CourseDetailPage() {
               <div className="p-5 text-right">
                 <h4 className="font-bold text-text-primary text-sm md:text-base leading-snug">{title}</h4>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Star } from "lucide-react";
 import { consultancies } from "@/lib/landing-data";
 import { GoldCard } from "@/components/ui/gold-elements";
@@ -46,7 +46,7 @@ function Track({
   duplicate?: boolean;
 }) {
   return (
-    <motion.div
+    <m.div
       className="flex shrink-0 items-stretch gap-8"
       animate={{ x: ["0%", "-100%"] }}
       transition={marqueeTransition}
@@ -55,7 +55,7 @@ function Track({
       {items.map((q, index) => (
         <Card key={`${duplicate ? "dup-" : ""}${q.name}-${q.role}-${index}`} q={q} />
       ))}
-    </motion.div>
+    </m.div>
   );
 }
 

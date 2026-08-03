@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { 
   AreaChart, 
   Area, 
@@ -141,6 +141,8 @@ export function CareerVisualizer() {
     };
   }, [specialty, currentSalary, studyHours, selectedData]);
 
+
+
   const chartData = useMemo(() => {
     const data = [];
     let selfSalary = currentSalary;
@@ -206,7 +208,7 @@ export function CareerVisualizer() {
         </div>
 
         {/* Main Interface Wrapper */}
-        <motion.div 
+        <m.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -215,7 +217,7 @@ export function CareerVisualizer() {
         >
           
           {/* Right Column: Parameters (Input Panel) */}
-          <motion.div 
+          <m.div 
             variants={itemVariants}
             className="lg:col-span-5"
           >
@@ -327,10 +329,10 @@ export function CareerVisualizer() {
                 </div>
               </div>
             </GoldCard>
-          </motion.div>
+          </m.div>
 
           {/* Left Column: Visual Dashboard (Output Panel) */}
-          <motion.div 
+          <m.div 
             variants={itemVariants}
             className="lg:col-span-7 flex flex-col justify-between gap-6"
           >
@@ -520,8 +522,8 @@ export function CareerVisualizer() {
               </div>
             </GoldCard>
 
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Action Suggestion & Callout */}
         <div className="mt-12 text-center">

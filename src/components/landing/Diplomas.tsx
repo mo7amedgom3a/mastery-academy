@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Link } from "react-router-dom";
 import { User } from "lucide-react";
 import { diplomaCourses } from "@/lib/landing-data";
@@ -15,7 +15,7 @@ export function Diplomas() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {diplomaCourses.map((d, i) => (
-            <motion.div
+            <m.div
               key={d.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export function Diplomas() {
                   </Link>
                 </div>
               </GoldCard>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
