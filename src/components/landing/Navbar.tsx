@@ -48,10 +48,10 @@ export function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            <div className="flex h-8.5 w-8.5 sm:h-9 sm:w-9 items-center justify-center rounded-md gold-gradient text-bg-primary font-display text-base sm:text-lg font-bold">
+            <div className="flex h-8.5 w-8.5 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-md gold-gradient text-bg-primary font-display text-base sm:text-lg font-bold">
               NN
             </div>
-            <span className="text-base sm:text-lg font-bold tracking-tight text-shimmer">
+            <span className="hidden sm:inline text-base sm:text-lg font-bold tracking-tight text-shimmer">
               MasteryAcademy
             </span>
           </Link>
@@ -76,24 +76,24 @@ export function Navbar() {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <ThemeToggle />
             <button
               aria-label="سلة المشتريات"
-              className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold-border text-text-secondary hover:text-gold-hover hover:border-gold-primary transition"
+              className="inline-flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full border border-gold-border text-text-secondary hover:text-gold-hover hover:border-gold-primary transition"
             >
               <ShoppingCart className="h-4 w-4" />
             </button>
-            <button className="hidden sm:inline-flex h-10 items-center rounded-full border border-gold-primary/60 px-4 text-sm text-gold-primary hover:bg-gold-primary/10 transition">
+            <button className="hidden min-[400px]:inline-flex h-9 sm:h-10 items-center rounded-full border border-gold-primary/60 px-3 sm:px-4 text-xs sm:text-sm text-gold-primary hover:bg-gold-primary/10 transition whitespace-nowrap">
               تسجيل الدخول
             </button>
-            <button className="hidden md:inline-flex h-10 items-center rounded-full gold-gradient px-5 text-sm font-semibold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_15px_var(--gold-glow)] transition-all duration-300">
+            <button className="inline-flex h-9 sm:h-10 items-center rounded-full gold-gradient px-3 sm:px-5 text-xs sm:text-sm font-semibold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_15px_var(--gold-glow)] transition-all duration-300 whitespace-nowrap">
               اشترك الآن
             </button>
             <button
               aria-label="القائمة"
               onClick={() => setOpen((v) => !v)}
-              className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-gold-border text-text-primary"
+              className="lg:hidden inline-flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-md border border-gold-border text-text-primary"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -108,7 +108,7 @@ export function Navbar() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden border-t border-gold-border/20 bg-bg-card/98 backdrop-blur-lg overflow-hidden max-h-[calc(100vh-4.5rem)] overflow-y-auto"
+              className="lg:hidden border-t border-gold-border/20 bg-bg-card/98 backdrop-blur-lg overflow-hidden max-h-[calc(100dvh-4.5rem)] overflow-y-auto"
             >
               <nav className="mx-auto max-w-7xl px-4 py-6 flex flex-col gap-4">
                 <Link
