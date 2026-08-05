@@ -393,6 +393,162 @@
   --shimmer-mid: #ffeca7;
   --shimmer-shine: #ffffff;
 }
+/* --- Logo mark --- */
+.logo-svg {
+  overflow: visible;
+}
+
+.logo-shimmer-rect {
+  animation: logo-sweep 2.4s ease-in-out infinite;
+}
+
+.logo-animated {
+  animation: logo-glow 3s ease-in-out infinite;
+}
+
+@keyframes logo-sweep {
+  0% {
+    transform: translateX(-380px);
+  }
+  100% {
+    transform: translateX(380px);
+  }
+}
+
+@keyframes logo-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(255, 101, 85, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 101, 85, 0.75));
+  }
+}
+
+/* --- Full page loading animation --- */
+.loader-wrapper {
+  animation: loader-bounce 2s infinite ease-in-out alternate;
+}
+
+.loader-draw-path {
+  stroke-dasharray: 2500;
+  stroke-dashoffset: 2500;
+  fill: transparent;
+  stroke: #ff6555;
+  stroke-width: 4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  animation:
+    loader-draw 6s ease-in-out infinite,
+    loader-fill 6s ease-in-out infinite,
+    loader-glow 6s ease-in-out infinite;
+}
+
+@keyframes loader-draw {
+  0% {
+    stroke-dashoffset: 2500;
+  }
+  40% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes loader-fill {
+  0%,
+  35% {
+    fill: transparent;
+  }
+  50%,
+  100% {
+    fill: #ff6555;
+  }
+}
+
+@keyframes loader-glow {
+  0%,
+  40% {
+    filter: drop-shadow(0 0 0 rgba(255, 101, 85, 0));
+  }
+  60% {
+    filter: drop-shadow(0 0 20px rgba(255, 101, 85, 0.8));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(255, 101, 85, 0.3));
+  }
+}
+
+@keyframes loader-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.loading-text {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  color: #ff6555;
+  text-transform: uppercase;
+  font-weight: 600;
+  animation: loader-pulse 1.5s infinite;
+}
+
+.loading-text span {
+  animation: loader-blink 1.5s infinite;
+  opacity: 0;
+}
+
+.loading-text span:nth-child(1) {
+  animation-delay: 0s;
+}
+.loading-text span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.loading-text span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes loader-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes loader-blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-shimmer-rect,
+  .logo-animated,
+  .loader-draw-path,
+  .loader-wrapper,
+  .loading-text,
+  .loading-text span {
+    animation: none;
+  }
+  .loader-draw-path {
+    stroke-dashoffset: 0;
+    fill: #ff6555;
+  }
+}
+
 /* Custom overrides for the Scheduler component on the Consultation Page */
 .consultation-calendar div.hidden.md\:block {
   display: none !important;

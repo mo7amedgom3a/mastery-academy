@@ -4,6 +4,7 @@ import { Menu, ShoppingCart, X } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/lib/landing-data";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Logo } from "@/components/ui/Logo";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -48,12 +49,7 @@ export function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            <div className="flex h-8.5 w-8.5 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-md gold-gradient text-bg-primary font-display text-base sm:text-lg font-bold">
-              NN
-            </div>
-            <span className="hidden sm:inline text-base sm:text-lg font-bold tracking-tight text-shimmer">
-              MasteryAcademy
-            </span>
+            <Logo animated className="h-8.5 w-8.5 sm:h-9 sm:w-9" withLabel />
           </Link>
 
           {/* Nav links */}

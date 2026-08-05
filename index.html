@@ -9,7 +9,88 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <title>ماستري اكاديمي - تعلم ما يغير عالمك</title>
+    <style>
+      :root {
+        background-color: #0a0a0f;
+      }
+      :root[data-theme="light"] {
+        background-color: #f5f2ec;
+      }
+      body {
+        margin: 0;
+        background-color: #0a0a0f;
+        color: #f0ede8;
+      }
+      html[data-theme="light"] body {
+        background-color: #f5f2ec;
+        color: #1a1714;
+      }
+      .boot-splash {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cairo", system-ui, sans-serif;
+        background-color: #0a0a0f;
+        z-index: 9999;
+      }
+      html[data-theme="light"] .boot-splash {
+        background-color: #f5f2ec;
+      }
+      .boot-splash .boot-logo {
+        width: 240px;
+        height: auto;
+        max-width: 80vw;
+        animation: boot-breathe 1.8s ease-in-out infinite;
+      }
+      .boot-splash .boot-sweep {
+        animation: boot-sweep 1.6s ease-in-out infinite;
+      }
+      .boot-splash .loading-text {
+        margin-top: 2.5rem;
+        font-size: 1.15rem;
+        letter-spacing: 0.1em;
+        color: #FF6555;
+        font-weight: 600;
+        animation: loader-pulse 1.5s infinite;
+        display: flex;
+        gap: 3px;
+        direction: rtl;
+      }
+      .boot-splash .loading-text span {
+        animation: loader-blink 1.5s infinite;
+        opacity: 0;
+      }
+      .boot-splash .loading-text span:nth-child(1) {
+        animation-delay: 0.0s;
+      }
+      .boot-splash .loading-text span:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .boot-splash .loading-text span:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+      @keyframes boot-breathe {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.04); }
+      }
+      @keyframes boot-sweep {
+        0% { transform: translateX(-380px); }
+        100% { transform: translateX(380px); }
+      }
+      @keyframes loader-pulse {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+      }
+      @keyframes loader-blink {
+        0%, 100% { opacity: 0; }
+        50% { opacity: 1; }
+      }
+    </style>
     <meta
       name="description"
       content="ماستري اكاديمي: منصة التعلم الرائدة في الوطن العربي. دورات ودبلومات احترافية في الإدارة والتسويق والقانون والمالية."
@@ -37,7 +118,30 @@
     />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot-splash" aria-live="polite">
+        <svg class="boot-logo" viewBox="980 135 370 175" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="boot-shimmer" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%" stop-color="#FF6555" />
+              <stop offset="45%" stop-color="#FF6555" />
+              <stop offset="50%" stop-color="#FFC9BE" />
+              <stop offset="55%" stop-color="#FF6555" />
+              <stop offset="100%" stop-color="#FF6555" />
+            </linearGradient>
+            <mask id="boot-mask" maskUnits="userSpaceOnUse" x="980" y="135" width="370" height="175">
+              <path fill="#ffffff" d="M1280.3,150.9v59.5c-15.7-0.1-29.9-6.5-40.2-16.8l-2.6-2.5l-31-31l-1.1-1.1c-10.3-10.1-24.5-16.3-40.1-16.3v67.7c-15.7-0.1-29.9-6.5-40.2-16.8l-2.6-2.5l-31-31l-1.1-1.1c-10.3-10.1-24.5-16.3-40.1-16.3v67.7H993v67.7h57.5v-59.5c15.7,0,29.9,6.3,40.2,16.4c0.3,0.2,0.6,0.5,0.8,0.8l33.7,33.7c10.3,10.3,24.5,16.7,40.2,16.8v-67.7c15.7,0,29.9,6.3,40.2,16.4c0.3,0.2,0.6,0.5,0.8,0.8l33.7,33.7c10.3,10.3,24.5,16.7,40.2,16.8v-67.7h57.5v-67.7H1280.3z" />
+            </mask>
+          </defs>
+          <g mask="url(#boot-mask)">
+            <rect class="boot-sweep" x="600" y="100" width="1150" height="220" fill="url(#boot-shimmer)" />
+          </g>
+        </svg>
+        <div class="loading-text">
+          جاري التحميل<span>.</span><span>.</span><span>.</span>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
