@@ -23,7 +23,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 
 function HomePage() {
   return (
-    <main className="min-h-screen bg-bg-primary text-text-primary">
+    <main className="min-h-screen w-full max-w-full overflow-x-hidden bg-bg-primary text-text-primary relative">
       <Navbar />
       <Hero />
       <StatsTicker />

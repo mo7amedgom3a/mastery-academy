@@ -80,10 +80,10 @@ export function Navbar() {
             >
               <ShoppingCart className="h-4 w-4" />
             </button>
-            <button className="hidden min-[400px]:inline-flex h-9 sm:h-10 items-center rounded-full border border-gold-primary/60 px-3 sm:px-4 text-xs sm:text-sm text-gold-primary hover:bg-gold-primary/10 transition whitespace-nowrap">
+            <button className="hidden md:inline-flex h-9 sm:h-10 items-center rounded-full border border-gold-primary/60 px-3 sm:px-4 text-xs sm:text-sm text-gold-primary hover:bg-gold-primary/10 transition whitespace-nowrap">
               تسجيل الدخول
             </button>
-            <button className="inline-flex h-9 sm:h-10 items-center rounded-full gold-gradient px-3 sm:px-5 text-xs sm:text-sm font-semibold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_15px_var(--gold-glow)] transition-all duration-300 whitespace-nowrap">
+            <button className="hidden sm:inline-flex h-9 sm:h-10 items-center rounded-full gold-gradient px-3 sm:px-5 text-xs sm:text-sm font-semibold text-bg-primary hover:scale-[1.02] hover:shadow-[0_0_15px_var(--gold-glow)] transition-all duration-300 whitespace-nowrap">
               اشترك الآن
             </button>
             <button

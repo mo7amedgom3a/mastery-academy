@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Logo trace-in loading animation</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+  }
+
+  .logo-loader {
+    width: 260px;
+    height: auto;
+    overflow: visible;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-loader animate {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<svg class="logo-loader" viewBox="980 130 370 170" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="reveal-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="2400" height="500">
+      <rect x="980" y="120" height="190" fill="#ffffff">
+        <animate attributeName="width"
+                 values="80;80;380;380;80;80"
+                 keyTimes="0;0.06;0.55;0.72;0.78;1"
+                 dur="2.6s"
+                 repeatCount="indefinite"/>
+      </rect>
+    </mask>
+
+    <linearGradient id="tracer-glow" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%"  stop-color="#FF6555" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FFE3DD" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <g opacity="1">
+    <animate attributeName="opacity"
+             values="1;1;0;0;1;1"
+             keyTimes="0;0.68;0.74;0.8;0.86;1"
+             dur="2.6s"
+             repeatCount="indefinite"/>
+
+    <g mask="url(#reveal-mask)">
+      <path fill="#FF6555" d="M1280.3,150.9v59.5c-15.7-0.1-29.9-6.5-40.2-16.8l-2.6-2.5l-31-31l-1.1-1.1c-10.3-10.1-24.5-16.3-40.1-16.3  v67.7c-15.7-0.1-29.9-6.5-40.2-16.8l-2.6-2.5l-31-31l-1.1-1.1c-10.3-10.1-24.5-16.3-40.1-16.3v67.7H993v67.7h57.5v-59.5  c15.7,0,29.9,6.3,40.2,16.4c0.3,0.2,0.6,0.5,0.8,0.8l33.7,33.7c10.3,10.3,24.5,16.7,40.2,16.8v-67.7c15.7,0,29.9,6.3,40.2,16.4  c0.3,0.2,0.6,0.5,0.8,0.8l33.7,33.7c10.3,10.3,24.5,16.7,40.2,16.8v-67.7h57.5v-67.7H1280.3z"/>
+    </g>
+
+    <rect y="125" width="10" height="180" fill="url(#tracer-glow)" opacity="0">
+      <animate attributeName="x"
+               values="1055;1055;1355;1355"
+               keyTimes="0;0.06;0.55;1"
+               dur="2.6s"
+               repeatCount="indefinite"/>
+      <animate attributeName="opacity"
+               values="0;1;1;0;0"
+               keyTimes="0;0.06;0.5;0.6;1"
+               dur="2.6s"
+               repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>
+
+</body>
+</html>

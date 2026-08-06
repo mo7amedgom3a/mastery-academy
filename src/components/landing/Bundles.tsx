@@ -26,11 +26,11 @@ export function Bundles() {
               <GoldCard className="overflow-hidden hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full bg-bg-card/90">
                 <div>
                   {/* Consultancy Image with Consultant Avatar Overlay */}
-                  <div className="relative  w-full overflow-hidden bg-bg-elevated border-b border-gold-border/10">
+                  <div className="relative h-100 w-full overflow-hidden bg-bg-elevated border-b border-gold-border/10">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="object-cover transition-transform duration-500 hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                       loading="lazy"
                     />
                     {/* Consultant Image overlay */}
