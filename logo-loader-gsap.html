@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Logo loader — GSAP</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+  }
+  .logo-loader {
+    width: 260px;
+    height: auto;
+    overflow: visible;
+  }
+</style>
+</head>
+<body>
+
+<svg class="logo-loader" viewBox="980 130 370 170" xmlns="http://www.w3.org/2000/svg">
+  <g id="logo-group">
+
+    <!-- Stroke-only copy: driven by DrawSVGPlugin to trace the outline -->
+    <path id="trace" fill="none" stroke="#FF6555" stroke-width="4"
+          stroke-linecap="round" stroke-linejoin="round"
+          d="M 993,210.4 L 993,278.1 L 1050.5,278.1 L 1050.5,218.6
+             C 1066.2,218.6 1080.4,224.9 1090.7,235
+             C 1091,235.2 1091.3,235.5 1091.5,235.8
+             L 1125.2,269.5
+             C 1135.5,279.8 1149.7,286.2 1165.4,286.3
+             L 1165.4,218.6
+             C 1181.1,218.6 1195.3,224.9 1205.6,235
+             C 1205.9,235.2 1206.2,235.5 1206.4,235.8
+             L 1240.1,269.5
+             C 1250.4,279.8 1264.6,286.2 1280.3,286.3
+             L 1280.3,218.6 L 1337.8,218.6 L 1337.8,150.9 L 1280.3,150.9
+             L 1280.3,210.4
+             C 1264.6,210.3 1250.4,203.9 1240.1,193.6
+             L 1237.5,191.1 L 1206.5,160.1 L 1205.4,159
+             C 1195.1,148.9 1180.9,142.7 1165.3,142.7
+             L 1165.3,210.4
+             C 1149.6,210.3 1135.4,203.9 1125.1,193.6
+             L 1122.5,191.1 L 1091.5,160.1 L 1090.4,159
+             C 1080.1,148.9 1065.9,142.7 1050.3,142.7
+             L 1050.3,210.4 L 993,210.4"/>
+
+    <!-- Fill-only copy: cross-fades in once the trace completes -->
+    <path id="fillShape" fill="#FF6555" opacity="0"
+          d="M 993,210.4 L 993,278.1 L 1050.5,278.1 L 1050.5,218.6
+             C 1066.2,218.6 1080.4,224.9 1090.7,235
+             C 1091,235.2 1091.3,235.5 1091.5,235.8
+             L 1125.2,269.5
+             C 1135.5,279.8 1149.7,286.2 1165.4,286.3
+             L 1165.4,218.6
+             C 1181.1,218.6 1195.3,224.9 1205.6,235
+             C 1205.9,235.2 1206.2,235.5 1206.4,235.8
+             L 1240.1,269.5
+             C 1250.4,279.8 1264.6,286.2 1280.3,286.3
+             L 1280.3,218.6 L 1337.8,218.6 L 1337.8,150.9 L 1280.3,150.9
+             L 1280.3,210.4
+             C 1264.6,210.3 1250.4,203.9 1240.1,193.6
+             L 1237.5,191.1 L 1206.5,160.1 L 1205.4,159
+             C 1195.1,148.9 1180.9,142.7 1165.3,142.7
+             L 1165.3,210.4
+             C 1149.6,210.3 1135.4,203.9 1125.1,193.6
+             L 1122.5,191.1 L 1091.5,160.1 L 1090.4,159
+             C 1080.1,148.9 1065.9,142.7 1050.3,142.7
+             L 1050.3,210.4 L 993,210.4"/>
+
+    <!-- The two square "end caps", extracted as exact independent rects so
+         they can pop in on their own beat, in sync with the trace -->
+    <rect id="boxLeft"  x="993"    y="210.4" width="57.5" height="67.7" fill="#FF6555"/>
+    <rect id="boxRight" x="1280.3" y="150.9" width="57.5" height="67.7" fill="#FF6555"/>
+
+  </g>
+</svg>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/DrawSVGPlugin.min.js"></script>
+<script>
+  gsap.registerPlugin(DrawSVGPlugin);
+
+  gsap.set(["#boxLeft", "#boxRight"], { transformOrigin: "50% 50%" });
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduceMotion) {
+    // Just show the finished mark, no animation
+    gsap.set("#trace", { opacity: 0 });
+    gsap.set("#fillShape", { opacity: 1 });
+  } else {
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4 });
+
+    tl.set("#logo-group", { opacity: 1 })
+      .set("#trace", { drawSVG: "0%", opacity: 1 })
+      .set("#fillShape", { opacity: 0 })
+      .set(["#boxLeft", "#boxRight"], { scale: 0 })
+
+      // 1. the left box appears first
+      .to("#boxLeft", { scale: 1, duration: 0.35, ease: "back.out(2.6)" })
+
+      // 2. the outline traces itself in, left to right, like a pen drawing it
+      .to("#trace", { drawSVG: "100%", duration: 1.1, ease: "power2.inOut" }, "-=0.05")
+
+      // 3. the right box pops in right as the trace arrives there
+      .to("#boxRight", { scale: 1, duration: 0.3, ease: "back.out(3)" }, "-=0.18")
+
+      // 4. solid fill crossfades in, stroke trace fades out
+      .to("#fillShape", { opacity: 1, duration: 0.4, ease: "power1.out" }, "-=0.25")
+      .to("#trace", { opacity: 0, duration: 0.3 }, "<")
+
+      // 5. a small settle/breathing pulse while fully formed
+      .to("#logo-group", { scale: 1.03, duration: 0.35, ease: "power1.inOut", transformOrigin: "50% 50%" })
+      .to("#logo-group", { scale: 1, duration: 0.35, ease: "power1.inOut" })
+
+      // 6. fade out and loop
+      .to("#logo-group", { opacity: 0, duration: 0.3, ease: "power1.in" });
+  }
+</script>
+
+</body>
+</html>

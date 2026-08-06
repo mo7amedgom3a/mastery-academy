@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -5,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { toArabicDigits } from "@/lib/utils";
+import { useGsapReveal } from "@/hooks/useGsapReveal";
 
 const faqs = [
   {
@@ -38,12 +40,15 @@ const faqs = [
 ];
 
 export function FAQ() {
+  const ref = useRef<HTMLElement>(null);
+  useGsapReveal({ target: ref, start: "top 80%", stagger: 0.08 });
+
   return (
-    <section className="relative py-20 lg:py-28 bg-bg-primary text-text-primary">
+    <section ref={ref} className="relative py-20 lg:py-28 text-text-primary">
       {/* Subtle patterns */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.02] select-none bg-[radial-gradient(#D4A853_1px,transparent_1px)] [background-size:16px_16px]" />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12" data-reveal>
           <p className="text-gold-primary text-sm font-bold mb-2">الأسئلة الشائعة</p>
           <h2 className="text-4xl lg:text-5xl font-display font-bold text-text-primary">
             هل لديك سؤال؟
@@ -54,7 +59,7 @@ export function FAQ() {
         </div>
         <Accordion type="single" collapsible className="w-full space-y-2">
           {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="border-b border-gold-border">
+            <AccordionItem key={i} value={`item-${i}`} className="border-b border-gold-border" data-reveal>
               <AccordionTrigger className="text-right text-text-primary hover:text-gold-hover py-5 text-lg font-bold transition duration-300 ease-supportive">
                 {f.q}
               </AccordionTrigger>

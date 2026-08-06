@@ -55,7 +55,7 @@ const transformationSteps = [
 
 export function AgenticAIShowcase() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden bg-bg-primary" id="agentic-ai">
+    <section className="relative py-24 lg:py-32 overflow-hidden" id="agentic-ai">
       {/* Background Glows */}
       <div className="pointer-events-none absolute top-1/4 right-0 h-[600px] w-[600px] rounded-full bg-gold-primary/5 blur-[150px]" />
       <div className="pointer-events-none absolute bottom-1/4 left-0 h-[600px] w-[600px] rounded-full bg-gold-primary/5 blur-[150px]" />

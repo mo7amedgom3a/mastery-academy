@@ -82,12 +82,12 @@ export function Hero() {
       className="relative min-h-screen overflow-hidden pt-28 lg:pt-32 noise-overlay"
     >
       {/* Ambient gold glows */}
-      <div className="pointer-events-none absolute -top-32 right-1/4 h-[500px] w-[500px] rounded-full bg-gold-primary/10 blur-[120px]" />
-      <div className="pointer-events-none absolute top-1/2 left-0 h-[400px] w-[400px] rounded-full bg-gold-primary/5 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 right-1/3 h-[300px] w-[300px] rounded-full bg-red-alert/5 blur-[100px]" />
+      <div data-speed="0.75" className="pointer-events-none absolute -top-32 right-1/4 h-[500px] w-[500px] rounded-full bg-gold-primary/10 blur-[120px]" />
+      <div data-speed="1.2" className="pointer-events-none absolute top-1/2 left-0 h-[400px] w-[400px] rounded-full bg-gold-primary/5 blur-[120px]" />
+      <div data-speed="0.9" className="pointer-events-none absolute bottom-0 right-1/3 h-[300px] w-[300px] rounded-full bg-red-alert/5 blur-[100px]" />
 
       {/* Watermark calligraphy */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.02] select-none">
+      <div data-speed="0.85" className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.02] select-none">
         <span className="text-[28rem] font-black text-gold-primary leading-none">م</span>
       </div>
 
@@ -174,8 +174,8 @@ export function Hero() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg-primary/60 via-transparent to-transparent" />
             </div>
             {/* Floating accent */}
-            <div className="absolute -top-6 -right-6 h-24 w-24 rounded-full border border-accent-gold/40 backdrop-blur-sm" />
-            <div className="absolute -bottom-4 -left-4 h-16 w-16 rounded-full gold-gradient opacity-80" />
+            <div data-speed="1.15" className="absolute -top-6 -right-6 h-24 w-24 rounded-full border border-accent-gold/40 backdrop-blur-sm" />
+            <div data-speed="0.85" className="absolute -bottom-4 -left-4 h-16 w-16 rounded-full gold-gradient opacity-80" />
           </div>
 
           {/* Decorative dots */}
